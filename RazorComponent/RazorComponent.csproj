@@ -63,7 +63,6 @@
     <Folder Include="wwwroot\Assets\%40types\Apexchart\" />
     <Folder Include="wwwroot\Assets\%40types\bootstrap-validator\" />
     <Folder Include="wwwroot\Assets\%40types\bootstrap\" />
-    <Folder Include="wwwroot\Assets\%40types\datatables.net\" />
     <Folder Include="wwwroot\Assets\%40types\Linqjs\" />
     <Folder Include="wwwroot\Assets\%40types\overlayscrollbars\" />
     <Folder Include="wwwroot\Assets\%40types\SweetAlert\" />

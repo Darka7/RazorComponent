@@ -4,9 +4,6 @@ declare module jquery {
     export var jQuery: JQueryStatic;
 }
 
-declare module 'jquery/dist/jquery.slim' {
-    export var jQuery: JQueryStatic;
-}
 
 declare const jQuery: JQueryStatic;
 declare const $: JQueryStatic;
