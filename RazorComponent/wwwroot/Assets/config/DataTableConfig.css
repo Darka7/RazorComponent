@@ -1,0 +1,49 @@
+﻿
+table.dataTable thead th.select-checkbox {
+    position: relative;
+}
+
+table.dataTable thead th.select-checkbox:before,
+table.dataTable thead th.select-checkbox:after {
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 12px;
+    height: 12px;
+    box-sizing: border-box;
+}
+
+table.dataTable thead th.select-checkbox:before {
+    content: ' ';
+    margin-top: -6px;
+    margin-left: -6px;
+    border: 1px solid black;
+    border-radius: 3px;
+}
+table.dataTable tr.selected td.select-checkbox:after {
+    content: "✓";
+    font-size: 18px;
+    margin-top: -14px;
+    margin-left: -6px;
+    text-align: center;
+    text-shadow: none;
+    color: Highlight;
+}
+
+table.dataTable tr.selected th.select-checkbox:after {
+    content: "✓";
+    font-size: 16px;
+    margin-top: -15px;
+    margin-left: -5px;
+    text-align: center;
+    text-shadow: none;
+    color: Highlight;
+}
+
+table.dataTable tbody tr.selected, table.dataTable tbody th.selected, table.dataTable tbody td.selected {
+    color: black;
+}
+table.dataTable tbody > tr.selected, table.dataTable tbody > tr > .selected {
+    background-color: transparent !important;
+}

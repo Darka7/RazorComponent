@@ -1,0 +1,40 @@
+﻿@page
+@model IndexModel
+
+@{
+    ViewData["Title"] = "Home page";
+
+}
+
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <table id="GridView" class="table">
+            </table>
+        </div>
+
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <table id="GridView2" class="table">
+            </table>
+        </div>
+
+    </div>
+
+</div>
+
+
+<div id="Appvue">
+    <h1>Hello {{this.Formulario}}</h1>
+    <h1>{{this.Msg}}</h1>
+    <button type="button" @@click="Hello">click me</button>
+</div>
+
+@section app{ 
+
+    <script defer src="~/scripts/Prueba.js"></script>
+
+}
