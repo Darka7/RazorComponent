@@ -28,6 +28,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <TypeScriptCompile Include="wwwroot\Assets\%40types\sizzle\index.d.ts" />
     <TypeScriptCompile Include="wwwroot\Assets\%40types\vue-class-component\component.d.ts" />
     <TypeScriptCompile Include="wwwroot\Assets\%40types\vue-class-component\data.d.ts" />
     <TypeScriptCompile Include="wwwroot\Assets\%40types\vue-class-component\declarations.d.ts" />
@@ -56,6 +57,16 @@
     <TypeScriptCompile Include="wwwroot\Assets\config\DataTableConfig.ts" />
     <TypeScriptCompile Include="wwwroot\scripts\Entity.ts" />
     <TypeScriptCompile Include="wwwroot\scripts\Prueba.ts" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\Assets\%40types\Apexchart\" />
+    <Folder Include="wwwroot\Assets\%40types\bootstrap-validator\" />
+    <Folder Include="wwwroot\Assets\%40types\bootstrap\" />
+    <Folder Include="wwwroot\Assets\%40types\datatables.net\" />
+    <Folder Include="wwwroot\Assets\%40types\Linqjs\" />
+    <Folder Include="wwwroot\Assets\%40types\overlayscrollbars\" />
+    <Folder Include="wwwroot\Assets\%40types\SweetAlert\" />
   </ItemGroup>
 
 </Project>

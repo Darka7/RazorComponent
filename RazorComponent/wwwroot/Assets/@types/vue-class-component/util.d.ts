@@ -8,7 +8,7 @@ declare namespace App {
         (target: Vue, key: string, index: number): void;
     }
 
-    export function createDecorator(factory: (options: ComponentOptions<Vue>, key: string, index: number) => void): VueDecorator;
+   /* export function createDecorator(factory: (options: ComponentOptions<Vue>, key: string, index: number) => void): VueDecorator;*/
 
     export  type UnionToIntersection<U> = (U extends any ? (k: U) => void : never) extends (k: infer I) => void ? I : never;
     export  type ExtractInstance<T> = T extends VueClass<infer V> ? V : never;
