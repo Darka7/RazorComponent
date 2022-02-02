@@ -1,4 +1,5 @@
-declare namespace App {
+export {}
+declare global {
 
     export  const noop: () => void;
     export  const hasProto: boolean;
@@ -21,12 +22,14 @@ declare namespace App {
 
     //export function mixins<T>(...Ctors: VueClass<Vue>[]): VueClass<T>;
     //export function mixins<T extends VueClass<Vue>[]>(...Ctors: T): MixedVueClass<T>;
-    export  function isPrimitive(value: any): boolean;
-    export  function warn(message: string): void;
+   
+
+     namespace VueClassComponent {
+         export function createDecorator(factory: (options: ComponentOptions<Vue>, key: string, index: number) => void): VueDecorator;
+         export function isPrimitive(value: any): boolean;
+         export function warn(message: string): void;
+
+    }
 
 }
 
-
-declare namespace VueClassComponent {
-    export function createDecorator(factory: (options: App.ComponentOptions<App.Vue>, key: string, index: number) => void): App.VueDecorator;
-}

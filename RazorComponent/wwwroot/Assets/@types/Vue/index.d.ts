@@ -1,3 +1,6 @@
+export { }
 
-declare const Vue: App.VueConstructor;
+declare global {
+     /*const Vue: App.VueConstructor;*/
 
+}

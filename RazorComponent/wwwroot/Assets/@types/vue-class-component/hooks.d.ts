@@ -1,6 +1,6 @@
 
-
-declare namespace App {
+export { }
+declare global {
 
 
  export interface Vue {

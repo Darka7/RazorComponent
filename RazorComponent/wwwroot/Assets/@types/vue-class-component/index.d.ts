@@ -1,8 +1,8 @@
 
 
 
-
-declare namespace App {
+export { }
+declare global {
    
     
 }

@@ -1,16 +1,18 @@
 
+export { }
+declare global {
+     namespace VuePropertyDecorator {
 
-declare namespace VuePropertyDecorator {
+        export type InjectOptions = {
+            from?: InjectKey;
+            default?: any;
+        };
 
-    export type InjectOptions = {
-        from?: App.InjectKey;
-        default?: any;
-    };
-    
-    /**
-     * decorator of an inject
-     * @param from key
-     * @return PropertyDecorator
-     */
-    export  function Inject(options?: InjectOptions | App.InjectKey): App.VueDecorator;
+        /**
+         * decorator of an inject
+         * @param from key
+         * @return PropertyDecorator
+         */
+        export function Inject(options?: InjectOptions | InjectKey): VueDecorator;
+    }
 }

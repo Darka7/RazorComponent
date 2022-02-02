@@ -1,4 +1,5 @@
-declare namespace App {
+export { }
+declare global {
 
 
     export  type VueClass<V> = {

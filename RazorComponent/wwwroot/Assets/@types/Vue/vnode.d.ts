@@ -1,5 +1,5 @@
-
-declare namespace App {
+export { }
+declare  global {
     export type ScopedSlot = (props: any) => ScopedSlotReturnValue;
     type ScopedSlotReturnValue = VNode | string | boolean | null | undefined | ScopedSlotReturnArray;
     interface ScopedSlotReturnArray extends Array<ScopedSlotReturnValue> { }

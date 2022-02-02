@@ -5,88 +5,90 @@
 // TypeScript Version: 2.3
 
 
+export { }
+declare global{
+     const Sizzle: SizzleStatic;
 
-declare const Sizzle: SizzleStatic;
 
-
-interface SizzleStatic {
-    selectors: Sizzle.Selectors;
-    <TArrayLike extends ArrayLike<Element>>(selector: string, context: Element | Document | DocumentFragment, results: TArrayLike): TArrayLike;
-    (selector: string, context?: Element | Document | DocumentFragment): Element[];
-    // tslint:disable-next-line:ban-types
-    compile(selector: string): Function;
-    matchesSelector(element: Element, selector: string): boolean;
-    matches(selector: string, elements: Element[]): Element[];
-}
-
-declare namespace Sizzle {
-    interface Selectors {
-        cacheLength: number;
-        match: Selectors.Matches;
-        find: Selectors.FindFunctions;
-        preFilter: Selectors.PreFilterFunctions;
-        filter: Selectors.FilterFunctions;
-        attrHandle: Selectors.AttrHandleFunctions;
-        pseudos: Selectors.PseudoFunctions;
-        setFilters: Selectors.SetFilterFunctions;
-        createPseudo(fn: Selectors.CreatePseudoFunction): Selectors.PseudoFunction;
+    interface SizzleStatic {
+        selectors: Sizzle.Selectors;
+        <TArrayLike extends ArrayLike<Element>>(selector: string, context: Element | Document | DocumentFragment, results: TArrayLike): TArrayLike;
+        (selector: string, context?: Element | Document | DocumentFragment): Element[];
+        // tslint:disable-next-line:ban-types
+        compile(selector: string): Function;
+        matchesSelector(element: Element, selector: string): boolean;
+        matches(selector: string, elements: Element[]): Element[];
     }
 
-    namespace Selectors {
-        interface Matches {
-            [name: string]: RegExp;
+     namespace Sizzle {
+        interface Selectors {
+            cacheLength: number;
+            match: Selectors.Matches;
+            find: Selectors.FindFunctions;
+            preFilter: Selectors.PreFilterFunctions;
+            filter: Selectors.FilterFunctions;
+            attrHandle: Selectors.AttrHandleFunctions;
+            pseudos: Selectors.PseudoFunctions;
+            setFilters: Selectors.SetFilterFunctions;
+            createPseudo(fn: Selectors.CreatePseudoFunction): Selectors.PseudoFunction;
         }
 
-        interface FindFunction {
-            (match: RegExpMatchArray, context: Element | Document, isXML: boolean): Element[] | void;
-        }
+        namespace Selectors {
+            interface Matches {
+                [name: string]: RegExp;
+            }
 
-        interface FindFunctions {
-            [name: string]: FindFunction;
-        }
+            interface FindFunction {
+                (match: RegExpMatchArray, context: Element | Document, isXML: boolean): Element[] | void;
+            }
 
-        interface PreFilterFunction {
-            (match: RegExpMatchArray): string[];
-        }
+            interface FindFunctions {
+                [name: string]: FindFunction;
+            }
 
-        interface PreFilterFunctions {
-            [name: string]: PreFilterFunction;
-        }
+            interface PreFilterFunction {
+                (match: RegExpMatchArray): string[];
+            }
 
-        interface FilterFunction {
-            (element: string, ...matches: string[]): boolean;
-        }
+            interface PreFilterFunctions {
+                [name: string]: PreFilterFunction;
+            }
 
-        interface FilterFunctions {
-            [name: string]: FilterFunction;
-        }
+            interface FilterFunction {
+                (element: string, ...matches: string[]): boolean;
+            }
 
-        interface AttrHandleFunction {
-            (elem: any, casePreservedName: string, isXML: boolean): string;
-        }
+            interface FilterFunctions {
+                [name: string]: FilterFunction;
+            }
 
-        interface AttrHandleFunctions {
-            [name: string]: AttrHandleFunction;
-        }
+            interface AttrHandleFunction {
+                (elem: any, casePreservedName: string, isXML: boolean): string;
+            }
 
-        interface PseudoFunction {
-            (elem: Element): boolean;
-        }
+            interface AttrHandleFunctions {
+                [name: string]: AttrHandleFunction;
+            }
 
-        interface PseudoFunctions {
-            [name: string]: PseudoFunction;
-        }
+            interface PseudoFunction {
+                (elem: Element): boolean;
+            }
 
-        interface SetFilterFunction {
-            (elements: Element[], argument: number, not: boolean): Element[];
-        }
+            interface PseudoFunctions {
+                [name: string]: PseudoFunction;
+            }
 
-        interface SetFilterFunctions {
-            [name: string]: SetFilterFunction;
-        }
+            interface SetFilterFunction {
+                (elements: Element[], argument: number, not: boolean): Element[];
+            }
 
-        interface CreatePseudoFunction {
-            (...args: any[]): PseudoFunction;
+            interface SetFilterFunctions {
+                [name: string]: SetFilterFunction;
+            }
+
+            interface CreatePseudoFunction {
+                (...args: any[]): PseudoFunction;
+            }
         }
     }
 }

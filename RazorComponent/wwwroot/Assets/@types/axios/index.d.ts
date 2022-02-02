@@ -1,7 +1,8 @@
 // TypeScript Version: 3.0
-declare namespace App {
+export { }
+declare   global {
 
-    export type AxiosRequestHeaders = Record<string, string | number | boolean>;
+   export  type AxiosRequestHeaders = Record<string, string | number | boolean>;
 
     export type AxiosResponseHeaders = Record<string, string> & {
         "set-cookie"?: string[]
@@ -46,7 +47,7 @@ declare namespace App {
         | 'link' | 'LINK'
         | 'unlink' | 'UNLINK';
 
-    export type ResponseType =
+    export type ResponseTypeAxios =
         | 'arraybuffer'
         | 'blob'
         | 'document'
@@ -89,7 +90,7 @@ declare namespace App {
         withCredentials?: boolean;
         adapter?: AxiosAdapter;
         auth?: AxiosBasicCredentials;
-        responseType?: ResponseType;
+        responseType?: ResponseTypeAxios;
         responseEncoding?: responseEncoding | string;
         xsrfCookieName?: string;
         xsrfHeaderName?: string;
@@ -218,11 +219,11 @@ declare namespace App {
     }
 
  
-    const axios: App.AxiosStatic;
+    const axios: AxiosStatic;
   
     
 }
 
-declare const axios: App.AxiosStatic;
+
 
 

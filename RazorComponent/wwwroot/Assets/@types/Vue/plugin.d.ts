@@ -2,8 +2,8 @@
 
 
 
-
- declare namespace App {
+export { }
+ declare  global {
   
 
      export type PluginFunction<T> = (Vue:  Vue, options?: T) => void;

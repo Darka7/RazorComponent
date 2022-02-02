@@ -14,7 +14,7 @@
 
   <ItemGroup>
     <Content Remove="wwwroot\Assets\config\DataTableConfig.ts" />
-    <Content Remove="wwwroot\scripts\Entity.ts" />
+    <Content Remove="wwwroot\scripts\Entity.d.ts" />
     <Content Remove="wwwroot\scripts\Prueba.ts" />
   </ItemGroup>
 
@@ -55,17 +55,8 @@
     <TypeScriptCompile Include="wwwroot\Assets\%40types\vue-template-compiler\index.d.ts" />
     <TypeScriptCompile Include="wwwroot\Assets\%40types\vue-template-compiler\VueTemplateCompiler.d.ts" />
     <TypeScriptCompile Include="wwwroot\Assets\config\DataTableConfig.ts" />
-    <TypeScriptCompile Include="wwwroot\scripts\Entity.ts" />
+    <TypeScriptCompile Include="wwwroot\scripts\Entity.d.ts" />
     <TypeScriptCompile Include="wwwroot\scripts\Prueba.ts" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="wwwroot\Assets\%40types\Apexchart\" />
-    <Folder Include="wwwroot\Assets\%40types\bootstrap-validator\" />
-    <Folder Include="wwwroot\Assets\%40types\bootstrap\" />
-    <Folder Include="wwwroot\Assets\%40types\Linqjs\" />
-    <Folder Include="wwwroot\Assets\%40types\overlayscrollbars\" />
-    <Folder Include="wwwroot\Assets\%40types\SweetAlert\" />
   </ItemGroup>
 
 </Project>

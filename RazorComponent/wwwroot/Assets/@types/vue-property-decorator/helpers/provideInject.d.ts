@@ -1,4 +1,5 @@
-declare namespace App {
+export { }
+declare global {
     export  function needToProduceProvide(original: any): boolean;
     interface ProvideObj {
         managed?: {

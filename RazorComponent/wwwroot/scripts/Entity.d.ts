@@ -1,4 +1,6 @@
-﻿namespace App {
+﻿
+export { };
+declare global {
     
     export interface SecurityPageEntity {
         
@@ -7,5 +9,7 @@
         Eliminar?: boolean;
         Actualizar?: boolean;
         
-    }
+     }
+
+
 }

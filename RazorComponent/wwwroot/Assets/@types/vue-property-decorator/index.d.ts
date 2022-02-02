@@ -13,39 +13,41 @@
 //export { Ref } from './decorators/Ref';
 //export { VModel } from './decorators/VModel';
 //export { Watch } from './decorators/Watch';
+export { }
+declare global {
+     namespace VuePropertyDecorator {
 
-declare namespace VuePropertyDecorator {
 
-    
-    export function Mixins<A>(CtorA: App.VueClass<A>): App.VueClass<A>;
-    export function Mixins<A, B>(CtorA: App.VueClass<A>, CtorB: App.VueClass<B>): App.VueClass<A & B>;
-    export function Mixins<A, B, C>(CtorA: App.VueClass<A>, CtorB: App.VueClass<B>, CtorC: App.VueClass<C>): App.VueClass<A & B & C>;
-    export function Mixins<A, B, C, D>(CtorA: App.VueClass<A>, CtorB: App.VueClass<B>, CtorC: App.VueClass<C>, CtorD: App.VueClass<D>): App.VueClass<A & B & C & D>;
-    export function Mixins<A, B, C, D, E>(CtorA: App.VueClass<A>, CtorB: App.VueClass<B>, CtorC: App. VueClass<C>, CtorD: App.VueClass<D>, CtorE: App.VueClass<E>): App.VueClass<A & B & C & D & E>;
+        export function Mixins<A>(CtorA: VueClass<A>): VueClass<A>;
+        export function Mixins<A, B>(CtorA: VueClass<A>, CtorB: VueClass<B>): VueClass<A & B>;
+        export function Mixins<A, B, C>(CtorA: VueClass<A>, CtorB: VueClass<B>, CtorC: VueClass<C>): VueClass<A & B & C>;
+        export function Mixins<A, B, C, D>(CtorA: VueClass<A>, CtorB: VueClass<B>, CtorC: VueClass<C>, CtorD: VueClass<D>): VueClass<A & B & C & D>;
+        export function Mixins<A, B, C, D, E>(CtorA: VueClass<A>, CtorB: VueClass<B>, CtorC: VueClass<C>, CtorD: VueClass<D>, CtorE: VueClass<E>): VueClass<A & B & C & D & E>;
 
-    
-    export function Mixins<T>(...Ctors: App.VueClass<App.Vue>[]): App.VueClass<T>;
-    export function Mixins<T extends App.VueClass<App.Vue>[]>(...Ctors: T): App.MixedVueClass<T>;
 
-    export function Mixins<A, B, C, D, E, F>(CtorA: App.VueClass<A>, CtorB: App.VueClass<B>, CtorC: App.VueClass<C>, CtorD: App.VueClass<D>, CtorE: App.VueClass<E>, CtorF: App.VueClass<F>): App.VueClass<A & B & C & D & E & F>;
+        export function Mixins<T>(...Ctors: VueClass<Vue>[]): VueClass<T>;
+        export function Mixins<T extends VueClass<Vue>[]>(...Ctors: T): MixedVueClass<T>;
 
-    export function Mixins<A1, A2, A3, A4, A5, A6, A7, A8>(A1: App.VueClass<A1>, A2: App.VueClass<A2>, A3: App.VueClass<A3>, A4: App.VueClass<A4>, A5: App.VueClass<A5>, A6: App.VueClass<A6>, A7: App.VueClass<A7>, A8: App.VueClass<A8>): App.VueClass<A1 & A2 & A3 & A4 & A5 & A6 & A7 & A8>;
-    export function Mixins<A1, A2, A3, A4, A5, A6, A7, A8, A9>(A1: App.VueClass<A1>, A2: App.VueClass<A2>, A3: App.VueClass<A3>, A4: App.VueClass<A4>, A5: App.VueClass<A5>, A6: App.VueClass<A6>, A7: App.VueClass<A7>, A8: App.VueClass<A8>, A9: App.VueClass<A9>): App.VueClass<A1 & A2 & A3 & A4 & A5 & A6 & A7 & A8 & A9>;
-    export function Mixins<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10>(A1: App.VueClass<A1>, A2: App.VueClass<A2>, A3: App.VueClass<A3>, A4: App.VueClass<A4>, A5: App.VueClass<A5>, A6: App.VueClass<A6>, A7: App.VueClass<A7>, A8: App.VueClass<A8>, A9: App.VueClass<A9>, A10: App.VueClass<A10>): App.VueClass<A1 & A2 & A3 & A4 & A5 & A6 & A7 & A8 & A9 & A10>;
-    export function Mixins<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11>(A1: App.VueClass<A1>, A2: App.VueClass<A2>, A3: App.VueClass<A3>, A4: App.VueClass<A4>, A5: App.VueClass<A5>, A6: App.VueClass<A6>, A7: App.VueClass<A7>, A8: App.VueClass<A8>, A9: App.VueClass<A9>, A10: App.VueClass<A10>, A11: App.VueClass<A11>): App.VueClass<A1 & A2 & A3 & A4 & A5 & A6 & A7 & A8 & A9 & A10 & A11>;
-    export function Mixins<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12>(A1: App.VueClass<A1>, A2: App.VueClass<A2>, A3: App.VueClass<A3>, A4: App.VueClass<A4>, A5: App.VueClass<A5>, A6: App.VueClass<A6>, A7: App.VueClass<A7>, A8: App.VueClass<A8>, A9: App.VueClass<A9>, A10: App.VueClass<A10>, A11: App.VueClass<A11>, A12: App.VueClass<A12>): App.VueClass<A1 & A2 & A3 & A4 & A5 & A6 & A7 & A8 & A9 & A10 & A11 & A12>;
-    export function Mixins<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13>(A1: App.VueClass<A1>, A2: App.VueClass<A2>, A3: App.VueClass<A3>, A4: App.VueClass<A4>, A5: App.VueClass<A5>, A6: App.VueClass<A6>, A7: App.VueClass<A7>, A8: App.VueClass<A8>, A9: App.VueClass<A9>, A10: App.VueClass<A10>, A11: App.VueClass<A11>, A12: App.VueClass<A12>, A13: App.VueClass<A13>): App.VueClass<A1 & A2 & A3 & A4 & A5 & A6 & A7 & A8 & A9 & A10 & A11 & A12 & A13>;
-    export function Mixins<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14>(A1: App.VueClass<A1>, A2: App.VueClass<A2>, A3: App.VueClass<A3>, A4: App.VueClass<A4>, A5: App.VueClass<A5>, A6: App.VueClass<A6>, A7: App.VueClass<A7>, A8: App.VueClass<A8>, A9: App.VueClass<A9>, A10: App.VueClass<A10>, A11: App.VueClass<A11>, A12: App.VueClass<A12>, A13: App.VueClass<A13>, A14: App.VueClass<A14>): App.VueClass<A1 & A2 & A3 & A4 & A5 & A6 & A7 & A8 & A9 & A10 & A11 & A12 & A14>;
+        export function Mixins<A, B, C, D, E, F>(CtorA: VueClass<A>, CtorB: VueClass<B>, CtorC: VueClass<C>, CtorD: VueClass<D>, CtorE: VueClass<E>, CtorF: VueClass<F>): VueClass<A & B & C & D & E & F>;
 
-    //component
-    export function Component<V extends App.Vue>(options: App.ComponentOptions<V> & ThisType<V>): <VC extends App.VueClass<V>>(target: VC) => VC;
+        export function Mixins<A1, A2, A3, A4, A5, A6, A7, A8>(A1: VueClass<A1>, A2: VueClass<A2>, A3: VueClass<A3>, A4: VueClass<A4>, A5: VueClass<A5>, A6: VueClass<A6>, A7: VueClass<A7>, A8: VueClass<A8>): VueClass<A1 & A2 & A3 & A4 & A5 & A6 & A7 & A8>;
+        export function Mixins<A1, A2, A3, A4, A5, A6, A7, A8, A9>(A1: VueClass<A1>, A2: VueClass<A2>, A3: VueClass<A3>, A4: VueClass<A4>, A5: VueClass<A5>, A6: VueClass<A6>, A7: VueClass<A7>, A8: VueClass<A8>, A9: VueClass<A9>): VueClass<A1 & A2 & A3 & A4 & A5 & A6 & A7 & A8 & A9>;
+        export function Mixins<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10>(A1: VueClass<A1>, A2: VueClass<A2>, A3: VueClass<A3>, A4: VueClass<A4>, A5: VueClass<A5>, A6: VueClass<A6>, A7: VueClass<A7>, A8: VueClass<A8>, A9: VueClass<A9>, A10: VueClass<A10>): VueClass<A1 & A2 & A3 & A4 & A5 & A6 & A7 & A8 & A9 & A10>;
+        export function Mixins<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11>(A1: VueClass<A1>, A2: VueClass<A2>, A3: VueClass<A3>, A4: VueClass<A4>, A5: VueClass<A5>, A6: VueClass<A6>, A7: VueClass<A7>, A8: VueClass<A8>, A9: VueClass<A9>, A10: VueClass<A10>, A11: VueClass<A11>): VueClass<A1 & A2 & A3 & A4 & A5 & A6 & A7 & A8 & A9 & A10 & A11>;
+        export function Mixins<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12>(A1: VueClass<A1>, A2: VueClass<A2>, A3: VueClass<A3>, A4: VueClass<A4>, A5: VueClass<A5>, A6: VueClass<A6>, A7: VueClass<A7>, A8: VueClass<A8>, A9: VueClass<A9>, A10: VueClass<A10>, A11: VueClass<A11>, A12: VueClass<A12>): VueClass<A1 & A2 & A3 & A4 & A5 & A6 & A7 & A8 & A9 & A10 & A11 & A12>;
+        export function Mixins<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13>(A1: VueClass<A1>, A2: VueClass<A2>, A3: VueClass<A3>, A4: VueClass<A4>, A5: VueClass<A5>, A6: VueClass<A6>, A7: VueClass<A7>, A8: VueClass<A8>, A9: VueClass<A9>, A10: VueClass<A10>, A11: VueClass<A11>, A12: VueClass<A12>, A13: VueClass<A13>): VueClass<A1 & A2 & A3 & A4 & A5 & A6 & A7 & A8 & A9 & A10 & A11 & A12 & A13>;
+        export function Mixins<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14>(A1: VueClass<A1>, A2: VueClass<A2>, A3: VueClass<A3>, A4: VueClass<A4>, A5: VueClass<A5>, A6: VueClass<A6>, A7: VueClass<A7>, A8: VueClass<A8>, A9: VueClass<A9>, A10: VueClass<A10>, A11: VueClass<A11>, A12: VueClass<A12>, A13: VueClass<A13>, A14: VueClass<A14>): VueClass<A1 & A2 & A3 & A4 & A5 & A6 & A7 & A8 & A9 & A10 & A11 & A12 & A14>;
 
-    export namespace Component {
-        var registerHooks: (keys: string[]) => void;
+        //component
+        export function Component<V extends Vue>(options: ComponentOptions<V> & ThisType<V>): <VC extends VueClass<V>>(target: VC) => VC;
+
+        export namespace Component {
+            var registerHooks: (keys: string[]) => void;
+        }
+        export function Component<VC extends VueClass<Vue>>(target: VC): VC;
+        export namespace Component {
+            var registerHooks: (keys: string[]) => void;
+        }
+
     }
-    export function Component<VC extends App.VueClass<App.Vue>>(target: VC): VC;
-    export namespace Component {
-        var registerHooks: (keys: string[]) => void;
-    }
-
 }
