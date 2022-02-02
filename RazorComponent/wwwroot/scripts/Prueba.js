@@ -32,16 +32,22 @@ var App;
             return _this;
         }
         VueTest.prototype.Hello = function () {
-            this.Msg = "Hola mundo Andrey";
+            this.Msg = "Hola mundo Andrey " + this.$Session.GetNameCompany;
             var day = new Date();
             alert(dateFormat(day, "dd/mm/yyyy"));
+            this.$Session.ApiKey = "Cambio por evento";
+            console.log(this.$Session.ApiKey);
+            this.$Api.SaveEmpleados().catch(function (erro) { return console.log(erro); });
+        };
+        VueTest.prototype.created = function () {
+            console.log(this.$Api);
         };
         VueTest = __decorate([
             Component
         ], VueTest);
         return VueTest;
     }(Vue));
-    new VueTest().$mount("#Appvue");
+    var vm = new VueTest().$mount("#Appvue");
     //export var PruebaMethodo: JQDataTableActionBtn = function (ids,dt,node,config) {
     //    console.log(ids);
     //    console.log("Hola andrey estas en PruebaMehodo");

@@ -1,31 +1,41 @@
 ﻿
 namespace App {
-
-    
-    
     
     const { Component, Mixins } = VuePropertyDecorator;
 
     
 
     @Component
-    class VueTest extends Vue  {
+    class VueTest extends  Vue {
         Formulario: string = "Hola";
         Msg = "HolaMundo";
+        
+       
 
         Hello() {
-            this.Msg = "Hola mundo Andrey";
+            this.Msg = "Hola mundo Andrey " + this.$Session.GetNameCompany;
             var day = new Date();
 
-            alert(dateFormat(day,"dd/mm/yyyy"));
+            alert(dateFormat(day, "dd/mm/yyyy"));
+          
+            this.$Session.ApiKey = "Cambio por evento";
+            console.log(this.$Session.ApiKey);
+            this.$Api.SaveEmpleados().catch(erro => console.log(erro))
+            
+        }
+
+
+        created() {
+            console.log(this.$Api);
+          
 
         }
       
         
     }
-    new VueTest().$mount("#Appvue");
+  var vm=  new VueTest().$mount("#Appvue");
 
-
+    
    
     //export var PruebaMethodo: JQDataTableActionBtn = function (ids,dt,node,config) {
     //    console.log(ids);
