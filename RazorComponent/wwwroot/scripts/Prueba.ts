@@ -1,8 +1,8 @@
 ﻿
 namespace App {
 
-  
-
+    
+    
     
     const { Component, Mixins } = VuePropertyDecorator;
 

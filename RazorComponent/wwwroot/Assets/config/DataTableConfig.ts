@@ -304,6 +304,7 @@ namespace App{
 
         if (rowId != null) options.rowId =  (a)=> {
             var result = "";
+            
             eval(`result= '${el}_'+a.${rowId}`)
             return result;
         };
