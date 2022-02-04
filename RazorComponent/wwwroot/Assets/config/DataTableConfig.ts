@@ -24,6 +24,17 @@ namespace App{
         titleAttr?: string;
     }
 
+    export class GridTableOptions {
+        serverSide?: boolean=true ;
+        rowId?: string=null;
+        pageLength?: number =5;
+        searching?: boolean=true ;
+        order?: (string | number)[] = [1, 'asc'] ;
+        ordering?: boolean = true;
+        BtnDefaults?: ("colvis" | "excel" | "pdf")[] = ["colvis","excel","pdf"];
+    }
+
+
     export interface JQDataTableClass {
         Type?: "Index" | "Text" | "DateTime" | "Date" | "IsActive" | "Bool" | "BoolCheck" | "Accion"  | "Switch" | "SwitchMultiple" | "SwitchHide" | "LinkEdit" | "LinkEvent" | "LinkUrl" | "HTML"| "JavaScript";
         Orderable?: boolean;
@@ -147,8 +158,8 @@ namespace App{
                         addcolum = {
                             data: col.Columna, title: col.Label, width: "5%", render: (val, types, entity, meta) => {
 
-                                var btnedit = security.Actualizar ? `<button type="button" class="btn btn-outline-primary" onclick="Editbtn${Table}('${val}')">Editar</button>` : "";
-                                var btnDelete = security.Eliminar? `<button type="button" class="btn btn-outline-danger" onclick="Deletebtn${Table}('${val}')">Eliminar</button>`:"";
+                                var btnedit = security?.Actualizar ? `<button type="button" class="btn btn-outline-primary" onclick="Editbtn${Table}('${val}')">Editar</button>` : "";
+                                var btnDelete = security?.Eliminar? `<button type="button" class="btn btn-outline-danger" onclick="Deletebtn${Table}('${val}')">Eliminar</button>`:"";
 
                                 return btnedit + btnDelete;
                             }
@@ -264,16 +275,12 @@ namespace App{
         urldata: string=null,
         urlEdit: string = null,
         urlDelete: string = null,
-        serverSide: boolean = true,
         security: SecurityPageEntity = { Consultar: true, Actualizar: true, Eliminar: true, Insertar: true },
-        rowId: string = "DT_RowId",
         Buttons: JQDataTableButtons[]=null,
-        pageLength: number = 5,
-        searching: boolean = true,
-        order: (string | number)[] = [1, 'asc'],
-        ordering: boolean = true,
-       
+        Defaults: GridTableOptions = new GridTableOptions(),
     ) {
+
+      
         var TableIds: string[] = [];
         $(window).scrollTop(1)
         var options: DataTables.Settings;
@@ -286,26 +293,26 @@ namespace App{
             },
            
             destroy: true,
-            searching: searching,
+            searching: Defaults.searching,
             autoWidth: false,
             dom: "Bfrtip",
             processing: true,
             lengthChange: false,
-            serverSide: serverSide,
-            pageLength: pageLength,
+            serverSide: Defaults.serverSide,
+            pageLength: Defaults.pageLength,
             stateSave:true,
-            ordering: ordering,
-            order: [order],
+            ordering: Defaults.ordering,
+            order: [Defaults.order],
             columnDefs: CreateHeaderColumnsDef(colums,el),
             columns: CreateRowsData(colums, security, el)
         
            
         };
 
-        if (rowId != null) options.rowId =  (a)=> {
+        if (Defaults.rowId != null) options.rowId =  (a)=> {
             var result = "";
             
-            eval(`result= '${el}_'+a.${rowId}`)
+            eval(`result= '${el}_'+a.${Defaults.rowId}`)
             return result;
         };
 
@@ -315,8 +322,9 @@ namespace App{
 
         var Edit = colums.find(function (value, index) { return value.Type == "Index"; });
 
+        // btns Defaults
         options.buttons = {
-            buttons: [],
+            buttons: Defaults.BtnDefaults,
             dom: {
                 button: {
                     className: "btn"
@@ -324,11 +332,12 @@ namespace App{
             }
         };
 
+        //btns por seguridad
         if (Edit != null) {
 
             options.rowCallback = function (row, data, index) {
                 var id = null;
-                eval(`id=data.${rowId};`)
+                eval(`id=data.${Edit.Columna};`)
                 if ($.inArray(id, TableIds) !== -1) {
                     grid.row(index).select();
                 }
@@ -353,7 +362,7 @@ namespace App{
 
             });
 
-            if (security.Insertar) {
+            if (security?.Insertar) {
                 var btnnew: DataTables.ButtonSettings = {
                     text: "New",
 
@@ -371,7 +380,7 @@ namespace App{
 
             }
 
-            if (security.Actualizar) {
+            if (security?.Actualizar) {
                 var btnedit: DataTables.ButtonSettings = {
                     text: "Edit",
                     className: "btn btn-outline-primary",
@@ -397,7 +406,7 @@ namespace App{
             }
 
 
-            if (security.Eliminar) {
+            if (security?.Eliminar) {
                 var btnDelete: DataTables.ButtonSettings = {
                     text: "Delete",
                     className: "btn btn-outline-primary",
@@ -436,7 +445,7 @@ namespace App{
 
 
         } else {           
-            if (security.Insertar) {
+            if (security?.Insertar) {
                 var btnnew: DataTables.ButtonSettings = {
                     text: "New",
 

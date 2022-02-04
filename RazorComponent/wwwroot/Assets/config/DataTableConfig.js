@@ -23,6 +23,19 @@ var __spreadArray = (this && this.__spreadArray) || function (to, from) {
 var App;
 (function (App) {
     var lang = "EN";
+    var GridTableOptions = /** @class */ (function () {
+        function GridTableOptions() {
+            this.serverSide = true;
+            this.rowId = null;
+            this.pageLength = 5;
+            this.searching = true;
+            this.order = [1, 'asc'];
+            this.ordering = true;
+            this.BtnDefaults = ["colvis", "excel", "pdf"];
+        }
+        return GridTableOptions;
+    }());
+    App.GridTableOptions = GridTableOptions;
     function CreateHeaderColumnsDef(ct, table) {
         var colums = [];
         ct.forEach(function (val, index) {
@@ -110,8 +123,8 @@ var App;
                 case "Accion":
                     addcolum = {
                         data: col.Columna, title: col.Label, width: "5%", render: function (val, types, entity, meta) {
-                            var btnedit = security.Actualizar ? "<button type=\"button\" class=\"btn btn-outline-primary\" onclick=\"Editbtn" + Table + "('" + val + "')\">Editar</button>" : "";
-                            var btnDelete = security.Eliminar ? "<button type=\"button\" class=\"btn btn-outline-danger\" onclick=\"Deletebtn" + Table + "('" + val + "')\">Eliminar</button>" : "";
+                            var btnedit = (security === null || security === void 0 ? void 0 : security.Actualizar) ? "<button type=\"button\" class=\"btn btn-outline-primary\" onclick=\"Editbtn" + Table + "('" + val + "')\">Editar</button>" : "";
+                            var btnDelete = (security === null || security === void 0 ? void 0 : security.Eliminar) ? "<button type=\"button\" class=\"btn btn-outline-danger\" onclick=\"Deletebtn" + Table + "('" + val + "')\">Eliminar</button>" : "";
                             return btnedit + btnDelete;
                         }
                     };
@@ -195,19 +208,14 @@ var App;
         });
         return colums;
     }
-    function GridTable(el, colums, urldata, urlEdit, urlDelete, serverSide, security, rowId, Buttons, pageLength, searching, order, ordering) {
+    function GridTable(el, colums, urldata, urlEdit, urlDelete, security, Buttons, Defaults) {
         var _a;
         if (urldata === void 0) { urldata = null; }
         if (urlEdit === void 0) { urlEdit = null; }
         if (urlDelete === void 0) { urlDelete = null; }
-        if (serverSide === void 0) { serverSide = true; }
         if (security === void 0) { security = { Consultar: true, Actualizar: true, Eliminar: true, Insertar: true }; }
-        if (rowId === void 0) { rowId = "DT_RowId"; }
         if (Buttons === void 0) { Buttons = null; }
-        if (pageLength === void 0) { pageLength = 5; }
-        if (searching === void 0) { searching = true; }
-        if (order === void 0) { order = [1, 'asc']; }
-        if (ordering === void 0) { ordering = true; }
+        if (Defaults === void 0) { Defaults = new GridTableOptions(); }
         var TableIds = [];
         $(window).scrollTop(1);
         var options;
@@ -218,23 +226,23 @@ var App;
                 async: true,
             },
             destroy: true,
-            searching: searching,
+            searching: Defaults.searching,
             autoWidth: false,
             dom: "Bfrtip",
             processing: true,
             lengthChange: false,
-            serverSide: serverSide,
-            pageLength: pageLength,
+            serverSide: Defaults.serverSide,
+            pageLength: Defaults.pageLength,
             stateSave: true,
-            ordering: ordering,
-            order: [order],
+            ordering: Defaults.ordering,
+            order: [Defaults.order],
             columnDefs: CreateHeaderColumnsDef(colums, el),
             columns: CreateRowsData(colums, security, el)
         };
-        if (rowId != null)
+        if (Defaults.rowId != null)
             options.rowId = function (a) {
                 var result = "";
-                eval("result= '" + el + "_'+a." + rowId);
+                eval("result= '" + el + "_'+a." + Defaults.rowId);
                 return result;
             };
         if (lang == "ES")
@@ -242,18 +250,20 @@ var App;
                 url: ''
             };
         var Edit = colums.find(function (value, index) { return value.Type == "Index"; });
+        // btns Defaults
         options.buttons = {
-            buttons: [],
+            buttons: Defaults.BtnDefaults,
             dom: {
                 button: {
                     className: "btn"
                 }
             }
         };
+        //btns por seguridad
         if (Edit != null) {
             options.rowCallback = function (row, data, index) {
                 var id = null;
-                eval("id=data." + rowId + ";");
+                eval("id=data." + Edit.Columna + ";");
                 if ($.inArray(id, TableIds) !== -1) {
                     grid.row(index).select();
                 }
@@ -272,7 +282,7 @@ var App;
                     grid.rows().deselect();
                 }
             });
-            if (security.Insertar) {
+            if (security === null || security === void 0 ? void 0 : security.Insertar) {
                 var btnnew = {
                     text: "New",
                     className: "btn   btn-outline-primary",
@@ -284,7 +294,7 @@ var App;
                 };
                 options.buttons.buttons.push(btnnew);
             }
-            if (security.Actualizar) {
+            if (security === null || security === void 0 ? void 0 : security.Actualizar) {
                 var btnedit = {
                     text: "Edit",
                     className: "btn btn-outline-primary",
@@ -299,7 +309,7 @@ var App;
                 };
                 options.buttons.buttons.push(btnedit);
             }
-            if (security.Eliminar) {
+            if (security === null || security === void 0 ? void 0 : security.Eliminar) {
                 var btnDelete = {
                     text: "Delete",
                     className: "btn btn-outline-primary",
@@ -328,7 +338,7 @@ var App;
             }
         }
         else {
-            if (security.Insertar) {
+            if (security === null || security === void 0 ? void 0 : security.Insertar) {
                 var btnnew = {
                     text: "New",
                     className: "btn   btn-outline-primary",

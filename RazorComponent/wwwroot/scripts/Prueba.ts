@@ -1,62 +1,68 @@
 ﻿
 namespace App {
-    
-    const { Component, Mixins } = VuePropertyDecorator;
+
+  //  declare var AppConfig: any;
+
+
+  //  console.log(AppConfig);
+
+  //  const { Component, Mixins } = VuePropertyDecorator;
 
     
 
-    @Component
-    class VueTest extends  Vue {
-        Formulario: string = "Hola";
-        Msg = "HolaMundo";
+  //  @Component
+  //  class VueTest extends  Vue {
+  //      Formulario: string = "Hola";
+  //      Msg = "HolaMundo";
         
        
 
-        Hello() {
-            this.Msg = "Hola mundo Andrey " + this.$Session.GetNameCompany;
-            var day = new Date();
+  //      Hello() {
+  //          this.Msg = "Hola mundo Andrey " + this.$Session.GetNameCompany;
+  //          var day = new Date();
 
-            alert(dateFormat(day, "dd/mm/yyyy"));
+  //          alert(dateFormat(day, "dd/mm/yyyy"));
           
-            this.$Session.ApiKey = "Cambio por evento";
-            console.log(this.$Session.ApiKey);
-            this.$Api.SaveEmpleados().catch(erro => console.log(erro))
+  //          this.$Session.ApiKey = "Cambio por evento";
+  //          console.log(this.$Session.ApiKey);
+  //          this.$Api.SaveEmpleados().catch(erro => console.log(erro))
             
-        }
+  //      }
 
 
-        created() {
-            console.log(this.$Api);
+  //      created() {
+  //          console.log(this.$Api);
           
 
-        }
+  //      }
       
         
-    }
-  var vm=  new VueTest().$mount("#Appvue");
+  //  }
+  //var vm=  new VueTest().$mount("#Appvue");
 
     
    
-    //export var PruebaMethodo: JQDataTableActionBtn = function (ids,dt,node,config) {
-    //    console.log(ids);
-    //    console.log("Hola andrey estas en PruebaMehodo");
-    //}
+    export var PruebaMethodo: JQDataTableActionBtn = function (ids,dt,node,config) {
+        console.log(ids);
+       alert("asdadadads")
+    }
 
-    //$(document).ready(() => {
+    $(document).ready(() => {
+
+    var columnas: JQDataTableClass[]= [
+        { Columna: "id", Label: "", Type: "Index", Orderable: false, ClassColum: null, Width: null },
+        { Columna: "nombre", Label: "Nombre", Type: "Text", Orderable: true, ClassColum: null, Width: null },
+        { Columna: "id", Label: "edit", Type: "Accion", Orderable: true, ClassColum: null, Width: null },
+        { Columna: "id", Label: "check", Type: "Switch", Orderable: true, ClassColum: null, Width: null, Disabled: true },
+    ];
+    var btns: JQDataTableButtons[] = [
+        {
+            text: "Prueba", className: " btn-outline-primary", action: "App.PruebaMethodo"
+        }
+    ];
 
 
-
-
-    //   var grid1=  GridTable("GridView", [
-    //        { Columna: "id", Label: "", Type: "Index", Orderable: false, ClassColum: null, Width: null },
-    //       { Columna: "nombre", Label: "Nombre", Type: "Text", Orderable: true, ClassColum: null, Width: null },
-    //       { Columna: "id", Label: "edit", Type: "Accion", Orderable: true, ClassColum: null, Width: null },
-    //       { Columna: "id", Label: "check", Type: "Switch", Orderable: true, ClassColum: null, Width: null, Disabled: true },
-    //   ], "api/Persona/List", "", "", true, { Consultar: true, Actualizar: true, Eliminar: true, Insertar: true }, "id", [
-    //       {
-    //           text: "Prueba", className: " btn-outline-primary", action: "App.PruebaMethodo"
-    //       }
-    //   ]);
+        var grid1 = GridTable("GridView", columnas, "api/Persona/List", "edit", "delete", null, btns );
 
     //    GridTable("GridView2", [
     //        { Columna: "id", Label: "", Type: "Index", Orderable: false, ClassColum: null, Width: null },
@@ -70,7 +76,7 @@ namespace App {
         
 
 
-    //});
+    });
 
   
     

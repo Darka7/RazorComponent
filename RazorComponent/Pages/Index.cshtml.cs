@@ -1,21 +1,23 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace RazorComponent.Pages
 {
     public class IndexModel : PageModel
     {
-        private readonly ILogger<IndexModel> _logger;
+        private readonly IConfiguration config;
 
-        public IndexModel(ILogger<IndexModel> logger)
+        public IndexModel(IConfiguration config)
         {
-            _logger = logger;
+            this.config = config;
         }
 
         [VueData]
@@ -31,14 +33,32 @@ namespace RazorComponent.Pages
 
 
         [VueData]
-        public List<Persona> ListaPersonas { get; set; } =new List<Persona>() { 
+        public List<Persona> ListaPersonas { get; set; } = new List<Persona>() {
         new Persona(){ id=1,edad=15, TipoPersona=new(){ descripcion="Amable" }, Nombre="andrey" },
         new Persona(){ id=3,edad=15, TipoPersona=new(){ descripcion="cariñosa" }, Nombre="ana" },
         };
 
         public void OnGet()
         {
+
+        }
+
+
+
+        public ContentResult OnGetConfig()
+        {
           
+            try
+            {
+                var obj = config.GetSection("AppConfig").Get<AppConfig>();
+                var json = JsonSerializer.Serialize(obj); ;
+                return new JavaScriptResult(@$"var AppConfig={json}");
+            }
+            catch (Exception ex)
+            {
+
+                return new JavaScriptResult("");
+            }
         }
     }
 }
