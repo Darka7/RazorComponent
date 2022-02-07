@@ -4,7 +4,7 @@
 namespace App{
     var lang = "EN";
 
-    export  type JQDataTableActionBtn = (TableIds: string[], dt: DataTables.Api<any>, node: JQuery, config: DataTables.ButtonSettings) => void;
+    export  type JQDataTableActionBtn<T> = (TableIds: string[],data:T, dt: DataTables.Api<any>, node: JQuery) => void;
 
     export interface JQDataTableButtons {
         
@@ -25,28 +25,32 @@ namespace App{
     }
 
     export class GridTableOptions {
-        serverSide?: boolean=true ;
+        serverSide?: boolean=false ;
         rowId?: string=null;
         pageLength?: number =5;
         searching?: boolean=true ;
         order?: (string | number)[] = [1, 'asc'] ;
         ordering?: boolean = true;
+        stateSave?: boolean = false;
         BtnDefaults?: ("colvis" | "excel" | "pdf")[] = ["colvis","excel","pdf"];
     }
 
 
     export interface JQDataTableClass {
-        Type?: "Index" | "Text" | "DateTime" | "Date" | "IsActive" | "Bool" | "BoolCheck" | "Accion"  | "Switch" | "SwitchMultiple" | "SwitchHide" | "LinkEdit" | "LinkEvent" | "LinkUrl" | "HTML"| "JavaScript";
+        Type?: "Index" | "Text" | "DateTime" | "Date" | "IsActive" | "Bool" | "BoolCheck" | "Accion" | "Switch" | "SwitchData"  | "LinkEdit" | "LinkEvent" | "LinkUrl" | "HTML"| "JavaScript";
         Orderable?: boolean;
         ClassColum?: string;
+        WidthColum?: string;
         Width?: string;
-        Columna?: string;
+        Class?: string;
+        Column?: string;
         Label?: string;
         BoolTrue?: string;
         BoolFalse?: string;
         Disabled?: boolean;
-        CheckColum?: string;
+      
         SwitchHideProperty?: string;
+        SwitchDataValue?: string;
         PropertyId1?: string;
         EventLink?: string;
         LinkUrl?: string;
@@ -69,13 +73,14 @@ namespace App{
                 };
                 colums.push(ob);
             } else {
+                var OrderColum = isNullOrEmpty(val?.Orderable) ? true : val.Orderable;
                 var ob: DataTables.ColumnDefsSettings = {
                     targets: index,
-                    orderable: val.Orderable,
+                    orderable: OrderColum,
 
-                };
-                if (val.ClassColum != null) ob.className = val.ClassColum;
-                if (val.Width != null) ob.width = val.Width;
+            };
+                if (val?.ClassColum != null) ob.className = val.ClassColum;
+                if (val?.Width != null) ob.width = val.WidthColum;
                 colums.push(ob);
             }
 
@@ -98,7 +103,7 @@ namespace App{
                 switch (col.Type) {
                     case "Index":
                         addcolum = {
-                            data: col.Columna,
+                            data: col.Column,
                             orderable:false,
                             width: "5%",
                             className:"select-checkbox",
@@ -110,20 +115,20 @@ namespace App{
                         };
                         break;
                     case "Text":
-                        addcolum = { data: col.Columna, title: col.Label };
+                        addcolum = { data: col.Column, title: col.Label,className:col?.Class };
                         break;
                     case "DateTime":
                         addcolum = {
-                            data: col.Columna, title: col.Label, render: (val, types, entity, meta) => {
-                                return val != null ? dateFormat(new Date(val), formatDateTime) : "";
+                            data: col.Column, title: col.Label,className:col?.Class, render: (val, types, entity, meta) => {
+                                return !isNullOrEmpty(val)  ? dateFormat(new Date(val), formatDateTime) : "";
                             }
                         };
                         break;
                     case "Date":
                         addcolum = {
-                            data: col.Columna, title: col.Label, render: (val, types, entity, meta) => {
+                            data: col.Column, title: col.Label,className:col?.Class, render: (val, types, entity, meta) => {
 
-                                return val != null ? dateFormat(new Date(val), formatDate) : "";
+                                return !isNullOrEmpty(val) ? dateFormat(new Date(val), formatDate) : "";
                             }
                         };
                         break;
@@ -131,7 +136,7 @@ namespace App{
 
 
                         addcolum = {
-                            data: col.Columna, title: col.Label, render: (val, types, entity, meta) => {
+                            data: col.Column, title: col.Label,className:col?.Class, render: (val, types, entity, meta) => {
 
                                 return val == true ? Activo : Inactive;
                             }
@@ -139,7 +144,7 @@ namespace App{
                         break;
                     case "Bool":
                         addcolum = {
-                            data: col.Columna, title: col.Label, render: (val, types, entity, meta) => {
+                            data: col.Column, title: col.Label,className:col?.Class, render: (val, types, entity, meta) => {
 
                                 return val == true ? col.BoolTrue : col.BoolFalse;
                             }
@@ -148,7 +153,7 @@ namespace App{
 
                     case "BoolCheck":
                         addcolum = {
-                            data: col.Columna, title: col.Label, render: (val, types, entity, meta) => {
+                            data: col.Column, title: col.Label,className:col?.Class, render: (val, types, entity, meta) => {
 
                                 return val == true ? "" : "";
                             }
@@ -156,7 +161,7 @@ namespace App{
                         break;
                     case "Accion":
                         addcolum = {
-                            data: col.Columna, title: col.Label, width: "5%", render: (val, types, entity, meta) => {
+                            data: col.Column, title: col.Label, width: "5%",className:col?.Class, render: (val, types, entity, meta) => {
 
                                 var btnedit = security?.Actualizar ? `<button type="button" class="btn btn-outline-primary" onclick="Editbtn${Table}('${val}')">Editar</button>` : "";
                                 var btnDelete = security?.Eliminar? `<button type="button" class="btn btn-outline-danger" onclick="Deletebtn${Table}('${val}')">Eliminar</button>`:"";
@@ -169,41 +174,48 @@ namespace App{
                         
                     case "Switch":
                         addcolum = {
-                            data: col.Columna, title: col.Label, width: "10%", render: (val, types, entity, meta) => {
+                            data: col.Column, title: col.Label, width: "10%", className: col?.Class, render: (val, types, entity, meta) => {
                                 var ischeck = val == true ? 'checked' : '';
-                                return `<input class="form-check-input ${col.CheckColum}" type="checkbox" onchange='switchBtn${Table}(${JSON.stringify(entity)},this)'  ${ischeck}  ${col.Disabled ? "disabled" : ""} value="">`;
+                                var rowid = meta.row;
+                                var colid = meta.col;
+
+                                if (!isNullOrEmpty(col?.SwitchHideProperty)) {
+                                    var IsHidden = false;
+                                    eval(`IsHidden=entity.${col.SwitchHideProperty};`);
+                                    if (IsHidden) return "";
+                                }
+
+                                return `<input class="form-check-input ${Table}_Switch_${col.Column}" type="checkbox" data-columid="${colid}" data-rowid="${rowid}" onchange="${Table}SwitchEvent($(this))" ${ischeck}  ${col.Disabled ? "disabled" : ""} value="${val}">`;
                             }
                         };
                         break;
-                    case "SwitchMultiple":
+
+                    case "SwitchData":
                         addcolum = {
-                            data: col.Columna, title: col.Label, width: "10%", render: (val, types, entity, meta) => {
-                                var ischeck = val == true ? 'checked' : '';
+                            data: col.Column, title: col.Label, width: "10%", className: col?.Class, render: (val, types, entity, meta) => {
+                               
+                                var ischeck = !isNullOrEmpty(val) ? 'checked' : '';
+                                var rowid = meta.row;
+                                var colid = meta.col;
+                                var SetValue = null;
+                                eval(`SetValue=entity.${col.SwitchDataValue};`);
 
-                                return `<input class="form-check-input ${col.CheckColum}" data-value="${val}" data-entity='${JSON.stringify(entity)}' type="checkbox"   ${ischeck}  ${col.Disabled ? "disabled" : ""} >`;
-                            }
-                        };
-                        break;
+                                if (!isNullOrEmpty(col?.SwitchHideProperty)) {
+                                    var IsHidden = false;
+                                    eval(`IsHidden=entity.${col.SwitchHideProperty};`);
+                                    if (IsHidden) return "";
+                                }
 
-                    case "SwitchHide":
-                        addcolum = {
-                            data: col.Columna, title: col.Label, width: "10%", render: (val, types, entity, meta) => {
-                                var ischeck = val == true ? 'checked' : '';
-                                var IsHidden = false;
-                                eval(`IsHidden=entity.${col.SwitchHideProperty};`);
-
-                                if (IsHidden) return "";
-
-                                return `<input class="form-check-input ${col.CheckColum}" data-value="${val}" data-entity='${JSON.stringify(entity)}' type="checkbox"   ${ischeck}  ${col.Disabled ? "disabled" : ""} >`;
+                                return `<input class="form-check-input ${Table}_SwitchData_${col.Column}" value="${SetValue}" data-columid="${colid}" data-rowid="${rowid}"  type="checkbox"  onchange="${Table}SwitchDataEvent($(this))"  ${ischeck}  ${col.Disabled ? "disabled" : ""} >`;
                             }
                         };
                         break;
 
                     case "LinkEdit":
                         addcolum = {
-                            data: col.Columna, title: col.Label, render: (val, types, entity, meta) => {
+                            data: col.Column, title: col.Label, render: (val, types, entity, meta) => {
                                 var id = null;
-                                var text = val == null ? "" : val;
+                                var text = val == null ? "..." : val;
 
                                 eval(`id=entity.${col.PropertyId1};`);
 
@@ -216,9 +228,9 @@ namespace App{
 
                     case "LinkEvent":
                         addcolum = {
-                            data: col.Columna, title: col.Label, render: (val, types, entity, meta) => {
+                            data: col.Column, title: col.Label, render: (val, types, entity, meta) => {
                                
-                                var text = val == null ? "" : val;
+                                var text = val == null ? "..." : val;
 
                                 return `<a onclick='${col.EventLink}(${JSON.stringify(entity)},this)' href="javascript: void(0)">${text}</a>`;
                             }
@@ -227,9 +239,9 @@ namespace App{
 
                     case "LinkUrl":
                         addcolum = {
-                            data: col.Columna, title: col.Label, render: (val, types, entity, meta) => {
+                            data: col.Column, title: col.Label, render: (val, types, entity, meta) => {
 
-                                var text = val == null ? "" : val;
+                                var text = val == null ? "..." : val;
 
                                 return `<a onclick='LinkUrlBtn${Table}('${col.LinkUrl}',${JSON.stringify(entity)})' href="javascript: void(0)">${text}</a>`;
                             }
@@ -238,7 +250,7 @@ namespace App{
 
                     case "HTML":
                         addcolum = {
-                            data: col.Columna, title: col.Label, render: (val, types, entity, meta) => {
+                            data: col.Column, title: col.Label, render: (val, types, entity, meta) => {
                                 var result = "";
 
                                 eval(`result= ${col.Html} ;`);
@@ -248,7 +260,7 @@ namespace App{
                         break;
                     case "JavaScript":
                         addcolum = {
-                            data: col.Columna, title: col.Label, render: (val, types, entity, meta) => {
+                            data: col.Column, title: col.Label, render: (val, types, entity, meta) => {
                                 var result = "";
 
                                 eval(col.JavaScript);
@@ -300,7 +312,7 @@ namespace App{
             lengthChange: false,
             serverSide: Defaults.serverSide,
             pageLength: Defaults.pageLength,
-            stateSave:true,
+            stateSave:Defaults.stateSave,
             ordering: Defaults.ordering,
             order: [Defaults.order],
             columnDefs: CreateHeaderColumnsDef(colums,el),
@@ -309,12 +321,17 @@ namespace App{
            
         };
 
-        if (Defaults.rowId != null) options.rowId =  (a)=> {
-            var result = "";
-            
-            eval(`result= '${el}_'+a.${Defaults.rowId}`)
-            return result;
-        };
+        if (Defaults?.rowId != null) {
+
+            options.rowId = (a) => {
+                var result = "";
+
+                eval(`result= '${el}_'+a.${Defaults.rowId}`)
+                return result;
+            };
+
+
+        }
 
         if (lang=="ES") options.language = {
             url:''
@@ -327,7 +344,7 @@ namespace App{
             buttons: Defaults.BtnDefaults,
             dom: {
                 button: {
-                    className: "btn"
+                    className: "btn btn-outline-primary"
                 }
             }
         };
@@ -337,7 +354,7 @@ namespace App{
 
             options.rowCallback = function (row, data, index) {
                 var id = null;
-                eval(`id=data.${Edit.Columna};`)
+                eval(`id=data.${Edit.Column};`)
                 if ($.inArray(id, TableIds) !== -1) {
                     grid.row(index).select();
                 }
@@ -365,8 +382,6 @@ namespace App{
             if (security?.Insertar) {
                 var btnnew: DataTables.ButtonSettings = {
                     text: "New",
-
-                    className: "btn   btn-outline-primary",
                     action: function (e, dt, node, config) {
                         if (urlEdit != null) {
                             window.location.href = urlEdit;
@@ -383,7 +398,6 @@ namespace App{
             if (security?.Actualizar) {
                 var btnedit: DataTables.ButtonSettings = {
                     text: "Edit",
-                    className: "btn btn-outline-primary",
                     action: function (e, dt, node, config) {
 
 
@@ -409,7 +423,6 @@ namespace App{
             if (security?.Eliminar) {
                 var btnDelete: DataTables.ButtonSettings = {
                     text: "Delete",
-                    className: "btn btn-outline-primary",
                     action: function (e, dt, node, config) {
 
 
@@ -448,8 +461,6 @@ namespace App{
             if (security?.Insertar) {
                 var btnnew: DataTables.ButtonSettings = {
                     text: "New",
-
-                    className: "btn   btn-outline-primary",
                     action: function (e, dt, node, config) {
                         if (urlEdit != null) {
                             window.location.href = urlEdit;
@@ -473,7 +484,8 @@ namespace App{
                     text: item.text,
                     className: item.className,
                     action: function (e, dt, node, config) {
-                        eval(`${item.action}(TableIds,dt,node,config);`);
+                        var data = dt.rows().data().toArray();
+                        eval(`${item.action}(TableIds,data,dt,node);`);
                     }
                 };
                 
@@ -509,7 +521,39 @@ namespace App{
             }
 
         }
+        var SwitchEvent = colums.find(function (value, index) { return value.Type == "Switch"; });
 
+        if (SwitchEvent!=null) {
+            window[el + "SwitchEvent"] = function ($this: JQuery<HTMLInputElement>) {
+                
+                var columid = $this.data("columid");
+                var rowid = parseInt($this.data("rowid"));
+                var NewValue=$this.is(":checked");
+                grid.cell({ row: rowid, column: columid }).data(NewValue);
+
+            }
+        }
+
+
+        var SwitchDataEvent = colums.find(function (value, index) { return value.Type == "SwitchData"; });
+
+        if (SwitchDataEvent != null) {
+            window[el + "SwitchDataEvent"] = function ($this: JQuery<HTMLInputElement>) {
+
+                var columid = $this.data("columid");
+                var rowid = parseInt($this.data("rowid"));
+                var isChecked = $this.is(":checked");
+                var NewValue = null;
+                if (isChecked) {
+                   
+                    NewValue = $this.val();
+                }
+                grid.cell({ row: rowid, column: columid }).data(NewValue);
+
+            }
+        }
+       
+        
 
         var grid = $(`#${el}`).DataTable(options);
 
@@ -517,7 +561,7 @@ namespace App{
         function SelectedIndex(selected: string[], items: any[]) {
             items.forEach(item => {
                 var id = null;
-                eval(`id=item.${Edit?.Columna};`);
+                eval(`id=item.${Edit?.Column};`);
 
                 var index = $.inArray(id, selected);
 
@@ -531,7 +575,7 @@ namespace App{
         function UnSelectedIndex(selected: string[], items: string[]) {
             items.forEach(item => {
                 var id = null;
-                eval(`id=item.${Edit?.Columna};`);
+                eval(`id=item.${Edit?.Column};`);
 
                 var index = $.inArray(id, selected);
 

@@ -21,29 +21,25 @@ var App;
     //      }
     //  }
     //var vm=  new VueTest().$mount("#Appvue");
-    App.PruebaMethodo = function (ids, dt, node, config) {
+    App.PruebaMethodo = function (ids, data, dt, node) {
         console.log(ids);
-        alert("asdadadads");
+        console.log(data, 'data');
     };
     $(document).ready(function () {
         var columnas = [
-            { Columna: "id", Label: "", Type: "Index", Orderable: false, ClassColum: null, Width: null },
-            { Columna: "nombre", Label: "Nombre", Type: "Text", Orderable: true, ClassColum: null, Width: null },
-            { Columna: "id", Label: "edit", Type: "Accion", Orderable: true, ClassColum: null, Width: null },
-            { Columna: "id", Label: "check", Type: "Switch", Orderable: true, ClassColum: null, Width: null, Disabled: true },
+            { Column: "id", Label: "", Type: "Index" },
+            { Column: "nombre", Label: "Nombre", Type: "Text" },
+            { Column: "id", Label: "edit", Type: "Accion" },
+            { Column: "Estado", Label: "Estado", Type: "Switch" },
+            { Column: "EmpresaMark", Label: "Empresa", Type: "SwitchData", SwitchDataValue: "IdEmpresa" },
         ];
         var btns = [
             {
-                text: "Prueba", className: " btn-outline-primary", action: "App.PruebaMethodo"
+                text: "Prueba", action: "App.PruebaMethodo"
             }
         ];
         var grid1 = App.GridTable("GridView", columnas, "api/Persona/List", "edit", "delete", null, btns);
-        //    GridTable("GridView2", [
-        //        { Columna: "id", Label: "", Type: "Index", Orderable: false, ClassColum: null, Width: null },
-        //        { Columna: "nombre", Label: "Nombre", Type: "Text", Orderable: true, ClassColum: null, Width: null },
-        //        { Columna: "id", Label: "edit", Type: "Accion", Orderable: true, ClassColum: null, Width: null },
-        //        { Columna: "id", Label: "check", Type: "Switch", Orderable: true, ClassColum: null, Width: null, Disabled: true },
-        //    ], "api/Persona/List", "", "", true, { Consultar: true, Actualizar: true, Eliminar: true, Insertar: true }, "id")
+        var grid2 = App.GridTable("GridView2", columnas, "api/Persona/List", "edit", "delete", null, btns);
     });
 })(App || (App = {}));
 //# sourceMappingURL=Prueba.js.map

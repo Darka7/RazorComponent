@@ -22,6 +22,8 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 var App;
 (function (App) {
+    App.isNullOrEmpty = function (value) { return (!value || value == undefined || value == "" || value.length == 0 || value == null); };
+    App.IsNull = function (value) { return (value == undefined || value === "" || value.length == 0 || value == null); };
     var Component = VuePropertyDecorator.Component;
     var VueConfiguration = /** @class */ (function (_super) {
         __extends(VueConfiguration, _super);

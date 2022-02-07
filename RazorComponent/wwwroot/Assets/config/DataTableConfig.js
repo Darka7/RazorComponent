@@ -25,12 +25,13 @@ var App;
     var lang = "EN";
     var GridTableOptions = /** @class */ (function () {
         function GridTableOptions() {
-            this.serverSide = true;
+            this.serverSide = false;
             this.rowId = null;
             this.pageLength = 5;
             this.searching = true;
             this.order = [1, 'asc'];
             this.ordering = true;
+            this.stateSave = false;
             this.BtnDefaults = ["colvis", "excel", "pdf"];
         }
         return GridTableOptions;
@@ -48,14 +49,15 @@ var App;
                 colums.push(ob);
             }
             else {
+                var OrderColum = App.isNullOrEmpty(val === null || val === void 0 ? void 0 : val.Orderable) ? true : val.Orderable;
                 var ob = {
                     targets: index,
-                    orderable: val.Orderable,
+                    orderable: OrderColum,
                 };
-                if (val.ClassColum != null)
+                if ((val === null || val === void 0 ? void 0 : val.ClassColum) != null)
                     ob.className = val.ClassColum;
-                if (val.Width != null)
-                    ob.width = val.Width;
+                if ((val === null || val === void 0 ? void 0 : val.Width) != null)
+                    ob.width = val.WidthColum;
                 colums.push(ob);
             }
         });
@@ -72,7 +74,7 @@ var App;
             switch (col.Type) {
                 case "Index":
                     addcolum = {
-                        data: col.Columna,
+                        data: col.Column,
                         orderable: false,
                         width: "5%",
                         className: "select-checkbox",
@@ -83,46 +85,46 @@ var App;
                     };
                     break;
                 case "Text":
-                    addcolum = { data: col.Columna, title: col.Label };
+                    addcolum = { data: col.Column, title: col.Label, className: col === null || col === void 0 ? void 0 : col.Class };
                     break;
                 case "DateTime":
                     addcolum = {
-                        data: col.Columna, title: col.Label, render: function (val, types, entity, meta) {
-                            return val != null ? dateFormat(new Date(val), formatDateTime) : "";
+                        data: col.Column, title: col.Label, className: col === null || col === void 0 ? void 0 : col.Class, render: function (val, types, entity, meta) {
+                            return !App.isNullOrEmpty(val) ? dateFormat(new Date(val), formatDateTime) : "";
                         }
                     };
                     break;
                 case "Date":
                     addcolum = {
-                        data: col.Columna, title: col.Label, render: function (val, types, entity, meta) {
-                            return val != null ? dateFormat(new Date(val), formatDate) : "";
+                        data: col.Column, title: col.Label, className: col === null || col === void 0 ? void 0 : col.Class, render: function (val, types, entity, meta) {
+                            return !App.isNullOrEmpty(val) ? dateFormat(new Date(val), formatDate) : "";
                         }
                     };
                     break;
                 case "IsActive":
                     addcolum = {
-                        data: col.Columna, title: col.Label, render: function (val, types, entity, meta) {
+                        data: col.Column, title: col.Label, className: col === null || col === void 0 ? void 0 : col.Class, render: function (val, types, entity, meta) {
                             return val == true ? Activo : Inactive;
                         }
                     };
                     break;
                 case "Bool":
                     addcolum = {
-                        data: col.Columna, title: col.Label, render: function (val, types, entity, meta) {
+                        data: col.Column, title: col.Label, className: col === null || col === void 0 ? void 0 : col.Class, render: function (val, types, entity, meta) {
                             return val == true ? col.BoolTrue : col.BoolFalse;
                         }
                     };
                     break;
                 case "BoolCheck":
                     addcolum = {
-                        data: col.Columna, title: col.Label, render: function (val, types, entity, meta) {
+                        data: col.Column, title: col.Label, className: col === null || col === void 0 ? void 0 : col.Class, render: function (val, types, entity, meta) {
                             return val == true ? "" : "";
                         }
                     };
                     break;
                 case "Accion":
                     addcolum = {
-                        data: col.Columna, title: col.Label, width: "5%", render: function (val, types, entity, meta) {
+                        data: col.Column, title: col.Label, width: "5%", className: col === null || col === void 0 ? void 0 : col.Class, render: function (val, types, entity, meta) {
                             var btnedit = (security === null || security === void 0 ? void 0 : security.Actualizar) ? "<button type=\"button\" class=\"btn btn-outline-primary\" onclick=\"Editbtn" + Table + "('" + val + "')\">Editar</button>" : "";
                             var btnDelete = (security === null || security === void 0 ? void 0 : security.Eliminar) ? "<button type=\"button\" class=\"btn btn-outline-danger\" onclick=\"Deletebtn" + Table + "('" + val + "')\">Eliminar</button>" : "";
                             return btnedit + btnDelete;
@@ -131,37 +133,43 @@ var App;
                     break;
                 case "Switch":
                     addcolum = {
-                        data: col.Columna, title: col.Label, width: "10%", render: function (val, types, entity, meta) {
+                        data: col.Column, title: col.Label, width: "10%", className: col === null || col === void 0 ? void 0 : col.Class, render: function (val, types, entity, meta) {
                             var ischeck = val == true ? 'checked' : '';
-                            return "<input class=\"form-check-input " + col.CheckColum + "\" type=\"checkbox\" onchange='switchBtn" + Table + "(" + JSON.stringify(entity) + ",this)'  " + ischeck + "  " + (col.Disabled ? "disabled" : "") + " value=\"\">";
+                            var rowid = meta.row;
+                            var colid = meta.col;
+                            if (!App.isNullOrEmpty(col === null || col === void 0 ? void 0 : col.SwitchHideProperty)) {
+                                var IsHidden = false;
+                                eval("IsHidden=entity." + col.SwitchHideProperty + ";");
+                                if (IsHidden)
+                                    return "";
+                            }
+                            return "<input class=\"form-check-input " + Table + "_Switch_" + col.Column + "\" type=\"checkbox\" data-columid=\"" + colid + "\" data-rowid=\"" + rowid + "\" onchange=\"" + Table + "SwitchEvent($(this))\" " + ischeck + "  " + (col.Disabled ? "disabled" : "") + " value=\"" + val + "\">";
                         }
                     };
                     break;
-                case "SwitchMultiple":
+                case "SwitchData":
                     addcolum = {
-                        data: col.Columna, title: col.Label, width: "10%", render: function (val, types, entity, meta) {
-                            var ischeck = val == true ? 'checked' : '';
-                            return "<input class=\"form-check-input " + col.CheckColum + "\" data-value=\"" + val + "\" data-entity='" + JSON.stringify(entity) + "' type=\"checkbox\"   " + ischeck + "  " + (col.Disabled ? "disabled" : "") + " >";
-                        }
-                    };
-                    break;
-                case "SwitchHide":
-                    addcolum = {
-                        data: col.Columna, title: col.Label, width: "10%", render: function (val, types, entity, meta) {
-                            var ischeck = val == true ? 'checked' : '';
-                            var IsHidden = false;
-                            eval("IsHidden=entity." + col.SwitchHideProperty + ";");
-                            if (IsHidden)
-                                return "";
-                            return "<input class=\"form-check-input " + col.CheckColum + "\" data-value=\"" + val + "\" data-entity='" + JSON.stringify(entity) + "' type=\"checkbox\"   " + ischeck + "  " + (col.Disabled ? "disabled" : "") + " >";
+                        data: col.Column, title: col.Label, width: "10%", className: col === null || col === void 0 ? void 0 : col.Class, render: function (val, types, entity, meta) {
+                            var ischeck = !App.isNullOrEmpty(val) ? 'checked' : '';
+                            var rowid = meta.row;
+                            var colid = meta.col;
+                            var SetValue = null;
+                            eval("SetValue=entity." + col.SwitchDataValue + ";");
+                            if (!App.isNullOrEmpty(col === null || col === void 0 ? void 0 : col.SwitchHideProperty)) {
+                                var IsHidden = false;
+                                eval("IsHidden=entity." + col.SwitchHideProperty + ";");
+                                if (IsHidden)
+                                    return "";
+                            }
+                            return "<input class=\"form-check-input " + Table + "_SwitchData_" + col.Column + "\" value=\"" + SetValue + "\" data-columid=\"" + colid + "\" data-rowid=\"" + rowid + "\"  type=\"checkbox\"  onchange=\"" + Table + "SwitchDataEvent($(this))\"  " + ischeck + "  " + (col.Disabled ? "disabled" : "") + " >";
                         }
                     };
                     break;
                 case "LinkEdit":
                     addcolum = {
-                        data: col.Columna, title: col.Label, render: function (val, types, entity, meta) {
+                        data: col.Column, title: col.Label, render: function (val, types, entity, meta) {
                             var id = null;
-                            var text = val == null ? "" : val;
+                            var text = val == null ? "..." : val;
                             eval("id=entity." + col.PropertyId1 + ";");
                             if (id == null)
                                 return text;
@@ -171,23 +179,23 @@ var App;
                     break;
                 case "LinkEvent":
                     addcolum = {
-                        data: col.Columna, title: col.Label, render: function (val, types, entity, meta) {
-                            var text = val == null ? "" : val;
+                        data: col.Column, title: col.Label, render: function (val, types, entity, meta) {
+                            var text = val == null ? "..." : val;
                             return "<a onclick='" + col.EventLink + "(" + JSON.stringify(entity) + ",this)' href=\"javascript: void(0)\">" + text + "</a>";
                         }
                     };
                     break;
                 case "LinkUrl":
                     addcolum = {
-                        data: col.Columna, title: col.Label, render: function (val, types, entity, meta) {
-                            var text = val == null ? "" : val;
+                        data: col.Column, title: col.Label, render: function (val, types, entity, meta) {
+                            var text = val == null ? "..." : val;
                             return "<a onclick='LinkUrlBtn" + Table + "('" + col.LinkUrl + "'," + JSON.stringify(entity) + ")' href=\"javascript: void(0)\">" + text + "</a>";
                         }
                     };
                     break;
                 case "HTML":
                     addcolum = {
-                        data: col.Columna, title: col.Label, render: function (val, types, entity, meta) {
+                        data: col.Column, title: col.Label, render: function (val, types, entity, meta) {
                             var result = "";
                             eval("result= " + col.Html + " ;");
                             return result;
@@ -196,7 +204,7 @@ var App;
                     break;
                 case "JavaScript":
                     addcolum = {
-                        data: col.Columna, title: col.Label, render: function (val, types, entity, meta) {
+                        data: col.Column, title: col.Label, render: function (val, types, entity, meta) {
                             var result = "";
                             eval(col.JavaScript);
                             return result;
@@ -233,18 +241,19 @@ var App;
             lengthChange: false,
             serverSide: Defaults.serverSide,
             pageLength: Defaults.pageLength,
-            stateSave: true,
+            stateSave: Defaults.stateSave,
             ordering: Defaults.ordering,
             order: [Defaults.order],
             columnDefs: CreateHeaderColumnsDef(colums, el),
             columns: CreateRowsData(colums, security, el)
         };
-        if (Defaults.rowId != null)
+        if ((Defaults === null || Defaults === void 0 ? void 0 : Defaults.rowId) != null) {
             options.rowId = function (a) {
                 var result = "";
                 eval("result= '" + el + "_'+a." + Defaults.rowId);
                 return result;
             };
+        }
         if (lang == "ES")
             options.language = {
                 url: ''
@@ -255,7 +264,7 @@ var App;
             buttons: Defaults.BtnDefaults,
             dom: {
                 button: {
-                    className: "btn"
+                    className: "btn btn-outline-primary"
                 }
             }
         };
@@ -263,7 +272,7 @@ var App;
         if (Edit != null) {
             options.rowCallback = function (row, data, index) {
                 var id = null;
-                eval("id=data." + Edit.Columna + ";");
+                eval("id=data." + Edit.Column + ";");
                 if ($.inArray(id, TableIds) !== -1) {
                     grid.row(index).select();
                 }
@@ -285,7 +294,6 @@ var App;
             if (security === null || security === void 0 ? void 0 : security.Insertar) {
                 var btnnew = {
                     text: "New",
-                    className: "btn   btn-outline-primary",
                     action: function (e, dt, node, config) {
                         if (urlEdit != null) {
                             window.location.href = urlEdit;
@@ -297,7 +305,6 @@ var App;
             if (security === null || security === void 0 ? void 0 : security.Actualizar) {
                 var btnedit = {
                     text: "Edit",
-                    className: "btn btn-outline-primary",
                     action: function (e, dt, node, config) {
                         if (TableIds.length == 1) {
                             window.location.href = urlEdit + TableIds[0];
@@ -312,7 +319,6 @@ var App;
             if (security === null || security === void 0 ? void 0 : security.Eliminar) {
                 var btnDelete = {
                     text: "Delete",
-                    className: "btn btn-outline-primary",
                     action: function (e, dt, node, config) {
                         if (TableIds.length > 0) {
                             var si = confirm("Esta seguro de que desea Eliminar estos registro(os)!");
@@ -341,7 +347,6 @@ var App;
             if (security === null || security === void 0 ? void 0 : security.Insertar) {
                 var btnnew = {
                     text: "New",
-                    className: "btn   btn-outline-primary",
                     action: function (e, dt, node, config) {
                         if (urlEdit != null) {
                             window.location.href = urlEdit;
@@ -359,7 +364,8 @@ var App;
                     text: item.text,
                     className: item.className,
                     action: function (e, dt, node, config) {
-                        eval(item.action + "(TableIds,dt,node,config);");
+                        var data = dt.rows().data().toArray();
+                        eval(item.action + "(TableIds,data,dt,node);");
                     }
                 };
                 btnsCreated.push(newbtn);
@@ -388,11 +394,33 @@ var App;
                 }
             };
         }
+        var SwitchEvent = colums.find(function (value, index) { return value.Type == "Switch"; });
+        if (SwitchEvent != null) {
+            window[el + "SwitchEvent"] = function ($this) {
+                var columid = $this.data("columid");
+                var rowid = parseInt($this.data("rowid"));
+                var NewValue = $this.is(":checked");
+                grid.cell({ row: rowid, column: columid }).data(NewValue);
+            };
+        }
+        var SwitchDataEvent = colums.find(function (value, index) { return value.Type == "SwitchData"; });
+        if (SwitchDataEvent != null) {
+            window[el + "SwitchDataEvent"] = function ($this) {
+                var columid = $this.data("columid");
+                var rowid = parseInt($this.data("rowid"));
+                var isChecked = $this.is(":checked");
+                var NewValue = null;
+                if (isChecked) {
+                    NewValue = $this.val();
+                }
+                grid.cell({ row: rowid, column: columid }).data(NewValue);
+            };
+        }
         var grid = $("#" + el).DataTable(options);
         function SelectedIndex(selected, items) {
             items.forEach(function (item) {
                 var id = null;
-                eval("id=item." + (Edit === null || Edit === void 0 ? void 0 : Edit.Columna) + ";");
+                eval("id=item." + (Edit === null || Edit === void 0 ? void 0 : Edit.Column) + ";");
                 var index = $.inArray(id, selected);
                 if (index == -1) {
                     selected.push(id);
@@ -403,7 +431,7 @@ var App;
         function UnSelectedIndex(selected, items) {
             items.forEach(function (item) {
                 var id = null;
-                eval("id=item." + (Edit === null || Edit === void 0 ? void 0 : Edit.Columna) + ";");
+                eval("id=item." + (Edit === null || Edit === void 0 ? void 0 : Edit.Column) + ";");
                 var index = $.inArray(id, selected);
                 if (index == -1) {
                 }
