@@ -33,7 +33,7 @@ var App;
             this.rowId = null;
             this.pageLength = 5;
             this.searching = true;
-            this.order = [1, 'asc'];
+            this.order = [[1, 'asc']];
             this.ordering = true;
             this.stateSave = false;
             this.BtnDefaults = ["colvis", "excel", "pdf"];
@@ -249,7 +249,7 @@ var App;
             pageLength: Defaults.pageLength,
             stateSave: Defaults.stateSave,
             ordering: Defaults.ordering,
-            order: [Defaults.order],
+            order: Defaults.order,
             columnDefs: CreateHeaderColumnsDef(colums, el),
             columns: CreateRowsData(colums, security, el)
         };

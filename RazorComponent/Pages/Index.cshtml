@@ -8,10 +8,12 @@
 
 
 
-<div class="container">
+<div id="Appvue" class="container">
+    <h1>{{Texto}}</h1>
+    <input type="text" name="name" v-model="Texto" />
     <div class="row">
         <div class="col">
-            <table id="GridView" class="table">
+            <table id="GridView" ref="GridView" class="table">
             </table>
         </div>
 
@@ -27,7 +29,7 @@
 
 </div>
 
-
+<button></button>
 
 @section app{
 

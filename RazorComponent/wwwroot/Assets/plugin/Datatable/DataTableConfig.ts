@@ -29,7 +29,7 @@ namespace App{
         rowId?: string=null;
         pageLength?: number =5;
         searching?: boolean=true ;
-        order?: (string | number)[] = [1, 'asc'] ;
+        order?: (string | number)[][] = [[1, 'asc']] ;
         ordering?: boolean = true;
         stateSave?: boolean = false;
         BtnDefaults?: ("colvis" | "excel" | "pdf")[] = ["colvis","excel","pdf"];
@@ -285,7 +285,7 @@ namespace App{
     }
 
 
-    export function GridTable(el: string,
+    export function GridTable<T>(el: string,
         colums: JQDataTableClass[],
         urldata: string=null,
         urlEdit: string = null,
@@ -317,7 +317,7 @@ namespace App{
             pageLength: Defaults.pageLength,
             stateSave:Defaults.stateSave,
             ordering: Defaults.ordering,
-            order: [Defaults.order],
+            order: Defaults.order,
             columnDefs: CreateHeaderColumnsDef(colums,el),
             columns: CreateRowsData(colums, security, el)
         
@@ -592,7 +592,7 @@ namespace App{
        
         
 
-        var grid = $(`#${el}`).DataTable(options);
+        var grid = $(`#${el}`).DataTable<T>(options);
 
 
         function SelectedIndex(selected: string[], items: any[]) {
