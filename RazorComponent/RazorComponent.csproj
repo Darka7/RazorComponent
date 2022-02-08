@@ -28,6 +28,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Entity\Entity.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <TypeScriptCompile Include="wwwroot\Assets\%40types\sizzle\index.d.ts" />
     <TypeScriptCompile Include="wwwroot\Assets\%40types\vue-class-component\component.d.ts" />
     <TypeScriptCompile Include="wwwroot\Assets\%40types\vue-class-component\data.d.ts" />

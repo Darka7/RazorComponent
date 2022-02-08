@@ -8,7 +8,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text.Json;
 using System.Threading.Tasks;
-
+using Entity;
 namespace RazorComponent.Pages
 {
     public class IndexModel : PageModel
@@ -40,6 +40,8 @@ namespace RazorComponent.Pages
 
         public void OnGet()
         {
+          
+
 
         }
 

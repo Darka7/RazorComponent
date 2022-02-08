@@ -53,8 +53,8 @@ var App;
                 colums.push(ob);
             }
             else {
-                var OrderColum = isNullOrEmpty(val === null || val === void 0 ? void 0 : val.Orderable) ? true : val.Orderable;
-                var Visible = isNullOrEmpty(val === null || val === void 0 ? void 0 : val.VisibleColum) ? true : val.VisibleColum;
+                var OrderColum = App.isNullOrEmpty(val === null || val === void 0 ? void 0 : val.Orderable) ? true : val.Orderable;
+                var Visible = App.isNullOrEmpty(val === null || val === void 0 ? void 0 : val.VisibleColum) ? true : val.VisibleColum;
                 var ob = {
                     targets: index,
                     orderable: OrderColum,
@@ -96,14 +96,14 @@ var App;
                 case "DateTime":
                     addcolum = {
                         data: col.Column, title: col.Label, className: col === null || col === void 0 ? void 0 : col.Class, render: function (val, types, entity, meta) {
-                            return !isNullOrEmpty(val) ? dateFormat(new Date(val), formatDateTime) : "";
+                            return !App.isNullOrEmpty(val) ? dateFormat(new Date(val), formatDateTime) : "";
                         }
                     };
                     break;
                 case "Date":
                     addcolum = {
                         data: col.Column, title: col.Label, className: col === null || col === void 0 ? void 0 : col.Class, render: function (val, types, entity, meta) {
-                            return !isNullOrEmpty(val) ? dateFormat(new Date(val), formatDate) : "";
+                            return !App.isNullOrEmpty(val) ? dateFormat(new Date(val), formatDate) : "";
                         }
                     };
                     break;
@@ -143,7 +143,7 @@ var App;
                             var ischeck = val == true ? 'checked' : '';
                             var rowid = meta.row;
                             var colid = meta.col;
-                            if (!isNullOrEmpty(col === null || col === void 0 ? void 0 : col.SwitchHideProperty)) {
+                            if (!App.isNullOrEmpty(col === null || col === void 0 ? void 0 : col.SwitchHideProperty)) {
                                 var IsHidden = false;
                                 eval("IsHidden=entity.".concat(col.SwitchHideProperty, ";"));
                                 if (IsHidden)
@@ -156,12 +156,12 @@ var App;
                 case "SwitchData":
                     addcolum = {
                         data: col.Column, title: col.Label, width: "10%", className: col === null || col === void 0 ? void 0 : col.Class, render: function (val, types, entity, meta) {
-                            var ischeck = !isNullOrEmpty(val) ? 'checked' : '';
+                            var ischeck = !App.isNullOrEmpty(val) ? 'checked' : '';
                             var rowid = meta.row;
                             var colid = meta.col;
                             var SetValue = null;
                             eval("SetValue=entity.".concat(col.SwitchDataValue, ";"));
-                            if (!isNullOrEmpty(col === null || col === void 0 ? void 0 : col.SwitchHideProperty)) {
+                            if (!App.isNullOrEmpty(col === null || col === void 0 ? void 0 : col.SwitchHideProperty)) {
                                 var IsHidden = false;
                                 eval("IsHidden=entity.".concat(col.SwitchHideProperty, ";"));
                                 if (IsHidden)
@@ -391,7 +391,7 @@ var App;
             (_a = options.buttons.buttons).push.apply(_a, __spreadArray([], __read(btnsCreated), false));
         }
         /// btns  export
-        if (!isNullOrEmpty(Defaults.BtnDefaults)) {
+        if (!App.isNullOrEmpty(Defaults.BtnDefaults)) {
             var colvis = Defaults.BtnDefaults.find(function (r) { return r == "colvis"; });
             if (colvis != null) {
                 var NewBtnsDefaults = Defaults.BtnDefaults.filter(function (r) { return r != "colvis"; });
