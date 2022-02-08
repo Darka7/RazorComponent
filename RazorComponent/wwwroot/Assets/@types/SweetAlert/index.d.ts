@@ -29,7 +29,7 @@ declare global {
              * })
              * ```
              */
-            function fire<T = any>(options: SweetAlertOptions<T>): Promise<SweetAlertResult<Awaited<T>>>;
+            function fire<T = any>(options: SweetAlertOptions<T>): Promise<SweetAlertResult<AwaitedSwal<T>>>;
 
             /**
              * Function to display a simple SweetAlert2 popup.
@@ -39,7 +39,7 @@ declare global {
              * Swal.fire('The Internet?', 'That thing is still around?', 'question');
              * ```
              */
-            function fire<T = any>(title?: string, html?: string, icon?: SweetAlertIcon): Promise<SweetAlertResult<Awaited<T>>>;
+            function fire<T = any>(title?: string, html?: string, icon?: SweetAlertIcon): Promise<SweetAlertResult<AwaitedSwal<T>>>;
 
             /**
              * Reuse configuration by creating a `Swal` instance.
@@ -323,7 +323,7 @@ declare global {
             popup?: string | readonly string[];
         }
 
-        type Awaited<T> = T extends Promise<infer U> ? U : T;
+        type AwaitedSwal<T> = T extends Promise<infer U> ? U : T;
 
         type SyncOrAsync<T> = T | Promise<T> | { toPromise: () => T };
 

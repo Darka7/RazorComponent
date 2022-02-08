@@ -15,10 +15,14 @@ var __read = (this && this.__read) || function (o, n) {
     }
     return ar;
 };
-var __spreadArray = (this && this.__spreadArray) || function (to, from) {
-    for (var i = 0, il = from.length, j = to.length; i < il; i++, j++)
-        to[j] = from[i];
-    return to;
+var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
+    if (pack || arguments.length === 2) for (var i = 0, l = from.length, ar; i < l; i++) {
+        if (ar || !(i in from)) {
+            if (!ar) ar = Array.prototype.slice.call(from, 0, i);
+            ar[i] = from[i];
+        }
+    }
+    return to.concat(ar || Array.prototype.slice.call(from));
 };
 var App;
 (function (App) {
@@ -44,13 +48,13 @@ var App;
                 var ob = {
                     targets: 0,
                     orderable: false,
-                    className: "toggle-all" + table + " select-checkbox text-center noVis",
+                    className: "toggle-all".concat(table, " select-checkbox text-center noVis"),
                 };
                 colums.push(ob);
             }
             else {
-                var OrderColum = App.isNullOrEmpty(val === null || val === void 0 ? void 0 : val.Orderable) ? true : val.Orderable;
-                var Visible = App.isNullOrEmpty(val === null || val === void 0 ? void 0 : val.VisibleColum) ? true : val.VisibleColum;
+                var OrderColum = isNullOrEmpty(val === null || val === void 0 ? void 0 : val.Orderable) ? true : val.Orderable;
+                var Visible = isNullOrEmpty(val === null || val === void 0 ? void 0 : val.VisibleColum) ? true : val.VisibleColum;
                 var ob = {
                     targets: index,
                     orderable: OrderColum,
@@ -92,14 +96,14 @@ var App;
                 case "DateTime":
                     addcolum = {
                         data: col.Column, title: col.Label, className: col === null || col === void 0 ? void 0 : col.Class, render: function (val, types, entity, meta) {
-                            return !App.isNullOrEmpty(val) ? dateFormat(new Date(val), formatDateTime) : "";
+                            return !isNullOrEmpty(val) ? dateFormat(new Date(val), formatDateTime) : "";
                         }
                     };
                     break;
                 case "Date":
                     addcolum = {
                         data: col.Column, title: col.Label, className: col === null || col === void 0 ? void 0 : col.Class, render: function (val, types, entity, meta) {
-                            return !App.isNullOrEmpty(val) ? dateFormat(new Date(val), formatDate) : "";
+                            return !isNullOrEmpty(val) ? dateFormat(new Date(val), formatDate) : "";
                         }
                     };
                     break;
@@ -127,8 +131,8 @@ var App;
                 case "Accion":
                     addcolum = {
                         data: col.Column, title: col.Label, width: "5%", className: col === null || col === void 0 ? void 0 : col.Class, render: function (val, types, entity, meta) {
-                            var btnedit = (security === null || security === void 0 ? void 0 : security.Actualizar) ? "<button type=\"button\" class=\"btn btn-outline-primary\" onclick=\"Editbtn" + Table + "('" + val + "')\">Editar</button>" : "";
-                            var btnDelete = (security === null || security === void 0 ? void 0 : security.Eliminar) ? "<button type=\"button\" class=\"btn btn-outline-danger\" onclick=\"Deletebtn" + Table + "('" + val + "')\">Eliminar</button>" : "";
+                            var btnedit = (security === null || security === void 0 ? void 0 : security.Actualizar) ? "<button type=\"button\" class=\"btn btn-outline-primary\" onclick=\"Editbtn".concat(Table, "('").concat(val, "')\">Editar</button>") : "";
+                            var btnDelete = (security === null || security === void 0 ? void 0 : security.Eliminar) ? "<button type=\"button\" class=\"btn btn-outline-danger\" onclick=\"Deletebtn".concat(Table, "('").concat(val, "')\">Eliminar</button>") : "";
                             return btnedit + btnDelete;
                         }
                     };
@@ -139,31 +143,31 @@ var App;
                             var ischeck = val == true ? 'checked' : '';
                             var rowid = meta.row;
                             var colid = meta.col;
-                            if (!App.isNullOrEmpty(col === null || col === void 0 ? void 0 : col.SwitchHideProperty)) {
+                            if (!isNullOrEmpty(col === null || col === void 0 ? void 0 : col.SwitchHideProperty)) {
                                 var IsHidden = false;
-                                eval("IsHidden=entity." + col.SwitchHideProperty + ";");
+                                eval("IsHidden=entity.".concat(col.SwitchHideProperty, ";"));
                                 if (IsHidden)
                                     return "";
                             }
-                            return "<input class=\"form-check-input " + Table + "_Switch_" + col.Column + "\" type=\"checkbox\" data-columid=\"" + colid + "\" data-rowid=\"" + rowid + "\" onchange=\"" + Table + "SwitchEvent($(this))\" " + ischeck + "  " + (col.Disabled ? "disabled" : "") + " value=\"" + val + "\">";
+                            return "<input class=\"form-check-input ".concat(Table, "_Switch_").concat(col.Column, "\" type=\"checkbox\" data-columid=\"").concat(colid, "\" data-rowid=\"").concat(rowid, "\" onchange=\"").concat(Table, "SwitchEvent($(this))\" ").concat(ischeck, "  ").concat(col.Disabled ? "disabled" : "", " value=\"").concat(val, "\">");
                         }
                     };
                     break;
                 case "SwitchData":
                     addcolum = {
                         data: col.Column, title: col.Label, width: "10%", className: col === null || col === void 0 ? void 0 : col.Class, render: function (val, types, entity, meta) {
-                            var ischeck = !App.isNullOrEmpty(val) ? 'checked' : '';
+                            var ischeck = !isNullOrEmpty(val) ? 'checked' : '';
                             var rowid = meta.row;
                             var colid = meta.col;
                             var SetValue = null;
-                            eval("SetValue=entity." + col.SwitchDataValue + ";");
-                            if (!App.isNullOrEmpty(col === null || col === void 0 ? void 0 : col.SwitchHideProperty)) {
+                            eval("SetValue=entity.".concat(col.SwitchDataValue, ";"));
+                            if (!isNullOrEmpty(col === null || col === void 0 ? void 0 : col.SwitchHideProperty)) {
                                 var IsHidden = false;
-                                eval("IsHidden=entity." + col.SwitchHideProperty + ";");
+                                eval("IsHidden=entity.".concat(col.SwitchHideProperty, ";"));
                                 if (IsHidden)
                                     return "";
                             }
-                            return "<input class=\"form-check-input " + Table + "_SwitchData_" + col.Column + "\" value=\"" + SetValue + "\" data-columid=\"" + colid + "\" data-rowid=\"" + rowid + "\"  type=\"checkbox\"  onchange=\"" + Table + "SwitchDataEvent($(this))\"  " + ischeck + "  " + (col.Disabled ? "disabled" : "") + " >";
+                            return "<input class=\"form-check-input ".concat(Table, "_SwitchData_").concat(col.Column, "\" value=\"").concat(SetValue, "\" data-columid=\"").concat(colid, "\" data-rowid=\"").concat(rowid, "\"  type=\"checkbox\"  onchange=\"").concat(Table, "SwitchDataEvent($(this))\"  ").concat(ischeck, "  ").concat(col.Disabled ? "disabled" : "", " >");
                         }
                     };
                     break;
@@ -172,10 +176,10 @@ var App;
                         data: col.Column, title: col.Label, render: function (val, types, entity, meta) {
                             var id = null;
                             var text = val == null ? "..." : val;
-                            eval("id=entity." + col.PropertyId1 + ";");
+                            eval("id=entity.".concat(col.PropertyId1, ";"));
                             if (id == null)
                                 return text;
-                            return "<a onclick=\"Editbtn" + Table + "('" + id + "')\" href=\"javascript: void(0)\">" + text + "</a>";
+                            return "<a onclick=\"Editbtn".concat(Table, "('").concat(id, "')\" href=\"javascript: void(0)\">").concat(text, "</a>");
                         }
                     };
                     break;
@@ -183,7 +187,7 @@ var App;
                     addcolum = {
                         data: col.Column, title: col.Label, render: function (val, types, entity, meta) {
                             var text = val == null ? "..." : val;
-                            return "<a onclick='" + col.EventLink + "(" + JSON.stringify(entity) + ",this)' href=\"javascript: void(0)\">" + text + "</a>";
+                            return "<a onclick='".concat(col.EventLink, "(").concat(JSON.stringify(entity), ",this)' href=\"javascript: void(0)\">").concat(text, "</a>");
                         }
                     };
                     break;
@@ -191,7 +195,7 @@ var App;
                     addcolum = {
                         data: col.Column, title: col.Label, render: function (val, types, entity, meta) {
                             var text = val == null ? "..." : val;
-                            return "<a onclick='LinkUrlBtn" + Table + "('" + col.LinkUrl + "'," + JSON.stringify(entity) + ")' href=\"javascript: void(0)\">" + text + "</a>";
+                            return "<a onclick='LinkUrlBtn".concat(Table, "('").concat(col.LinkUrl, "',").concat(JSON.stringify(entity), ")' href=\"javascript: void(0)\">").concat(text, "</a>");
                         }
                     };
                     break;
@@ -199,7 +203,7 @@ var App;
                     addcolum = {
                         data: col.Column, title: col.Label, render: function (val, types, entity, meta) {
                             var result = "";
-                            eval("result= " + col.Html + " ;");
+                            eval("result= ".concat(col.Html, " ;"));
                             return result;
                         }
                     };
@@ -252,7 +256,7 @@ var App;
         if ((Defaults === null || Defaults === void 0 ? void 0 : Defaults.rowId) != null) {
             options.rowId = function (a) {
                 var result = "";
-                eval("result= '" + el + "_'+a." + Defaults.rowId);
+                eval("result= '".concat(el, "_'+a.").concat(Defaults.rowId));
                 return result;
             };
         }
@@ -285,7 +289,7 @@ var App;
         if (Edit != null) {
             options.rowCallback = function (row, data, index) {
                 var id = null;
-                eval("id=data." + Edit.Column + ";");
+                eval("id=data.".concat(Edit.Column, ";"));
                 if ($.inArray(id, TableIds) !== -1) {
                     grid.row(index).select();
                 }
@@ -379,15 +383,15 @@ var App;
                     className: item.className,
                     action: function (e, dt, node, config) {
                         var data = dt.rows().data().toArray();
-                        eval(item.action + "(TableIds,data,dt,node);");
+                        eval("".concat(item.action, "(TableIds,data,dt,node);"));
                     }
                 };
                 btnsCreated.push(newbtn);
             });
-            (_a = options.buttons.buttons).push.apply(_a, __spreadArray([], __read(btnsCreated)));
+            (_a = options.buttons.buttons).push.apply(_a, __spreadArray([], __read(btnsCreated), false));
         }
         /// btns  export
-        if (!App.isNullOrEmpty(Defaults.BtnDefaults)) {
+        if (!isNullOrEmpty(Defaults.BtnDefaults)) {
             var colvis = Defaults.BtnDefaults.find(function (r) { return r == "colvis"; });
             if (colvis != null) {
                 var NewBtnsDefaults = Defaults.BtnDefaults.filter(function (r) { return r != "colvis"; });
@@ -396,10 +400,10 @@ var App;
                     columns: ":not(.noVis)",
                 };
                 options.buttons.buttons.push(Colvis);
-                (_b = options.buttons.buttons).push.apply(_b, __spreadArray([], __read(NewBtnsDefaults)));
+                (_b = options.buttons.buttons).push.apply(_b, __spreadArray([], __read(NewBtnsDefaults), false));
             }
             else {
-                (_c = options.buttons.buttons).push.apply(_c, __spreadArray([], __read(Defaults.BtnDefaults)));
+                (_c = options.buttons.buttons).push.apply(_c, __spreadArray([], __read(Defaults.BtnDefaults), false));
             }
         }
         //colum Accion
@@ -446,11 +450,11 @@ var App;
                 grid.cell({ row: rowid, column: columid }).data(NewValue);
             };
         }
-        var grid = $("#" + el).DataTable(options);
+        var grid = $("#".concat(el)).DataTable(options);
         function SelectedIndex(selected, items) {
             items.forEach(function (item) {
                 var id = null;
-                eval("id=item." + (Edit === null || Edit === void 0 ? void 0 : Edit.Column) + ";");
+                eval("id=item.".concat(Edit === null || Edit === void 0 ? void 0 : Edit.Column, ";"));
                 var index = $.inArray(id, selected);
                 if (index == -1) {
                     selected.push(id);
@@ -461,7 +465,7 @@ var App;
         function UnSelectedIndex(selected, items) {
             items.forEach(function (item) {
                 var id = null;
-                eval("id=item." + (Edit === null || Edit === void 0 ? void 0 : Edit.Column) + ";");
+                eval("id=item.".concat(Edit === null || Edit === void 0 ? void 0 : Edit.Column, ";"));
                 var index = $.inArray(id, selected);
                 if (index == -1) {
                 }
