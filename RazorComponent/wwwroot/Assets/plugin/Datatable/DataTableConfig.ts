@@ -25,7 +25,7 @@ namespace App{
     }
 
     export class GridTableOptions {
-        serverSide?: boolean=false ;
+        serverSide?: boolean=true ;
         rowId?: string=null;
         pageLength?: number =5;
         searching?: boolean=true ;
@@ -40,6 +40,7 @@ namespace App{
         Type?: "Index" | "Text" | "DateTime" | "Date" | "IsActive" | "Bool" | "BoolCheck" | "Accion" | "Switch" | "SwitchData"  | "LinkEdit" | "LinkEvent" | "LinkUrl" | "HTML"| "JavaScript";
         Orderable?: boolean;
         ClassColum?: string;
+        VisibleColum?: boolean;
         WidthColum?: string;
         Width?: string;
         Class?: string;
@@ -67,17 +68,19 @@ namespace App{
                 var ob: DataTables.ColumnDefsSettings = {
                     targets: 0,
                     orderable: false,
-                    className: `toggle-all${table} select-checkbox`,
+                    className: `toggle-all${table} select-checkbox text-center noVis`,
                     
 
                 };
                 colums.push(ob);
             } else {
+
                 var OrderColum = isNullOrEmpty(val?.Orderable) ? true : val.Orderable;
+                var Visible = isNullOrEmpty(val?.VisibleColum) ? true : val.VisibleColum;
                 var ob: DataTables.ColumnDefsSettings = {
                     targets: index,
                     orderable: OrderColum,
-
+                    visible: Visible,
             };
                 if (val?.ClassColum != null) ob.className = val.ClassColum;
                 if (val?.Width != null) ob.width = val.WidthColum;
@@ -308,7 +311,7 @@ namespace App{
             searching: Defaults.searching,
             autoWidth: false,
             dom: "Bfrtip",
-            processing: true,
+            processing: true,            
             lengthChange: false,
             serverSide: Defaults.serverSide,
             pageLength: Defaults.pageLength,
@@ -333,20 +336,34 @@ namespace App{
 
         }
 
-        if (lang=="ES") options.language = {
-            url:''
-        };
+        if (lang == "ES") {
+            options.language = {
+                url: '',
+                buttons: {
+                    colvis: "Colums"
+                }
+            };
+        } else {
+            options.language = {
+                buttons: {
+                    colvis: "Columnas"
+                }
+            }
+        }
 
         var Edit = colums.find(function (value, index) { return value.Type == "Index"; });
 
         // btns Defaults
         options.buttons = {
-            buttons: Defaults.BtnDefaults,
+            buttons: [],
             dom: {
                 button: {
                     className: "btn btn-outline-primary"
-                }
-            }
+                },
+                
+            },
+            
+            
         };
 
         //btns por seguridad
@@ -367,7 +384,8 @@ namespace App{
                 selector: 'td:first-child',
                 info: false
             };
-
+            options.deferRender = true;
+            
             $("#" + el).on("click", ".toggle-all" + el, function () {
                 $(this).closest("tr").toggleClass("selected");
                 if ($(this).closest("tr").hasClass("selected")) {
@@ -494,6 +512,25 @@ namespace App{
 
             options.buttons.buttons.push(...btnsCreated);
         }
+
+        /// btns  export
+        if (!isNullOrEmpty(Defaults.BtnDefaults)) {
+            var colvis = Defaults.BtnDefaults.find(r => r == "colvis");
+
+            if (colvis != null) {
+                var NewBtnsDefaults = Defaults.BtnDefaults.filter(r => r != "colvis");
+                var Colvis: DataTables.ButtonSettings = {
+                    extend: "colvis",
+                    columns: ":not(.noVis)", 
+                };
+                options.buttons.buttons.push(Colvis);
+                options.buttons.buttons.push(...NewBtnsDefaults);
+            } else {
+                options.buttons.buttons.push(...Defaults.BtnDefaults);
+            }
+           
+        }
+       
 
         //colum Accion
         var Accion = colums.find(function (value, index) { return value.Type == "Accion"; });

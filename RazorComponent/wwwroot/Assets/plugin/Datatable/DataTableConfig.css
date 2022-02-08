@@ -1,0 +1,102 @@
+﻿
+table.dataTable thead th.select-checkbox {
+    position: relative;
+}
+
+    table.dataTable thead th.select-checkbox:before,
+    table.dataTable thead th.select-checkbox:after {
+        display: block;
+        position: absolute;
+        top: 1.2em;
+        left: 50%;
+        width: 0.8em;
+        height: 0.8em;
+        box-sizing: border-box;
+    }
+
+table.dataTable tbody td.select-checkbox:before,
+table.dataTable tbody td.select-checkbox:after,
+table.dataTable tbody th.select-checkbox:before,
+table.dataTable tbody th.select-checkbox:after {
+    width: 0.8em;
+    height: 0.8em;
+    box-sizing: border-box;
+}
+
+table.dataTable thead th.select-checkbox:before {
+    content: " ";
+    margin-top: -2px;
+    margin-left: -6px;
+    border: 1px solid rgba(0,0,0,.25);
+    border-radius: 0.25em;
+  
+}
+
+table.dataTable tbody td.select-checkbox:before,
+table.dataTable tbody th.select-checkbox:before {
+    content: " ";
+    margin-top: -2px;
+    margin-left: -6px;
+    border: 1px solid rgba(0,0,0,.25);
+    border-radius: 0.25em;
+   
+}
+
+table.dataTable tr.selected td.select-checkbox:after {
+    content: " ";
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3e%3cpath fill='none' stroke='%23fff' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='M6 10l3 3l6-6'/%3e%3c/svg%3e");
+    width: 0.8em;
+    height: 0.8em;
+    margin-top: -9px;
+    margin-left:-7px;
+    vertical-align: top;
+    background-color: #fff;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    border: 1px solid rgba(0,0,0,.25);
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    -webkit-print-color-adjust: exact;
+    color-adjust: exact;
+    border-radius: 0.25em;
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+}
+
+table.dataTable tr.selected th.select-checkbox:after {
+    content: " ";
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3e%3cpath fill='none' stroke='%23fff' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='M6 10l3 3l6-6'/%3e%3c/svg%3e");
+    width: 0.8em;
+    height: 0.8em;
+    margin-top: -9px;
+    margin-left: -7px;
+    vertical-align: top;
+    background-color: #fff;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    border: 1px solid rgba(0,0,0,.25);
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    -webkit-print-color-adjust: exact;
+    color-adjust: exact;
+    border-radius: 0.25em;
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+}
+
+table.dataTable tbody tr.selected, table.dataTable tbody th.selected, table.dataTable tbody td.selected {
+    color: black;
+}
+table.dataTable tbody > tr.selected, table.dataTable tbody > tr > .selected {
+    background-color: transparent !important;
+}
+
+.dropdown-item .buttons-columnVisibility {
+    min-width: 0px !important;
+    width: 90%;
+    margin: 4px 10px;
+}

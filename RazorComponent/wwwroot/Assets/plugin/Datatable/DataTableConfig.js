@@ -25,7 +25,7 @@ var App;
     var lang = "EN";
     var GridTableOptions = /** @class */ (function () {
         function GridTableOptions() {
-            this.serverSide = false;
+            this.serverSide = true;
             this.rowId = null;
             this.pageLength = 5;
             this.searching = true;
@@ -44,15 +44,17 @@ var App;
                 var ob = {
                     targets: 0,
                     orderable: false,
-                    className: "toggle-all" + table + " select-checkbox",
+                    className: "toggle-all" + table + " select-checkbox text-center noVis",
                 };
                 colums.push(ob);
             }
             else {
                 var OrderColum = App.isNullOrEmpty(val === null || val === void 0 ? void 0 : val.Orderable) ? true : val.Orderable;
+                var Visible = App.isNullOrEmpty(val === null || val === void 0 ? void 0 : val.VisibleColum) ? true : val.VisibleColum;
                 var ob = {
                     targets: index,
                     orderable: OrderColum,
+                    visible: Visible,
                 };
                 if ((val === null || val === void 0 ? void 0 : val.ClassColum) != null)
                     ob.className = val.ClassColum;
@@ -217,7 +219,7 @@ var App;
         return colums;
     }
     function GridTable(el, colums, urldata, urlEdit, urlDelete, security, Buttons, Defaults) {
-        var _a;
+        var _a, _b, _c;
         if (urldata === void 0) { urldata = null; }
         if (urlEdit === void 0) { urlEdit = null; }
         if (urlDelete === void 0) { urlDelete = null; }
@@ -254,19 +256,30 @@ var App;
                 return result;
             };
         }
-        if (lang == "ES")
+        if (lang == "ES") {
             options.language = {
-                url: ''
+                url: '',
+                buttons: {
+                    colvis: "Colums"
+                }
             };
+        }
+        else {
+            options.language = {
+                buttons: {
+                    colvis: "Columnas"
+                }
+            };
+        }
         var Edit = colums.find(function (value, index) { return value.Type == "Index"; });
         // btns Defaults
         options.buttons = {
-            buttons: Defaults.BtnDefaults,
+            buttons: [],
             dom: {
                 button: {
                     className: "btn btn-outline-primary"
-                }
-            }
+                },
+            },
         };
         //btns por seguridad
         if (Edit != null) {
@@ -282,6 +295,7 @@ var App;
                 selector: 'td:first-child',
                 info: false
             };
+            options.deferRender = true;
             $("#" + el).on("click", ".toggle-all" + el, function () {
                 $(this).closest("tr").toggleClass("selected");
                 if ($(this).closest("tr").hasClass("selected")) {
@@ -371,6 +385,22 @@ var App;
                 btnsCreated.push(newbtn);
             });
             (_a = options.buttons.buttons).push.apply(_a, __spreadArray([], __read(btnsCreated)));
+        }
+        /// btns  export
+        if (!App.isNullOrEmpty(Defaults.BtnDefaults)) {
+            var colvis = Defaults.BtnDefaults.find(function (r) { return r == "colvis"; });
+            if (colvis != null) {
+                var NewBtnsDefaults = Defaults.BtnDefaults.filter(function (r) { return r != "colvis"; });
+                var Colvis = {
+                    extend: "colvis",
+                    columns: ":not(.noVis)",
+                };
+                options.buttons.buttons.push(Colvis);
+                (_b = options.buttons.buttons).push.apply(_b, __spreadArray([], __read(NewBtnsDefaults)));
+            }
+            else {
+                (_c = options.buttons.buttons).push.apply(_c, __spreadArray([], __read(Defaults.BtnDefaults)));
+            }
         }
         //colum Accion
         var Accion = colums.find(function (value, index) { return value.Type == "Accion"; });
