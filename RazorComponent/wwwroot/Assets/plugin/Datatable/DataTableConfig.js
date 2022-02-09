@@ -26,6 +26,199 @@ var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
 };
 var App;
 (function (App) {
+    var DT;
+    (function (DT) {
+        var lang = "EN";
+        function CreateHeaderColumnsDef(ct, table) {
+            var colums = [];
+            ct.forEach(function (val, index) {
+                if (val.Type == "Index") {
+                    var ob = {
+                        targets: 0,
+                        orderable: false,
+                        className: "toggle-all".concat(table, " select-checkbox text-center noVis"),
+                    };
+                    colums.push(ob);
+                }
+                else {
+                    var OrderColum = App.isNullOrEmpty(val === null || val === void 0 ? void 0 : val.Orderable) ? true : val.Orderable;
+                    var Visible = App.isNullOrEmpty(val === null || val === void 0 ? void 0 : val.VisibleColum) ? true : val.VisibleColum;
+                    var ob = {
+                        targets: index,
+                        orderable: OrderColum,
+                        visible: Visible,
+                    };
+                    if ((val === null || val === void 0 ? void 0 : val.ClassColum) != null)
+                        ob.className = val.ClassColum;
+                    if ((val === null || val === void 0 ? void 0 : val.Width) != null)
+                        ob.width = val.WidthColum;
+                    colums.push(ob);
+                }
+            });
+            return colums;
+        }
+        DT.CreateHeaderColumnsDef = CreateHeaderColumnsDef;
+        function CreateRowsData(ct, security, Table) {
+            var formatDateTime = "ES" == lang ? "dd/mm/yyyy h:MM TT" : "mm/dd/yyyy h:MM TT";
+            var formatDate = "ES" == lang ? "dd/mm/yyyy" : "mm/dd/yyyy";
+            var Activo = lang == "ES" ? "Activo" : "Active";
+            var Inactive = lang == "ES" ? "Inactivo" : "Inactive";
+            var colums = [];
+            ct.forEach(function (col, index) {
+                var addcolum = null;
+                switch (col.Type) {
+                    case "Index":
+                        addcolum = {
+                            data: col.Column,
+                            orderable: false,
+                            width: "5%",
+                            className: "select-checkbox",
+                            title: "<i ></i>",
+                            render: function (val, types, entity, meta) {
+                                return "";
+                            }
+                        };
+                        break;
+                    case "Text":
+                        addcolum = { data: col.Column, title: col.Label };
+                        break;
+                    case "DateTime":
+                        addcolum = {
+                            data: col.Column, title: col.Label, render: function (val, types, entity, meta) {
+                                return !App.isNullOrEmpty(val) ? dateFormat(new Date(val), formatDateTime) : "";
+                            }
+                        };
+                        break;
+                    case "Date":
+                        addcolum = {
+                            data: col.Column, title: col.Label, render: function (val, types, entity, meta) {
+                                return !App.isNullOrEmpty(val) ? dateFormat(new Date(val), formatDate) : "";
+                            }
+                        };
+                        break;
+                    case "IsActive":
+                        addcolum = {
+                            data: col.Column, title: col.Label, render: function (val, types, entity, meta) {
+                                return val == true ? Activo : Inactive;
+                            }
+                        };
+                        break;
+                    case "Bool":
+                        addcolum = {
+                            data: col.Column, title: col.Label, render: function (val, types, entity, meta) {
+                                return val == true ? col.BoolTrue : col.BoolFalse;
+                            }
+                        };
+                        break;
+                    case "BoolCheck":
+                        addcolum = {
+                            data: col.Column, title: col.Label, render: function (val, types, entity, meta) {
+                                return val == true ? "" : "";
+                            }
+                        };
+                        break;
+                    case "Accion":
+                        addcolum = {
+                            data: col.Column, title: col.Label, width: "5%", render: function (val, types, entity, meta) {
+                                var btnedit = (security === null || security === void 0 ? void 0 : security.Actualizar) ? "<button type=\"button\" class=\"btn btn-outline-primary\" onclick=\"Editbtn".concat(Table, "('").concat(val, "')\">Editar</button>") : "";
+                                var btnDelete = (security === null || security === void 0 ? void 0 : security.Eliminar) ? "<button type=\"button\" class=\"btn btn-outline-danger\" onclick=\"Deletebtn".concat(Table, "('").concat(val, "')\">Eliminar</button>") : "";
+                                return btnedit + btnDelete;
+                            }
+                        };
+                        break;
+                    case "Switch":
+                        addcolum = {
+                            data: col.Column, title: col.Label, width: "10%", render: function (val, types, entity, meta) {
+                                var ischeck = val == true ? 'checked' : '';
+                                var rowid = meta.row;
+                                var colid = meta.col;
+                                if (!App.isNullOrEmpty(col === null || col === void 0 ? void 0 : col.SwitchHideProperty)) {
+                                    var IsHidden = false;
+                                    eval("IsHidden=entity.".concat(col.SwitchHideProperty, ";"));
+                                    if (IsHidden)
+                                        return "";
+                                }
+                                return "<input class=\"form-check-input ".concat(Table, "_Switch_").concat(col.Column, "\" type=\"checkbox\" data-columid=\"").concat(colid, "\" data-rowid=\"").concat(rowid, "\" onchange=\"").concat(Table, "SwitchEvent($(this))\" ").concat(ischeck, "  ").concat(col.Disabled ? "disabled" : "", " value=\"").concat(val, "\">");
+                            }
+                        };
+                        break;
+                    case "SwitchData":
+                        addcolum = {
+                            data: col.Column, title: col.Label, width: "10%", render: function (val, types, entity, meta) {
+                                var ischeck = !App.isNullOrEmpty(val) ? 'checked' : '';
+                                var rowid = meta.row;
+                                var colid = meta.col;
+                                var SetValue = null;
+                                eval("SetValue=entity.".concat(col.SwitchDataValue, ";"));
+                                if (!App.isNullOrEmpty(col === null || col === void 0 ? void 0 : col.SwitchHideProperty)) {
+                                    var IsHidden = false;
+                                    eval("IsHidden=entity.".concat(col.SwitchHideProperty, ";"));
+                                    if (IsHidden)
+                                        return "";
+                                }
+                                return "<input class=\"form-check-input ".concat(Table, "_SwitchData_").concat(col.Column, "\" value=\"").concat(SetValue, "\" data-columid=\"").concat(colid, "\" data-rowid=\"").concat(rowid, "\"  type=\"checkbox\"  onchange=\"").concat(Table, "SwitchDataEvent($(this))\"  ").concat(ischeck, "  ").concat(col.Disabled ? "disabled" : "", " >");
+                            }
+                        };
+                        break;
+                    case "LinkEdit":
+                        addcolum = {
+                            data: col.Column, title: col.Label, render: function (val, types, entity, meta) {
+                                var id = null;
+                                var text = val == null ? "..." : val;
+                                eval("id=entity.".concat(col.PropertyId1, ";"));
+                                if (id == null)
+                                    return text;
+                                return "<a onclick=\"Editbtn".concat(Table, "('").concat(id, "')\" href=\"javascript: void(0)\">").concat(text, "</a>");
+                            }
+                        };
+                        break;
+                    case "LinkEvent":
+                        addcolum = {
+                            data: col.Column, title: col.Label, render: function (val, types, entity, meta) {
+                                var text = val == null ? "..." : val;
+                                return "<a onclick='".concat(col.EventLink, "(").concat(JSON.stringify(entity), ",this)' href=\"javascript: void(0)\">").concat(text, "</a>");
+                            }
+                        };
+                        break;
+                    case "LinkUrl":
+                        addcolum = {
+                            data: col.Column, title: col.Label, render: function (val, types, entity, meta) {
+                                var text = val == null ? "..." : val;
+                                return "<a onclick='LinkUrlBtn".concat(Table, "('").concat(col.LinkUrl, "',").concat(JSON.stringify(entity), ")' href=\"javascript: void(0)\">").concat(text, "</a>");
+                            }
+                        };
+                        break;
+                    case "HTML":
+                        addcolum = {
+                            data: col.Column, title: col.Label, render: function (val, types, entity, meta) {
+                                var result = "";
+                                eval("result= ".concat(col.Html, " ;"));
+                                return result;
+                            }
+                        };
+                        break;
+                    case "JavaScript":
+                        addcolum = {
+                            data: col.Column, title: col.Label, render: function (val, types, entity, meta) {
+                                var result = "";
+                                eval(col.JavaScript);
+                                return result;
+                            }
+                        };
+                        break;
+                }
+                if (!App.isNullOrEmpty(col === null || col === void 0 ? void 0 : col.Class))
+                    addcolum.className = col.Class;
+                if (!App.isNullOrEmpty(col === null || col === void 0 ? void 0 : col.Width))
+                    addcolum.width = col.Width;
+                colums.push(addcolum);
+            });
+            return colums;
+        }
+        DT.CreateRowsData = CreateRowsData;
+    })(DT = App.DT || (App.DT = {}));
+})(App || (App = {}));
+(function (App) {
     var lang = "EN";
     var GridTableOptions = /** @class */ (function () {
         function GridTableOptions() {
@@ -41,187 +234,6 @@ var App;
         return GridTableOptions;
     }());
     App.GridTableOptions = GridTableOptions;
-    function CreateHeaderColumnsDef(ct, table) {
-        var colums = [];
-        ct.forEach(function (val, index) {
-            if (val.Type == "Index") {
-                var ob = {
-                    targets: 0,
-                    orderable: false,
-                    className: "toggle-all".concat(table, " select-checkbox text-center noVis"),
-                };
-                colums.push(ob);
-            }
-            else {
-                var OrderColum = App.isNullOrEmpty(val === null || val === void 0 ? void 0 : val.Orderable) ? true : val.Orderable;
-                var Visible = App.isNullOrEmpty(val === null || val === void 0 ? void 0 : val.VisibleColum) ? true : val.VisibleColum;
-                var ob = {
-                    targets: index,
-                    orderable: OrderColum,
-                    visible: Visible,
-                };
-                if ((val === null || val === void 0 ? void 0 : val.ClassColum) != null)
-                    ob.className = val.ClassColum;
-                if ((val === null || val === void 0 ? void 0 : val.Width) != null)
-                    ob.width = val.WidthColum;
-                colums.push(ob);
-            }
-        });
-        return colums;
-    }
-    function CreateRowsData(ct, security, Table) {
-        var formatDateTime = "ES" == lang ? "dd/mm/yyyy h:MM TT" : "mm/dd/yyyy h:MM TT";
-        var formatDate = "ES" == lang ? "dd/mm/yyyy" : "mm/dd/yyyy";
-        var Activo = lang == "ES" ? "Activo" : "Active";
-        var Inactive = lang == "ES" ? "Inactivo" : "Inactive";
-        var colums = [];
-        ct.forEach(function (col, index) {
-            var addcolum = null;
-            switch (col.Type) {
-                case "Index":
-                    addcolum = {
-                        data: col.Column,
-                        orderable: false,
-                        width: "5%",
-                        className: "select-checkbox",
-                        title: "<i ></i>",
-                        render: function (val, types, entity, meta) {
-                            return "";
-                        }
-                    };
-                    break;
-                case "Text":
-                    addcolum = { data: col.Column, title: col.Label, className: col === null || col === void 0 ? void 0 : col.Class };
-                    break;
-                case "DateTime":
-                    addcolum = {
-                        data: col.Column, title: col.Label, className: col === null || col === void 0 ? void 0 : col.Class, render: function (val, types, entity, meta) {
-                            return !App.isNullOrEmpty(val) ? dateFormat(new Date(val), formatDateTime) : "";
-                        }
-                    };
-                    break;
-                case "Date":
-                    addcolum = {
-                        data: col.Column, title: col.Label, className: col === null || col === void 0 ? void 0 : col.Class, render: function (val, types, entity, meta) {
-                            return !App.isNullOrEmpty(val) ? dateFormat(new Date(val), formatDate) : "";
-                        }
-                    };
-                    break;
-                case "IsActive":
-                    addcolum = {
-                        data: col.Column, title: col.Label, className: col === null || col === void 0 ? void 0 : col.Class, render: function (val, types, entity, meta) {
-                            return val == true ? Activo : Inactive;
-                        }
-                    };
-                    break;
-                case "Bool":
-                    addcolum = {
-                        data: col.Column, title: col.Label, className: col === null || col === void 0 ? void 0 : col.Class, render: function (val, types, entity, meta) {
-                            return val == true ? col.BoolTrue : col.BoolFalse;
-                        }
-                    };
-                    break;
-                case "BoolCheck":
-                    addcolum = {
-                        data: col.Column, title: col.Label, className: col === null || col === void 0 ? void 0 : col.Class, render: function (val, types, entity, meta) {
-                            return val == true ? "" : "";
-                        }
-                    };
-                    break;
-                case "Accion":
-                    addcolum = {
-                        data: col.Column, title: col.Label, width: "5%", className: col === null || col === void 0 ? void 0 : col.Class, render: function (val, types, entity, meta) {
-                            var btnedit = (security === null || security === void 0 ? void 0 : security.Actualizar) ? "<button type=\"button\" class=\"btn btn-outline-primary\" onclick=\"Editbtn".concat(Table, "('").concat(val, "')\">Editar</button>") : "";
-                            var btnDelete = (security === null || security === void 0 ? void 0 : security.Eliminar) ? "<button type=\"button\" class=\"btn btn-outline-danger\" onclick=\"Deletebtn".concat(Table, "('").concat(val, "')\">Eliminar</button>") : "";
-                            return btnedit + btnDelete;
-                        }
-                    };
-                    break;
-                case "Switch":
-                    addcolum = {
-                        data: col.Column, title: col.Label, width: "10%", className: col === null || col === void 0 ? void 0 : col.Class, render: function (val, types, entity, meta) {
-                            var ischeck = val == true ? 'checked' : '';
-                            var rowid = meta.row;
-                            var colid = meta.col;
-                            if (!App.isNullOrEmpty(col === null || col === void 0 ? void 0 : col.SwitchHideProperty)) {
-                                var IsHidden = false;
-                                eval("IsHidden=entity.".concat(col.SwitchHideProperty, ";"));
-                                if (IsHidden)
-                                    return "";
-                            }
-                            return "<input class=\"form-check-input ".concat(Table, "_Switch_").concat(col.Column, "\" type=\"checkbox\" data-columid=\"").concat(colid, "\" data-rowid=\"").concat(rowid, "\" onchange=\"").concat(Table, "SwitchEvent($(this))\" ").concat(ischeck, "  ").concat(col.Disabled ? "disabled" : "", " value=\"").concat(val, "\">");
-                        }
-                    };
-                    break;
-                case "SwitchData":
-                    addcolum = {
-                        data: col.Column, title: col.Label, width: "10%", className: col === null || col === void 0 ? void 0 : col.Class, render: function (val, types, entity, meta) {
-                            var ischeck = !App.isNullOrEmpty(val) ? 'checked' : '';
-                            var rowid = meta.row;
-                            var colid = meta.col;
-                            var SetValue = null;
-                            eval("SetValue=entity.".concat(col.SwitchDataValue, ";"));
-                            if (!App.isNullOrEmpty(col === null || col === void 0 ? void 0 : col.SwitchHideProperty)) {
-                                var IsHidden = false;
-                                eval("IsHidden=entity.".concat(col.SwitchHideProperty, ";"));
-                                if (IsHidden)
-                                    return "";
-                            }
-                            return "<input class=\"form-check-input ".concat(Table, "_SwitchData_").concat(col.Column, "\" value=\"").concat(SetValue, "\" data-columid=\"").concat(colid, "\" data-rowid=\"").concat(rowid, "\"  type=\"checkbox\"  onchange=\"").concat(Table, "SwitchDataEvent($(this))\"  ").concat(ischeck, "  ").concat(col.Disabled ? "disabled" : "", " >");
-                        }
-                    };
-                    break;
-                case "LinkEdit":
-                    addcolum = {
-                        data: col.Column, title: col.Label, render: function (val, types, entity, meta) {
-                            var id = null;
-                            var text = val == null ? "..." : val;
-                            eval("id=entity.".concat(col.PropertyId1, ";"));
-                            if (id == null)
-                                return text;
-                            return "<a onclick=\"Editbtn".concat(Table, "('").concat(id, "')\" href=\"javascript: void(0)\">").concat(text, "</a>");
-                        }
-                    };
-                    break;
-                case "LinkEvent":
-                    addcolum = {
-                        data: col.Column, title: col.Label, render: function (val, types, entity, meta) {
-                            var text = val == null ? "..." : val;
-                            return "<a onclick='".concat(col.EventLink, "(").concat(JSON.stringify(entity), ",this)' href=\"javascript: void(0)\">").concat(text, "</a>");
-                        }
-                    };
-                    break;
-                case "LinkUrl":
-                    addcolum = {
-                        data: col.Column, title: col.Label, render: function (val, types, entity, meta) {
-                            var text = val == null ? "..." : val;
-                            return "<a onclick='LinkUrlBtn".concat(Table, "('").concat(col.LinkUrl, "',").concat(JSON.stringify(entity), ")' href=\"javascript: void(0)\">").concat(text, "</a>");
-                        }
-                    };
-                    break;
-                case "HTML":
-                    addcolum = {
-                        data: col.Column, title: col.Label, render: function (val, types, entity, meta) {
-                            var result = "";
-                            eval("result= ".concat(col.Html, " ;"));
-                            return result;
-                        }
-                    };
-                    break;
-                case "JavaScript":
-                    addcolum = {
-                        data: col.Column, title: col.Label, render: function (val, types, entity, meta) {
-                            var result = "";
-                            eval(col.JavaScript);
-                            return result;
-                        }
-                    };
-                    break;
-            }
-            colums.push(addcolum);
-        });
-        return colums;
-    }
     function GridTable(el, colums, urldata, urlEdit, urlDelete, security, Buttons, Defaults) {
         var _a, _b, _c;
         if (urldata === void 0) { urldata = null; }
@@ -250,8 +262,8 @@ var App;
             stateSave: Defaults.stateSave,
             ordering: Defaults.ordering,
             order: Defaults.order,
-            columnDefs: CreateHeaderColumnsDef(colums, el),
-            columns: CreateRowsData(colums, security, el)
+            columnDefs: App.DT.CreateHeaderColumnsDef(colums, el),
+            columns: App.DT.CreateRowsData(colums, security, el)
         };
         if ((Defaults === null || Defaults === void 0 ? void 0 : Defaults.rowId) != null) {
             options.rowId = function (a) {
