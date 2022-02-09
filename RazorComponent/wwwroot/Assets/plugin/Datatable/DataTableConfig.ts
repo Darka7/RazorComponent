@@ -25,7 +25,7 @@ namespace App{
     }
 
     export class GridTableOptions {
-        serverSide?: boolean=true ;
+        serverSide?: boolean=false ;
         rowId?: string=null;
         pageLength?: number =5;
         searching?: boolean=true ;

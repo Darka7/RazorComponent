@@ -21,17 +21,17 @@ namespace RazorComponent.Controller
            
             try
             {
-               var Query = HttpContext.Request?.Form;
+               //var Query = HttpContext.Request?.Form;
                 #region Request
-                var DTOptions = new
-                {
-                    draw = Convert.ToInt32(Query["draw"]),
-                    start = Convert.ToInt32(Query["start"]),
-                    length = Convert.ToInt32(Query["length"]),
-                    sortByColumnId = Query["order[0][column]"],
-                    sortDirection = Query["order[0][dir]"],
-                    searchString = Query["search[value]"].ToString()?.ToLower()
-                };
+               // var DTOptions = new
+               // {
+               //     draw = Convert.ToInt32(Query["draw"]),
+               //     start = Convert.ToInt32(Query["start"]),
+               //     length = Convert.ToInt32(Query["length"]),
+               //     sortByColumnId = Query["order[0][column]"],
+               //     sortDirection = Query["order[0][dir]"],
+               //     searchString = Query["search[value]"].ToString()?.ToLower()
+               // };
                 #endregion
 
 
@@ -72,9 +72,10 @@ namespace RazorComponent.Controller
                 DataRequest = new
                 {
                     recordsTotal = List.Count,
-                    data = List.Skip(DTOptions.start).Take(DTOptions.length),
+                    // data = List.Skip(DTOptions.start).Take(DTOptions.length),
+                    data = List,
                     recordsFiltered = List.Count,
-                    draw = DTOptions.draw
+                   // draw = DTOptions.draw
                 };
                 //DataRequest.recordsTotal = List.Count;
                 //DataRequest.data = List.Skip(Request.start).Take(Request.lengthValuePage);

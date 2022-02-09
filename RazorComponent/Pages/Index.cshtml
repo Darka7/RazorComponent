@@ -6,11 +6,36 @@
 
 }
 
+@functions{
+    public string RenderSiteMap(IEnumerable<LookupEntity<SiteMapEntity>> SiteMap)
+    {
+<ul>
+    @foreach (var item in SiteMap)
+    {
+
+        @if (item.HasDetails || !item.Entity.HasSubMenu)
+        {
+            <li>@item.Entity.SiteMapName 
+                @if (item.HasDetails)
+                {
+                    @RenderSiteMap(item.Details)
+                }
+
+            </li>
+         }
+
+    }
+
+    </ul>
+
+        return null;
+    }
+}
+
 
 
 <div id="Appvue" class="container">
-    <h1>{{Texto}}</h1>
-    <input type="text" name="name" v-model="Texto" />
+
     <div class="row">
         <div class="col">
             <table id="GridView" ref="GridView" class="table">
@@ -33,7 +58,7 @@
 
 @section app{
 
-    
+
 
     <script defer src="~/scripts/Prueba.js"></script>
 

@@ -29,7 +29,7 @@ var App;
     var lang = "EN";
     var GridTableOptions = /** @class */ (function () {
         function GridTableOptions() {
-            this.serverSide = true;
+            this.serverSide = false;
             this.rowId = null;
             this.pageLength = 5;
             this.searching = true;
