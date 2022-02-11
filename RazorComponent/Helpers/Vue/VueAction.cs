@@ -7,10 +7,8 @@ using System.Threading.Tasks;
 
 namespace RazorComponent.Helpers.Vue
 {
-    // You may need to install the Microsoft.AspNetCore.Razor.Runtime package into your project
-    [HtmlTargetElement("vuegridtable")]
-    [HtmlTargetElement("button")]
-    [HtmlTargetElement("a")]
+    
+   [HtmlTargetElement(Attributes = "vue-events")]
     public class VueAction : TagHelper
     {
 

@@ -34,17 +34,12 @@
 
 
 
-<div id="Appvue" class="container" v-if="test" v-change="prueba">
-    <h4 >prueba</h4>
-    <vuegridtable   table="GridTable"
-                   
-                    asp-v-colums="Model.ListaPersonas"
-                    v-action-test="Prueba"
-                 
-                  ></vuegridtable>
+<div id="Appvue" class="container" >
+    <h4 >prueba {{val}}</h4>
+   <bootstrap-datepicker id="Input1" v-model="val"  @@change="handlerchange" format="dd/mm/yyyy" ></bootstrap-datepicker>
 
-
-    <div class="row">
+   <button type="button" v-click="ChangeValue"> test</button>
+    @*<div class="row">
         <div class="col">
             <table id="GridView" ref="GridView" class="table">
             </table>
@@ -58,11 +53,11 @@
             </table>
         </div>
 
-    </div>
+    </div>*@
 
 </div>
 
-<button v-action-test="Prueba">test</button>
+
 
 @section app{
     
