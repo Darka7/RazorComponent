@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 namespace RazorComponent.Helpers
 {
     // You may need to install the Microsoft.AspNetCore.Razor.Runtime package into your project
-    [HtmlTargetElement(Attributes ="vue-click")]
+    [HtmlTargetElement(Attributes ="v-click")]
     public class VueClick : TagHelper
     {
 
-        [HtmlAttributeName("vue-click")]
+        [HtmlAttributeName("v-click")]
         public string Click { get; set; } = "";
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {

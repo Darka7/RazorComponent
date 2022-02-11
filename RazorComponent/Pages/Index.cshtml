@@ -34,7 +34,15 @@
 
 
 
-<div id="Appvue" class="container">
+<div id="Appvue" class="container" v-if="test" v-change="prueba">
+    <h4 >prueba</h4>
+    <vuegridtable   table="GridTable"
+                   
+                    asp-v-colums="Model.ListaPersonas"
+                    v-action-test="Prueba"
+                 
+                  ></vuegridtable>
+
 
     <div class="row">
         <div class="col">
@@ -54,12 +62,11 @@
 
 </div>
 
-<button></button>
+<button v-action-test="Prueba">test</button>
 
 @section app{
-
-
-
+    
+  
     <script defer src="~/scripts/Prueba.js"></script>
 
 }

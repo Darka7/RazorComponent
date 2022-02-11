@@ -11,7 +11,11 @@ namespace RazorComponent.Controller
     [ApiController]
     public class PersonaController : ControllerBase
     {
-
+        [HttpGet("test")]
+        public dynamic JsonTest()
+        {
+            return new { prueba="cariñosa"};
+        }
 
         [HttpPost("List")]
         public async Task<dynamic> ListRolesDataTable()

@@ -20,7 +20,7 @@ var App;
                 text: "Prueba", action: "App.PruebaMethodo"
             }
         ];
-        var grid1 = App.GridTable("GridView", columnas, "api/Persona/List", "edit", "delete", null, btns);
+        //  var grid1 = GridTable("GridView", columnas, "api/Persona/List", "edit", "delete", null, btns );
         //    var grid2 = GridTable("GridView2", columnas, "api/Persona/List", "edit", "delete", null, btns);
     });
 })(App || (App = {}));

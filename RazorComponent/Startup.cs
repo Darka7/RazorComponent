@@ -7,6 +7,7 @@ using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+
 using System.Threading.Tasks;
 
 namespace RazorComponent
@@ -27,6 +28,7 @@ namespace RazorComponent
             {
                 option.JsonSerializerOptions.DictionaryKeyPolicy = null;
                 option.JsonSerializerOptions.PropertyNamingPolicy = null;
+              //  option.JsonSerializerOptions.Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping;
             });
 
 
@@ -34,6 +36,7 @@ namespace RazorComponent
             {
                 option.JsonSerializerOptions.DictionaryKeyPolicy = null;
                 option.JsonSerializerOptions.PropertyNamingPolicy = null;
+               // option.JsonSerializerOptions.Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping;
             });
         }
 

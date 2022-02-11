@@ -95,7 +95,7 @@ namespace RazorComponent.Pages
         public IEnumerable<LookupEntity<SiteMapEntity>> ResultSiteMap{ get; set; }
         public void OnGet()
         {
-
+            
             ResultMatrix = Matrix.ToLookup(b => b.BusinessId)
                 .Select(b => new LookupEntity<TreeEntity>()
                 {

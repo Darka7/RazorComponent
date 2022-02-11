@@ -39,7 +39,7 @@ namespace App {
     ];
 
 
-        var grid1 = GridTable("GridView", columnas, "api/Persona/List", "edit", "delete", null, btns );
+      //  var grid1 = GridTable("GridView", columnas, "api/Persona/List", "edit", "delete", null, btns );
 
     //    var grid2 = GridTable("GridView2", columnas, "api/Persona/List", "edit", "delete", null, btns);
 
