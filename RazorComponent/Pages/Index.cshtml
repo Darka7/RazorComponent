@@ -9,24 +9,25 @@
 @functions{
     public string RenderSiteMap(IEnumerable<LookupEntity<SiteMapEntity>> SiteMap)
     {
-<ul>
-    @foreach (var item in SiteMap)
-    {
+        <ul>
+            @foreach (var item in SiteMap)
+            {
 
-        @if (item.HasDetails || !item.Entity.HasSubMenu)
-        {
-            <li>@item.Entity.SiteMapName 
-                @if (item.HasDetails)
+                @if (item.HasDetails || !item.Entity.HasSubMenu)
                 {
-                    @RenderSiteMap(item.Details)
-                }
+                    <li>
+                        @item.Entity.SiteMapName
+                    @if (item.HasDetails)
+                    {
+                        @RenderSiteMap(item.Details)
+                    }
 
-            </li>
-         }
+                </li>
+            }
 
-    }
+            }
 
-    </ul>
+        </ul>
 
         return null;
     }
@@ -34,34 +35,37 @@
 
 
 
-<div id="Appvue" class="container" >
-    <h4 >prueba {{val}}</h4>
-   <bootstrap-datepicker id="Input1" v-model="val"  @@change="handlerchange" format="dd/mm/yyyy" ></bootstrap-datepicker>
+<div id="Appvue" class="container">
+    <h4>prueba {{val}}</h4>
+                            <v-bs-datepicker   v-model="obj.val"  format="dd/mm/yyyy"  ></v-bs-datepicker>
 
-   <button type="button" v-click="ChangeValue"> test</button>
+
+                            <input type="text" id="" v-model="val" class="asdas" required disabled/>
+
+    <button type="button" v-click="ChangeValue" v-- v-action-test="ChangeValue"> test</button>
     @*<div class="row">
-        <div class="col">
-            <table id="GridView" ref="GridView" class="table">
-            </table>
+            <div class="col">
+                <table id="GridView" ref="GridView" class="table">
+                </table>
+            </div>
+
         </div>
 
-    </div>
+        <div class="row">
+            <div class="col">
+                <table id="GridView2" class="table">
+                </table>
+            </div>
 
-    <div class="row">
-        <div class="col">
-            <table id="GridView2" class="table">
-            </table>
-        </div>
-
-    </div>*@
+        </div>*@
 
 </div>
 
 
 
 @section app{
-    
-  
+
+
     <script defer src="~/scripts/Prueba.js"></script>
 
 }

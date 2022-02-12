@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 namespace RazorComponent.Helpers
 {
     // You may need to install the Microsoft.AspNetCore.Razor.Runtime package into your project
-    [HtmlTargetElement("input",Attributes ="asp-vue",TagStructure =TagStructure.WithoutEndTag)]
+    [HtmlTargetElement(Attributes ="asp-v-model")]
     public class vinput : TagHelper
     {
         protected IHtmlGenerator Generator { get; }
@@ -26,7 +26,7 @@ namespace RazorComponent.Helpers
         [ViewContext]
         public ViewContext ViewContext { get; set; }
        
-        [HtmlAttributeName("asp-vue")]
+        [HtmlAttributeName("asp-v-model")]
         public ModelExpression For { get; set; }
        
         [HtmlAttributeName("vue-format")]

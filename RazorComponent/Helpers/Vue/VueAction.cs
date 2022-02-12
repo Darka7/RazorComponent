@@ -8,10 +8,11 @@ using System.Threading.Tasks;
 namespace RazorComponent.Helpers.Vue
 {
     
-   [HtmlTargetElement(Attributes = "vue-events")]
+   [HtmlTargetElement(Attributes = "v--")]
     public class VueAction : TagHelper
     {
-
+        [HtmlAttributeName("v--")]
+        public bool VueCopiler { get; set; }
         [HtmlAttributeName("v-action")]
         public IDictionary<string, string> OnEvent { get; set; } = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
         public override void Process(TagHelperContext context, TagHelperOutput output)

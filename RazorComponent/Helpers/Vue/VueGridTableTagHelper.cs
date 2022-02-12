@@ -18,7 +18,7 @@ namespace RazorComponent.Helpers
         [HtmlAttributeName("table")]
         public string table { get; set; }
 
-        [HtmlAttributeName(":colums")]
+        [HtmlAttributeName("colums")]
         public string ColumsVue { get; set; }
 
       
@@ -30,7 +30,7 @@ namespace RazorComponent.Helpers
 
 
 
-            output.Attributes.Add(":colums", ColumsVue);
+            output.Attributes.Add("colums", ColumsVue);
             if (colums!=null) {
 
                 output.Attributes.SetAttribute(":colums", JsonSerializer.Serialize(colums));
