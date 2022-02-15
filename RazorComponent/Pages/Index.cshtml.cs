@@ -30,8 +30,7 @@ namespace RazorComponent.Pages
         public string mensaje { get; set; } = "Hola";
 
 
-
-
+      
         [VueData]
         public List<Persona> ListaPersonas { get; set; } = new List<Persona>() {
         new Persona(){ id=1,edad=15, TipoPersona=new(){ descripcion="Amable" }, Nombre="andrey" },
@@ -95,6 +94,10 @@ namespace RazorComponent.Pages
         public IEnumerable<LookupEntity<SiteMapEntity>> ResultSiteMap{ get; set; }
         public void OnGet()
         {
+
+            
+           
+            //order.Body
             
             ResultMatrix = Matrix.ToLookup(b => b.BusinessId)
                 .Select(b => new LookupEntity<TreeEntity>()

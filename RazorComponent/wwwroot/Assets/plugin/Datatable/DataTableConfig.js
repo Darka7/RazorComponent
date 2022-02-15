@@ -58,7 +58,7 @@ var App;
             return colums;
         }
         DT.CreateHeaderColumnsDef = CreateHeaderColumnsDef;
-        function CreateRowsData(ct, security, Table) {
+        function CreateRowsData(ct, security, Table, UrlEdit) {
             var formatDateTime = "ES" == lang ? "dd/mm/yyyy h:MM TT" : "mm/dd/yyyy h:MM TT";
             var formatDate = "ES" == lang ? "dd/mm/yyyy" : "mm/dd/yyyy";
             var Activo = lang == "ES" ? "Activo" : "Active";
@@ -103,17 +103,10 @@ var App;
                             }
                         };
                         break;
-                    case "Bool":
+                    case "IsActiveText":
                         addcolum = {
                             data: col.Column, title: col.Label, render: function (val, types, entity, meta) {
                                 return val == true ? col.BoolTrue : col.BoolFalse;
-                            }
-                        };
-                        break;
-                    case "BoolCheck":
-                        addcolum = {
-                            data: col.Column, title: col.Label, render: function (val, types, entity, meta) {
-                                return val == true ? "" : "";
                             }
                         };
                         break;
@@ -160,31 +153,84 @@ var App;
                             }
                         };
                         break;
+                    case "Input":
+                        addcolum = {
+                            data: col.Column, title: col.Label, render: function (val, types, entity, meta) {
+                                var rowid = meta.row;
+                                var colid = meta.col;
+                                var checked = "";
+                                if (col.InputType == "checkbox") {
+                                    checked = val == true ? "" : "checked";
+                                }
+                                var disable = col.Disabled ? "disabled" : "";
+                                //var Inputid = "${Table}_${col.Column}_${rowid}_${colid}"
+                                return "<input  ".concat(checked, " ").concat(disable, " type=\"").concat(col.InputType, "\" onchange=\"").concat(Table, "OnChangeInputTable($(this))\" data-typeinput=\"").concat(col.InputType, "\" data-rowid=\"").concat(rowid, "\" data-columid=\"").concat(colid, "\" class=\"").concat(Table, "_Input_").concat(col.Column, " ").concat(col.Class, "\"  value=\"").concat(val, "\" />");
+                            }
+                        };
+                        break;
+                    case "Select":
+                        addcolum = {
+                            data: col.Column, title: col.Label, render: function (val, types, entity, meta) {
+                                var rowid = meta.row;
+                                var colid = meta.col;
+                                var disable = col.Disabled ? "disabled" : "";
+                                var options = "";
+                                col.SelectItems.forEach(function (data, index) {
+                                    var selected = val == data.Value ? "selected" : "";
+                                    var dis = data.Disabled ? "disabled" : "";
+                                    var item = "<option value=\"".concat(data.Value, "\" ").concat(selected, " ").concat(dis, ">").concat(data.Text, "</option>");
+                                    options = options + item;
+                                });
+                                return "<select data-rowid=\"".concat(rowid, "\" data-columid=\"").concat(colid, "\" class=\"").concat(Table, "_Select_").concat(col.Column, "  ").concat(col.Class, "\" ").concat(disable, " onchange=\"").concat(Table, "OnChangeSelectCbo($(this))\" >").concat(options, "</select>");
+                            }
+                        };
+                        break;
+                    case "SelectOnData":
+                        addcolum = {
+                            data: col.Column, title: col.Label, render: function (val, types, entity, meta) {
+                                var rowid = meta.row;
+                                var colid = meta.col;
+                                var disable = col.Disabled ? "disabled" : "";
+                                var options = "";
+                                var ItemsOptions = [];
+                                eval("ItemsOptions=entity.".concat(col.SelectOnDataProperty, ";"));
+                                ItemsOptions.forEach(function (data, index) {
+                                    var selected = val == data.Value ? "selected" : "";
+                                    var dis = data.Disabled ? "disabled" : "";
+                                    var item = "<option value=\"".concat(data.Value, "\" ").concat(selected, " ").concat(dis, ">").concat(data.Text, "</option>");
+                                    options = options + item;
+                                });
+                                return "<select data-rowid=\"".concat(rowid, "\" data-columid=\"").concat(colid, "\" class=\"").concat(Table, "_SelectOnData_").concat(col.Column, "  ").concat(col.Class, "\" ").concat(disable, " onchange=\"").concat(Table, "SelectOnDataCbo($(this))\" >").concat(options, "</select>");
+                            }
+                        };
+                        break;
                     case "LinkEdit":
                         addcolum = {
                             data: col.Column, title: col.Label, render: function (val, types, entity, meta) {
                                 var id = null;
-                                var text = val == null ? "..." : val;
-                                eval("id=entity.".concat(col.PropertyId1, ";"));
+                                var text = App.isNullOrEmpty(val) ? "..." : val;
+                                eval("id=entity.".concat(col.LinkPropertySend, ";"));
                                 if (id == null)
                                     return text;
-                                return "<a onclick=\"Editbtn".concat(Table, "('").concat(id, "')\" href=\"javascript: void(0)\">").concat(text, "</a>");
+                                var url = UrlEdit + id;
+                                return "<a  href=\"".concat(url, "\">").concat(text, "</a>");
                             }
                         };
                         break;
                     case "LinkEvent":
                         addcolum = {
                             data: col.Column, title: col.Label, render: function (val, types, entity, meta) {
-                                var text = val == null ? "..." : val;
-                                return "<a onclick='".concat(col.EventLink, "(").concat(JSON.stringify(entity), ",this)' href=\"javascript: void(0)\">").concat(text, "</a>");
+                                var text = App.isNullOrEmpty(val) ? "..." : val;
+                                return "<a onclick='".concat(col.LinkEvent, "(").concat(JSON.stringify(entity), ",$(this))' href=\"javascript: void(0)\">").concat(text, "</a>");
                             }
                         };
                         break;
                     case "LinkUrl":
                         addcolum = {
                             data: col.Column, title: col.Label, render: function (val, types, entity, meta) {
-                                var text = val == null ? "..." : val;
-                                return "<a onclick='LinkUrlBtn".concat(Table, "('").concat(col.LinkUrl, "',").concat(JSON.stringify(entity), ")' href=\"javascript: void(0)\">").concat(text, "</a>");
+                                var text = App.isNullOrEmpty(val) ? "..." : val;
+                                var url = col.LinkUrl + $.param(entity);
+                                return "<a  href=\"".concat(url, "\" >").concat(text, "</a>");
                             }
                         };
                         break;
@@ -192,6 +238,8 @@ var App;
                         addcolum = {
                             data: col.Column, title: col.Label, render: function (val, types, entity, meta) {
                                 var result = "";
+                                var rowid = meta.row;
+                                var columid = meta.col;
                                 eval("result= ".concat(col.Html, " ;"));
                                 return result;
                             }
@@ -201,14 +249,30 @@ var App;
                         addcolum = {
                             data: col.Column, title: col.Label, render: function (val, types, entity, meta) {
                                 var result = "";
+                                var rowid = meta.row;
+                                var columid = meta.col;
                                 eval(col.JavaScript);
                                 return result;
                             }
                         };
                         break;
+                    case "ExecuteFunctionJS":
+                        addcolum = {
+                            data: col.Column, title: col.Label, render: function (val, types, entity, meta) {
+                                var result = "";
+                                var rowid = meta.row;
+                                var columid = meta.col;
+                                eval("result= ".concat(col.JavaScript, "(val,entity,columid,rowid);"));
+                                return result;
+                            }
+                        };
+                        break;
+                    case "Render":
+                        addcolum = {
+                            data: col.Column, title: col.Label, render: col.render
+                        };
+                        break;
                 }
-                if (!App.isNullOrEmpty(col === null || col === void 0 ? void 0 : col.Class))
-                    addcolum.className = col.Class;
                 if (!App.isNullOrEmpty(col === null || col === void 0 ? void 0 : col.Width))
                     addcolum.width = col.Width;
                 colums.push(addcolum);
@@ -224,6 +288,7 @@ var App;
         function GridTableOptions() {
             this.serverSide = false;
             this.rowId = null;
+            this.RowIdEvent = false;
             this.pageLength = 5;
             this.searching = true;
             this.order = [[1, 'asc']];
@@ -234,12 +299,12 @@ var App;
         return GridTableOptions;
     }());
     App.GridTableOptions = GridTableOptions;
-    function GridTable(el, colums, urldata, urlEdit, urlDelete, security, Buttons, Defaults) {
+    function GridTable(el, Colums, UrlData, UrlEdit, UrlDelete, Security, Buttons, Defaults) {
         var _a, _b, _c;
-        if (urldata === void 0) { urldata = null; }
-        if (urlEdit === void 0) { urlEdit = null; }
-        if (urlDelete === void 0) { urlDelete = null; }
-        if (security === void 0) { security = { Consultar: true, Actualizar: true, Eliminar: true, Insertar: true }; }
+        if (UrlData === void 0) { UrlData = null; }
+        if (UrlEdit === void 0) { UrlEdit = null; }
+        if (UrlDelete === void 0) { UrlDelete = null; }
+        if (Security === void 0) { Security = { Consultar: true, Actualizar: true, Eliminar: true, Insertar: true }; }
         if (Buttons === void 0) { Buttons = null; }
         if (Defaults === void 0) { Defaults = new GridTableOptions(); }
         var TableIds = [];
@@ -247,7 +312,7 @@ var App;
         var options;
         options = {
             ajax: {
-                url: urldata,
+                url: UrlData,
                 type: "POST",
                 async: true,
             },
@@ -262,8 +327,8 @@ var App;
             stateSave: Defaults.stateSave,
             ordering: Defaults.ordering,
             order: Defaults.order,
-            columnDefs: App.DT.CreateHeaderColumnsDef(colums, el),
-            columns: App.DT.CreateRowsData(colums, security, el)
+            columnDefs: App.DT.CreateHeaderColumnsDef(Colums, el),
+            columns: App.DT.CreateRowsData(Colums, Security, el, UrlEdit)
         };
         if ((Defaults === null || Defaults === void 0 ? void 0 : Defaults.rowId) != null) {
             options.rowId = function (a) {
@@ -287,7 +352,6 @@ var App;
                 }
             };
         }
-        var Edit = colums.find(function (value, index) { return value.Type == "Index"; });
         // btns Defaults
         options.buttons = {
             buttons: [],
@@ -297,6 +361,7 @@ var App;
                 },
             },
         };
+        var Edit = Colums.find(function (value, index) { return value.Type == "Index"; });
         //btns por seguridad
         if (Edit != null) {
             options.rowCallback = function (row, data, index) {
@@ -321,23 +386,23 @@ var App;
                     grid.rows().deselect();
                 }
             });
-            if (security === null || security === void 0 ? void 0 : security.Insertar) {
+            if (Security === null || Security === void 0 ? void 0 : Security.Insertar) {
                 var btnnew = {
                     text: "New",
                     action: function (e, dt, node, config) {
-                        if (urlEdit != null) {
-                            window.location.href = urlEdit;
+                        if (UrlEdit != null) {
+                            window.location.href = UrlEdit;
                         }
                     }
                 };
                 options.buttons.buttons.push(btnnew);
             }
-            if (security === null || security === void 0 ? void 0 : security.Actualizar) {
+            if (Security === null || Security === void 0 ? void 0 : Security.Actualizar) {
                 var btnedit = {
                     text: "Edit",
                     action: function (e, dt, node, config) {
                         if (TableIds.length == 1) {
-                            window.location.href = urlEdit + TableIds[0];
+                            window.location.href = UrlEdit + TableIds[0];
                         }
                         else {
                             alert("Seleccione un registro");
@@ -346,7 +411,7 @@ var App;
                 };
                 options.buttons.buttons.push(btnedit);
             }
-            if (security === null || security === void 0 ? void 0 : security.Eliminar) {
+            if (Security === null || Security === void 0 ? void 0 : Security.Eliminar) {
                 var btnDelete = {
                     text: "Delete",
                     action: function (e, dt, node, config) {
@@ -374,12 +439,12 @@ var App;
             }
         }
         else {
-            if (security === null || security === void 0 ? void 0 : security.Insertar) {
+            if (Security === null || Security === void 0 ? void 0 : Security.Insertar) {
                 var btnnew = {
                     text: "New",
                     action: function (e, dt, node, config) {
-                        if (urlEdit != null) {
-                            window.location.href = urlEdit;
+                        if (UrlEdit != null) {
+                            window.location.href = UrlEdit;
                         }
                     }
                 };
@@ -419,10 +484,10 @@ var App;
             }
         }
         //colum Accion
-        var Accion = colums.find(function (value, index) { return value.Type == "Accion"; });
+        var Accion = Colums.find(function (value, index) { return value.Type == "Accion"; });
         if (Accion != null) {
             window["Editbtn" + el] = function (id) {
-                window.location.href = urlEdit + TableIds[0];
+                window.location.href = UrlEdit + TableIds[0];
             };
             window["Deletebtn" + el] = function (id) {
                 var si = confirm("Esta seguro de que desea Eliminar estos registro(os)!");
@@ -440,7 +505,7 @@ var App;
                 }
             };
         }
-        var SwitchEvent = colums.find(function (value, index) { return value.Type == "Switch"; });
+        var SwitchEvent = Colums.find(function (value, index) { return value.Type == "Switch"; });
         if (SwitchEvent != null) {
             window[el + "SwitchEvent"] = function ($this) {
                 var columid = $this.data("columid");
@@ -449,7 +514,7 @@ var App;
                 grid.cell({ row: rowid, column: columid }).data(NewValue);
             };
         }
-        var SwitchDataEvent = colums.find(function (value, index) { return value.Type == "SwitchData"; });
+        var SwitchDataEvent = Colums.find(function (value, index) { return value.Type == "SwitchData"; });
         if (SwitchDataEvent != null) {
             window[el + "SwitchDataEvent"] = function ($this) {
                 var columid = $this.data("columid");
@@ -462,6 +527,43 @@ var App;
                 grid.cell({ row: rowid, column: columid }).data(NewValue);
             };
         }
+        var InputEvent = Colums.find(function (value, index) { return value.Type == "Input"; });
+        if (InputEvent != null) {
+            window[el + "OnChangeInputTable"] = function ($this) {
+                var columid = $this.data("columid");
+                var typeinput = $this.data("typeinput");
+                var rowid = parseInt($this.data("rowid"));
+                var NewValue = null;
+                if (typeinput == "checkbox") {
+                    var isChecked = $this.is(":checked");
+                    NewValue = isChecked ? true : false;
+                }
+                else {
+                    NewValue = $this.val();
+                }
+                grid.cell({ row: rowid, column: columid }).data(NewValue);
+            };
+        }
+        var SelectEvent = Colums.find(function (value, index) { return value.Type == "Select"; });
+        if (SelectEvent != null) {
+            window[el + "OnChangeSelectCbo"] = function ($this) {
+                var columid = $this.data("columid");
+                var rowid = parseInt($this.data("rowid"));
+                var NewValue = $this.val();
+                grid.cell({ row: rowid, column: columid }).data(NewValue);
+            };
+        }
+        var SelectOnDataEvent = Colums.find(function (value, index) { return value.Type == "SelectOnData"; });
+        if (SelectOnDataEvent != null) {
+            window[el + "SelectOnDataCbo"] = function ($this) {
+                var columid = $this.data("columid");
+                var rowid = parseInt($this.data("rowid"));
+                var NewValue = $this.val();
+                grid.cell({ row: rowid, column: columid }).data(NewValue);
+            };
+        }
+        //options.createdRow = function (row,data,index) {
+        //}
         var grid = $("#".concat(el)).DataTable(options);
         function SelectedIndex(selected, items) {
             items.forEach(function (item) {
@@ -499,6 +601,14 @@ var App;
                 $(".toggle-all" + el).closest("tr").removeClass("selected");
             }).on('page.dt', function () {
                 $(".toggle-all" + el).closest("tr").removeClass("selected");
+            });
+        }
+        if (Defaults.RowIdEvent) {
+            $("#".concat(el, " tbody")).on("click", "tr", function () {
+                var $this = this;
+                var id = grid.row($this).id();
+                id = id.split("_").shift();
+                window.location.href = UrlEdit + id;
             });
         }
         return grid;
