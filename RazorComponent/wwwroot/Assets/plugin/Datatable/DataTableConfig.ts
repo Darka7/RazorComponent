@@ -26,7 +26,7 @@
                     visible: Visible,
                 };
                 if (val?.ClassColum != null) ob.className = val.ClassColum;
-                if (val?.Width != null) ob.width = val.WidthColum;
+                if (val?.WidthColum != null) ob.width = val.WidthColum;
                 colums.push(ob);
             }
 
@@ -101,8 +101,8 @@
                     addcolum = {
                         data: col.Column, title: col.Label, width: "5%", render: (val, types, entity, meta) => {
 
-                            var btnedit = security?.Actualizar ? `<button type="button" class="btn btn-outline-primary" onclick="Editbtn${Table}('${val}')">Editar</button>` : "";
-                            var btnDelete = security?.Eliminar ? `<button type="button" class="btn btn-outline-danger" onclick="Deletebtn${Table}('${val}')">Eliminar</button>` : "";
+                            var btnedit = security?.Actualizar ? `<button type="button" class="btn btn-outline-primary ${col?.Class}" onclick="Editbtn${Table}('${val}')">Editar</button>` : "";
+                            var btnDelete = security?.Eliminar ? `<button type="button" class="btn btn-outline-danger ${col?.Class}" onclick="Deletebtn${Table}('${val}')">Eliminar</button>` : "";
 
                             return btnedit + btnDelete;
                         }
@@ -123,7 +123,7 @@
                                 if (IsHidden) return "";
                             }
 
-                            return `<input class="form-check-input ${Table}_Switch_${col.Column}" type="checkbox" data-columid="${colid}" data-rowid="${rowid}" onchange="${Table}SwitchEvent($(this))" ${ischeck}  ${col.Disabled ? "disabled" : ""} value="${val}">`;
+                            return `<input class="form-check-input ${Table}_Switch_${col.Column} ${col?.Class}" type="checkbox" data-columid="${colid}" data-rowid="${rowid}" onchange="${Table}SwitchEvent($(this))" ${ischeck}  ${col.Disabled ? "disabled" : ""} value="${val}">`;
                         }
                     };
                     break;
@@ -144,7 +144,7 @@
                                 if (IsHidden) return "";
                             }
 
-                            return `<input class="form-check-input ${Table}_SwitchData_${col.Column}" value="${SetValue}" data-columid="${colid}" data-rowid="${rowid}"  type="checkbox"  onchange="${Table}SwitchDataEvent($(this))"  ${ischeck}  ${col.Disabled ? "disabled" : ""} >`;
+                            return `<input class="form-check-input ${Table}_SwitchData_${col.Column} ${col?.Class}" value="${SetValue}" data-columid="${colid}" data-rowid="${rowid}"  type="checkbox"  onchange="${Table}SwitchDataEvent($(this))"  ${ischeck}  ${col.Disabled ? "disabled" : ""} >`;
                         }
                     };
                     break;
@@ -157,13 +157,13 @@
                             var rowid = meta.row;
                             var colid = meta.col;
                             var checked = "";
-                            if (col.InputType == "checkbox") {
+                            if (col?.InputType == "checkbox") {
                                 checked = val == true ? "" : "checked";
                             }
 
-                            var disable = col.Disabled ? "disabled" : "";
+                            var disable = col?.Disabled ? "disabled" : "";
                             //var Inputid = "${Table}_${col.Column}_${rowid}_${colid}"
-                            return `<input  ${checked} ${disable} type="${col.InputType}" onchange="${Table}OnChangeInputTable($(this))" data-typeinput="${col.InputType}" data-rowid="${rowid}" data-columid="${colid}" class="${Table}_Input_${col.Column} ${col.Class}"  value="${val}" />`;
+                            return `<input  ${checked} ${disable} type="${col.InputType}" onchange="${Table}OnChangeInputTable($(this))" data-typeinput="${col.InputType}" data-rowid="${rowid}" data-columid="${colid}" class="${Table}_Input_${col.Column} ${col?.Class}"  value="${val}" />`;
                         }
                     };
                     break;
@@ -174,18 +174,18 @@
 
                             var rowid = meta.row;
                             var colid = meta.col;
-                            var disable = col.Disabled ? "disabled" : "";
+                            var disable = col?.Disabled ? "disabled" : "";
                             var options = "";
 
                             col.SelectItems.forEach(function (data, index) {
                                 var selected = val == data.Value ?"selected":"";
-                                var dis = data.Disabled ? "disabled" : "";
+                                var dis = data?.Disabled ? "disabled" : "";
                                 var item = `<option value="${data.Value}" ${selected} ${dis}>${data.Text}</option>`;
                                 options = options + item; 
                             });
 
                             
-                            return `<select data-rowid="${rowid}" data-columid="${colid}" class="${Table}_Select_${col.Column}  ${col.Class}" ${disable} onchange="${Table}OnChangeSelectCbo($(this))" >${options}</select>`;
+                            return `<select data-rowid="${rowid}" data-columid="${colid}" class="${Table}_Select_${col.Column}  ${col?.Class}" ${disable} onchange="${Table}OnChangeSelectCbo($(this))" >${options}</select>`;
                         }
                     };
                     break;
@@ -196,7 +196,7 @@
 
                             var rowid = meta.row;
                             var colid = meta.col;
-                            var disable = col.Disabled ? "disabled" : "";
+                            var disable = col?.Disabled ? "disabled" : "";
                             var options = "";
                             var ItemsOptions: SelectItemsEntity[] = [];
 
@@ -204,13 +204,13 @@
 
                             ItemsOptions.forEach(function (data, index) {
                                 var selected = val == data.Value ? "selected" : "";
-                                var dis = data.Disabled ? "disabled" : "";
+                                var dis = data?.Disabled ? "disabled" : "";
                                 var item = `<option value="${data.Value}" ${selected} ${dis}>${data.Text}</option>`;
                                 options = options + item;
                             });
 
 
-                            return `<select data-rowid="${rowid}" data-columid="${colid}" class="${Table}_SelectOnData_${col.Column}  ${col.Class}" ${disable} onchange="${Table}SelectOnDataCbo($(this))" >${options}</select>`;
+                            return `<select data-rowid="${rowid}" data-columid="${colid}" class="${Table}_SelectOnData_${col.Column}  ${col?.Class}" ${disable} onchange="${Table}SelectOnDataCbo($(this))" >${options}</select>`;
                         }
                     };
                     break;
@@ -227,7 +227,7 @@
 
                             var url = UrlEdit + id;
 
-                            return `<a  href="${url}">${text}</a>`;
+                            return `<a  class="${col?.Class}" href="${url}">${text}</a>`;
                         }
                     };
                     break;
@@ -238,7 +238,7 @@
 
                             var text = isNullOrEmpty(val) ? "..." : val;
 
-                            return `<a onclick='${col.LinkEvent}(${JSON.stringify(entity)},$(this))' href="javascript: void(0)">${text}</a>`;
+                            return `<a class="${col?.Class}" onclick='${col.LinkEvent}(${JSON.stringify(entity)},$(this))' href="javascript: void(0)">${text}</a>`;
                         }
                     };
                     break;
@@ -251,7 +251,7 @@
 
                             var url = col.LinkUrl + $.param(entity);
 
-                            return `<a  href="${url}" >${text}</a>`;
+                            return `<a class="${col?.Class}" href="${url}" >${text}</a>`;
                         }
                     };
                     break;
@@ -300,6 +300,8 @@
                     };
                     break;
 
+                
+
 
             }
 
@@ -329,6 +331,7 @@ namespace App{
         action?: string;
 
         className?: string;
+
         text?: string;
        
         enabled?: boolean;
@@ -351,14 +354,15 @@ namespace App{
         order?: (string | number)[][] = [[1, 'asc']] ;
         ordering?: boolean = true;
         stateSave?: boolean = false;
-        BtnDefaults?: ("colvis" | "excel" | "pdf")[] = ["colvis","excel","pdf"];
+        BtnDefaults?: ("colvis" | "excel" | "pdf")[] = [];
+        CreateRow?: DataTables.FunctionCreateRow = null;
     }
 
 
     export interface JQDataTableClass {
         Type?: "Index" | "Text" | "DateTime" | "Date" | "IsActive" | "IsActiveText" | "Accion" | "Switch" | "SwitchData"
         | "LinkEdit" | "LinkEvent" | "LinkUrl" | "HTML" | "JavaScript" | "ExecuteFunctionJS" | "Input" | "Select" | "SelectOnData"
-        |"Render";
+        |"Render" ;
         Orderable?: boolean;
         ClassColum?: string;
         VisibleColum?: boolean;
@@ -385,8 +389,8 @@ namespace App{
         //inputs
         InputType?: "text" | "number" | "checkbox" | "color" | "email" | "password" |"tel",
         //select
-        SelectItems: SelectItemsEntity[]
-        SelectOnDataProperty: string;
+        SelectItems?: SelectItemsEntity[]
+        SelectOnDataProperty?: string;
 
         render?: DataTables.FunctionColumnRender;
 
@@ -405,6 +409,9 @@ namespace App{
         Defaults: GridTableOptions = new GridTableOptions(),
     ) {
 
+        if (Colums?.length==1) {
+            Defaults.order = [[0, 'asc']];
+        }
       
         var TableIds: string[] = [];
         $(window).scrollTop(1)
@@ -433,6 +440,10 @@ namespace App{
         
            
         };
+
+        if (!isNullOrEmpty(Defaults?.CreateRow)) {
+            options.createdRow = Defaults.CreateRow;
+        }
 
         if (Defaults?.rowId != null) {
 
@@ -528,6 +539,7 @@ namespace App{
             if (Security?.Actualizar) {
                 var btnedit: DataTables.ButtonSettings = {
                     text: "Edit",
+                    className:"SelectionBtn_"+el,
                     action: function (e, dt, node, config) {
 
 
@@ -553,6 +565,7 @@ namespace App{
             if (Security?.Eliminar) {
                 var btnDelete: DataTables.ButtonSettings = {
                     text: "Delete",
+                    className: "SelectionBtn_" + el,
                     action: function (e, dt, node, config) {
 
 
@@ -612,7 +625,10 @@ namespace App{
 
                 var newbtn :DataTables.ButtonSettings = {
                     text: item.text,
-                    className: item.className,
+                    className: item?.className ??null,
+                    titleAttr: item?.titleAttr ??null,
+                    name: item?.name ?? null,
+                    enabled: item?.enabled ?? null,
                     action: function (e, dt, node, config) {
                         var data = dt.rows().data().toArray();
                         eval(`${item.action}(TableIds,data,dt,node);`);
@@ -655,7 +671,7 @@ namespace App{
             window["Deletebtn" + el] = function (id) {
                 var si = confirm("Esta seguro de que desea Eliminar estos registro(os)!");
                 if (si) {
-                    console.log(id);
+                    //console.log(id);
                     //axios.post(urlDelete + JSON.stringify(ids)).then((get) => {
                     //    var result = get.data;
                     //    console.log(result);
@@ -758,10 +774,7 @@ namespace App{
             }
         }
 
-        //options.createdRow = function (row,data,index) {
-            
-            
-        //}
+        
         var grid = $(`#${el}`).DataTable<T>(options);
 
 
@@ -803,10 +816,23 @@ namespace App{
                     
                     var rows = grid.rows(indexes).data().toArray();
                     TableIds = SelectedIndex(TableIds, rows);
+                    
+                    if (TableIds?.length > 0) {
+                        grid.buttons(".SelectionBtn_" + el).enable(true);
+                    } else {
+                        grid.buttons(".SelectionBtn_" + el).enable(false);
+                    }
+
                 })
                 .on('deselect', function (e, dt, type, indexes) {
                     var rows = grid.rows(indexes).data().toArray();
                     TableIds = UnSelectedIndex(TableIds, rows);
+                    
+                    if (TableIds?.length > 0) {
+                        grid.buttons(".SelectionBtn_" + el).enable(true);
+                    } else {
+                        grid.buttons(".SelectionBtn_" + el).enable(false);
+                    }
 
                     $(".toggle-all" + el).closest("tr").removeClass("selected");
 
@@ -814,10 +840,16 @@ namespace App{
                     $(".toggle-all" + el).closest("tr").removeClass("selected");
                     
                 });
+
+            if (TableIds?.length > 0) {
+                grid.buttons(".SelectionBtn_" + el).enable(true);
+            } else {
+                grid.buttons(".SelectionBtn_" + el).enable(false);
+            }
         }
 
 
-        if (Defaults.RowIdEvent) {
+        if (Defaults?.RowIdEvent) {
             $(`#${el} tbody`).on("click", "tr", function () {
                 var $this = this as unknown as Node;
                 var id = grid.row($this).id();

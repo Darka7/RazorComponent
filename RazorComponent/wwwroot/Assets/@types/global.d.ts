@@ -5,6 +5,7 @@ declare global {
 
     interface JQuery {
         data<T>(element: string): T;
+        autoNumeric(val:any);
     }
    
 
