@@ -2,38 +2,55 @@
 namespace App {
     
 
-    //const { Component }=VuePropertyDecorator
+    const { Component }=VuePropertyDecorator
 
-    //@Component
-    //class PruebaTest extends Vue {
+   
+    @Component
+    class PruebaTest extends Vue  {
+        
+        
+        columnas: JQDataTableClass[] = [
+            { Column: "id", Label: "", Type: "Index" },
+            { Column: "nombre", Label: "Nombre", Type: "Input",InputType:"text",Class:"form-control" },
+            { Column: "id", Label: "edit", Type: "Accion" },
+            { Column: "Estado", Label: "Estado", Type: "Text" },
+            { Column: "Estado", Label: "Estado", Type: "Switch" },
+        ];
 
-    //    val: Date =null;
-    //    obj = {
-    //       val:null as Date
-    //    }
-       
-    //    handlerchange(e) {
-            
-    //        console.log(e);
-    //    }
+        public JqGrid: DataTables.Api<any> = null;
+        public JqGrid2: DataTables.Api<any> = null;
+        btns: JQDataTableButtons[] = [
+            {
+                text: "Prueba", action: "pruebamethodo", name: "holaaaaaa", titleAttr: "Holaa", className: "btnedit"
+            }
+        ];
 
-    //    ChangeValue() {
-    //        this.val = new Date();
-    //    }
+      
 
-    //}
+        SelectedsTable: string[] = [];
+        SelectedsTable2: string[] = [];
+        dataGrid: any[] = [];
+        dataGrid2: any[] = [];
+
+        Nombre: string = "Hola Andrey";
+        PruebaMethodo(ids: string[],data:any,jq:DataTables.Api<any>,none) {
+           
+            this.JqGrid.buttons().nodes().hide();
+        }
+
+
+        otraprueba(ids,data,dt,none) {
+            alert("Tabla numero dos")
+        }
+
+    }
 
     
 
-    //new PruebaTest().$mount("#Appvue")
+    new PruebaTest().$mount("#Appvue")
 
 
 
-
-  //  declare var AppConfig: any;
-
-
-  //  console.log(AppConfig);
     interface PruebaEntity {
         id?: number;
         nombre?: string;
@@ -55,14 +72,13 @@ namespace App {
 
      
 
-    var columnas: JQDataTableClass[]= [
+        var columnas: JQDataTableClass[]=[
         { Column: "id", Label: "", Type: "Index" },
-        { Column: "nombre", Label: "Nombre", Type: "Text"  },
-        //{ Column: "id", Label: "edit", Type: "Accion" },
-        //{ Column: "Estado", Label: "Estado", Type: "Text" },
-        //{ Column: "Estado", Label: "Estado", Type: "Switch" },
-      //  { Column: "id", Label: "Input", Type: "InputNumberMask" },
-    ];
+        { Column: "nombre", Label: "Nombre", Type: "Text" },
+        { Column: "id", Label: "edit", Type: "Accion" },
+        { Column: "Estado", Label: "Estado", Type: "Text" },
+        { Column: "Estado", Label: "Estado", Type: "Switch" },
+        ];
     var btns: JQDataTableButtons[] = [
         {
             text: "Prueba", action: "App.PruebaMethodo",name:"holaaaaaa", titleAttr:"Holaa",className:"btnedit"
@@ -70,7 +86,7 @@ namespace App {
     ];
 
 
-        var grid1 = GridTable("GridView", columnas, "api/Persona/List", "edit", "delete", {Actualizar:true,Eliminar:true}, btns );
+      //  var grid1 = GridTable("GridView", columnas, "api/Persona/List", "edit", "delete", {Actualizar:true,Eliminar:true}, btns );
 
     //    var grid2 = GridTable("GridView2", columnas, "api/Persona/List", "edit", "delete", null, btns);
 

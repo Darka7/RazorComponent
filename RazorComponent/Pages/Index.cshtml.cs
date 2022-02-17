@@ -29,8 +29,10 @@ namespace RazorComponent.Pages
         [VueData]
         public string mensaje { get; set; } = "Hola";
 
+        public string[] SelectedsTable { get; set; } = new string[] { };
 
-      
+        public SecurityPageEntity Seguridad { get; set; } = new() { Eliminar=true };
+
         [VueData]
         public List<Persona> ListaPersonas { get; set; } = new List<Persona>() {
         new Persona(){ id=1,edad=15, TipoPersona=new(){ descripcion="Amable" }, Nombre="andrey" },

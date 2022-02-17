@@ -97,6 +97,15 @@
                     };
                     break;
 
+                case "Bool":
+                    addcolum = {
+                        data: col.Column, title: col.Label, render: (val, types, entity, meta) => {
+
+                            return val == true ? col.BoolTrue : col.BoolFalse;
+                        }
+                    };
+                    break;
+
                 case "Accion":
                     addcolum = {
                         data: col.Column, title: col.Label, width: "5%", render: (val, types, entity, meta) => {
@@ -340,7 +349,6 @@ namespace App{
 
         name?: string;
 
-        namespace?: string;
 
         titleAttr?: string;
     }
@@ -360,7 +368,7 @@ namespace App{
 
 
     export interface JQDataTableClass {
-        Type?: "Index" | "Text" | "DateTime" | "Date" | "IsActive" | "IsActiveText" | "Accion" | "Switch" | "SwitchData"
+        Type?: "Index" | "Text" | "DateTime" | "Date" | "IsActive" | "IsActiveText" | "Bool" | "Accion" | "Switch" | "SwitchData"
         | "LinkEdit" | "LinkEvent" | "LinkUrl" | "HTML" | "JavaScript" | "ExecuteFunctionJS" | "Input" | "Select" | "SelectOnData"
         |"Render" ;
         Orderable?: boolean;
@@ -665,7 +673,7 @@ namespace App{
 
         if (Accion != null) {
             window["Editbtn" + el] = function (id) {
-                window.location.href = UrlEdit + TableIds[0];
+                window.location.href = UrlEdit + id;
             }
 
             window["Deletebtn" + el] = function (id) {

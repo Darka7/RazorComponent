@@ -110,6 +110,13 @@ var App;
                             }
                         };
                         break;
+                    case "Bool":
+                        addcolum = {
+                            data: col.Column, title: col.Label, render: function (val, types, entity, meta) {
+                                return val == true ? col.BoolTrue : col.BoolFalse;
+                            }
+                        };
+                        break;
                     case "Accion":
                         addcolum = {
                             data: col.Column, title: col.Label, width: "5%", render: function (val, types, entity, meta) {
@@ -500,7 +507,7 @@ var App;
         var Accion = Colums.find(function (value, index) { return value.Type == "Accion"; });
         if (Accion != null) {
             window["Editbtn" + el] = function (id) {
-                window.location.href = UrlEdit + TableIds[0];
+                window.location.href = UrlEdit + id;
             };
             window["Deletebtn" + el] = function (id) {
                 var si = confirm("Esta seguro de que desea Eliminar estos registro(os)!");
