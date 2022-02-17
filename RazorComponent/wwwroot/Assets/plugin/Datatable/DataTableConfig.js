@@ -126,6 +126,14 @@ var App;
                             }
                         };
                         break;
+                    case "Button":
+                        addcolum = {
+                            data: col.Column, title: col.Label, width: "5%", render: function (val, types, entity, meta) {
+                                var rowid = meta.row;
+                                return "<button type=\"button\" class=\"btn ".concat(col === null || col === void 0 ? void 0 : col.Class, "\" data-rowid=\"").concat(rowid, "\" data-valuerow=\"").concat(val, "\" onclick=\"").concat(Table, "BtnGridOnclick($(this),'").concat(col.ButtonEvent, "')\">").concat(col.ButtonText, "</button>");
+                            }
+                        };
+                        break;
                     case "Switch":
                         addcolum = {
                             data: col.Column, title: col.Label, width: "10%", render: function (val, types, entity, meta) {
@@ -162,7 +170,7 @@ var App;
                         break;
                     case "Input":
                         addcolum = {
-                            data: col.Column, title: col.Label, render: function (val, types, entity, meta) {
+                            data: col.Column, title: col.Label, width: "10%", render: function (val, types, entity, meta) {
                                 var rowid = meta.row;
                                 var colid = meta.col;
                                 var checked = "";
@@ -177,7 +185,7 @@ var App;
                         break;
                     case "Select":
                         addcolum = {
-                            data: col.Column, title: col.Label, render: function (val, types, entity, meta) {
+                            data: col.Column, title: col.Label, width: "10%", render: function (val, types, entity, meta) {
                                 var rowid = meta.row;
                                 var colid = meta.col;
                                 var disable = (col === null || col === void 0 ? void 0 : col.Disabled) ? "disabled" : "";
@@ -194,7 +202,7 @@ var App;
                         break;
                     case "SelectOnData":
                         addcolum = {
-                            data: col.Column, title: col.Label, render: function (val, types, entity, meta) {
+                            data: col.Column, title: col.Label, width: "10%", render: function (val, types, entity, meta) {
                                 var rowid = meta.row;
                                 var colid = meta.col;
                                 var disable = (col === null || col === void 0 ? void 0 : col.Disabled) ? "disabled" : "";
@@ -228,7 +236,8 @@ var App;
                         addcolum = {
                             data: col.Column, title: col.Label, render: function (val, types, entity, meta) {
                                 var text = App.isNullOrEmpty(val) ? "..." : val;
-                                return "<a class=\"".concat(col === null || col === void 0 ? void 0 : col.Class, "\" onclick='").concat(col.LinkEvent, "(").concat(JSON.stringify(entity), ",$(this))' href=\"javascript: void(0)\">").concat(text, "</a>");
+                                var rowid = meta.row;
+                                return "<a class=\"".concat(col === null || col === void 0 ? void 0 : col.Class, "\" data-rowid=\"").concat(rowid, "\" onclick='").concat(Table, "OnClickLinkEvent($(this),'").concat(col.LinkEvent, "')' href=\"javascript: void(0)\">").concat(text, "</a>");
                             }
                         };
                         break;
@@ -580,6 +589,23 @@ var App;
                 var rowid = parseInt($this.data("rowid"));
                 var NewValue = $this.val();
                 grid.cell({ row: rowid, column: columid }).data(NewValue);
+            };
+        }
+        var OnClickLinkEvent = Colums.find(function (value, index) { return value.Type == "LinkEvent"; });
+        if (OnClickLinkEvent != null) {
+            window[el + "OnClickLinkEvent"] = function ($this, LinkStringEvent) {
+                var rowid = parseInt($this.data("rowid"));
+                var datarow = grid.row(rowid).data();
+                eval("".concat(LinkStringEvent, "(datarow);"));
+            };
+        }
+        var BtnGridOnclick = Colums.find(function (value, index) { return value.Type == "Button"; });
+        if (BtnGridOnclick != null) {
+            window[el + "BtnGridOnclick"] = function ($this, BtnStringEvent) {
+                var rowid = parseInt($this.data("rowid"));
+                var valuerow = parseInt($this.data("valuerow"));
+                var datarow = grid.row(rowid).data();
+                eval("".concat(BtnStringEvent, "(valuerow,datarow);"));
             };
         }
         var grid = $("#".concat(el)).DataTable(options);

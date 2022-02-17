@@ -79,7 +79,9 @@ namespace Entity
         [EnumMember(Value = "SelectOnData")]
         SelectOnData,
         [EnumMember(Value = "Render")]
-        Render
+        Render,
+        [EnumMember(Value = "Button")]
+        Button
 
     }
 
@@ -127,6 +129,11 @@ namespace Entity
         public string Html { get; set; }
         public string JavaScript { get; set; }
         public JQInputType InputType { get; set; }
+        public List<SelectItemsEntity> SelectItems { get; set; }
+        public string SelectOnDataProperty { get; set; }
+        public string render { get; set; } = null;
+        public string ButtonText { get; set; }
+        public string ButtonEvent { get; set; }
 
     }
 

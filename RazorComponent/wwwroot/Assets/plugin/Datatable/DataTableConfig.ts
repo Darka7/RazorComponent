@@ -118,6 +118,17 @@
                     };
                     break;
 
+                case "Button":
+                    addcolum = {
+                        data: col.Column, title: col.Label, width: "5%", render: (val, types, entity, meta) => {
+
+                            var rowid = meta.row;
+                            
+                         
+                            return `<button type="button" class="btn ${col?.Class}" data-rowid="${rowid}" data-valuerow="${val}" onclick="${Table}BtnGridOnclick($(this),'${col.ButtonEvent}')">${col.ButtonText}</button>` ;
+                        }
+                    };
+                    break;
 
                 case "Switch":
                     addcolum = {
@@ -161,7 +172,7 @@
 
                 case "Input":
                     addcolum = {
-                        data: col.Column, title: col.Label, render: (val, types, entity, meta) => {
+                        data: col.Column, title: col.Label, width: "10%", render: (val, types, entity, meta) => {
 
                             var rowid = meta.row;
                             var colid = meta.col;
@@ -179,7 +190,7 @@
 
                 case "Select":
                     addcolum = {
-                        data: col.Column, title: col.Label, render: (val, types, entity, meta) => {
+                        data: col.Column, title: col.Label, width: "10%", render: (val, types, entity, meta) => {
 
                             var rowid = meta.row;
                             var colid = meta.col;
@@ -201,7 +212,7 @@
 
                 case "SelectOnData":
                     addcolum = {
-                        data: col.Column, title: col.Label, render: (val, types, entity, meta) => {
+                        data: col.Column, title: col.Label, width: "10%",render: (val, types, entity, meta) => {
 
                             var rowid = meta.row;
                             var colid = meta.col;
@@ -246,8 +257,8 @@
                         data: col.Column, title: col.Label, render: (val, types, entity, meta) => {
 
                             var text = isNullOrEmpty(val) ? "..." : val;
-
-                            return `<a class="${col?.Class}" onclick='${col.LinkEvent}(${JSON.stringify(entity)},$(this))' href="javascript: void(0)">${text}</a>`;
+                            var rowid = meta.row;
+                            return `<a class="${col?.Class}" data-rowid="${rowid}" onclick='${Table}OnClickLinkEvent($(this),'${col.LinkEvent}')' href="javascript: void(0)">${text}</a>`;
                         }
                     };
                     break;
@@ -370,7 +381,7 @@ namespace App{
     export interface JQDataTableClass {
         Type?: "Index" | "Text" | "DateTime" | "Date" | "IsActive" | "IsActiveText" | "Bool" | "Accion" | "Switch" | "SwitchData"
         | "LinkEdit" | "LinkEvent" | "LinkUrl" | "HTML" | "JavaScript" | "ExecuteFunctionJS" | "Input" | "Select" | "SelectOnData"
-        |"Render" ;
+        |"Render" |"Button";
         Orderable?: boolean;
         ClassColum?: string;
         VisibleColum?: boolean;
@@ -401,7 +412,9 @@ namespace App{
         SelectOnDataProperty?: string;
 
         render?: DataTables.FunctionColumnRender;
-
+        //Button
+        ButtonText?: string;
+        ButtonEvent?:string;
     }
 
     
@@ -782,6 +795,33 @@ namespace App{
             }
         }
 
+
+        var OnClickLinkEvent = Colums.find(function (value, index) { return value.Type == "LinkEvent"; });
+
+        if (OnClickLinkEvent != null) {
+            window[el + "OnClickLinkEvent"] = function ($this: JQuery<HTMLInputElement>,LinkStringEvent) {
+
+
+                var rowid = parseInt($this.data("rowid"));
+                var datarow = grid.row(rowid).data();
+
+                eval(`${LinkStringEvent}(datarow);`)
+            }
+        }
+
+        var BtnGridOnclick = Colums.find(function (value, index) { return value.Type == "Button"; });
+
+        if (BtnGridOnclick != null) {
+            window[el + "BtnGridOnclick"] = function ($this: JQuery<HTMLInputElement>, BtnStringEvent) {
+
+
+                var rowid = parseInt($this.data("rowid"));
+                var valuerow = parseInt($this.data("valuerow"));
+                var datarow = grid.row(rowid).data();
+
+                eval(`${BtnStringEvent}(valuerow,datarow);`)
+            }
+        }
         
         var grid = $(`#${el}`).DataTable<T>(options);
 

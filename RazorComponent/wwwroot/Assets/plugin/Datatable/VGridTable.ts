@@ -49,6 +49,7 @@
 
         public grid: DataTables.Api<any> = null;
 
+        //Events
         public Edit: JQDataTableClass = null;
 
         public Accion: JQDataTableClass = null;
@@ -63,6 +64,11 @@
 
         public SelectOnDataEvent: JQDataTableClass = null;
 
+        public OnClickLinkEventExists: JQDataTableClass = null;
+
+        public BtnGridOnclickExists: JQDataTableClass = null;
+
+        //prop internals
         public options: DataTables.Settings = null;
 
         public el: string = null;
@@ -389,6 +395,18 @@
 
             }
 
+             this.OnClickLinkEventExists = this.colums.find(function (value, index) { return value.Type == "LinkEvent"; });
+
+            if (this.OnClickLinkEventExists != null) {
+                window[this.el + "OnClickLinkEvent"] = this.OnClickLinkEvent;
+            }
+
+            this.BtnGridOnclickExists = this.colums.find(function (value, index) { return value.Type == "Button"; });
+
+            if (this.BtnGridOnclickExists != null) {
+                window[this.el + "BtnGridOnclick"] = this.BtnGridOnclick;
+            }
+
 
             this.grid = $(this.RefGridTable).DataTable(this.options);
 
@@ -482,6 +500,26 @@
             return this.grid;
 
         }
+
+        //BtnGridOnclick
+        BtnGridOnclick($this: JQuery<HTMLInputElement>, BtnStringEvent) {
+
+
+            var rowid = parseInt($this.data("rowid"));
+            var valuerow = parseInt($this.data("valuerow"));
+            var datarow = this.grid.row(rowid).data();
+            this.$emit(BtnStringEvent, valuerow, datarow);
+        }
+
+        //OnClickLinkEvent
+        OnClickLinkEvent($this: JQuery<HTMLInputElement>, LinkStringEvent) {
+
+
+            var rowid = parseInt($this.data("rowid"));
+            var datarow = this.grid.row(rowid).data();
+            this.$emit(LinkStringEvent, datarow);
+        }
+
         //SelectOnDataEvent
         SelectOnDataCbo($this: JQuery<HTMLInputElement>) {
 

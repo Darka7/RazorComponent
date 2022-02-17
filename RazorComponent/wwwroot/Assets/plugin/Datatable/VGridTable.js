@@ -57,6 +57,7 @@ var App;
         function VGridTable() {
             var _this = _super !== null && _super.apply(this, arguments) || this;
             _this.grid = null;
+            //Events
             _this.Edit = null;
             _this.Accion = null;
             _this.SwitchEvent = null;
@@ -64,6 +65,9 @@ var App;
             _this.InputEvent = null;
             _this.SelectEvent = null;
             _this.SelectOnDataEvent = null;
+            _this.OnClickLinkEventExists = null;
+            _this.BtnGridOnclickExists = null;
+            //prop internals
             _this.options = null;
             _this.el = null;
             _this.TableIds = [];
@@ -296,6 +300,14 @@ var App;
             if (this.SelectOnDataEvent != null) {
                 window[this.el + "SelectOnDataCbo"] = this.SelectOnDataCbo;
             }
+            this.OnClickLinkEventExists = this.colums.find(function (value, index) { return value.Type == "LinkEvent"; });
+            if (this.OnClickLinkEventExists != null) {
+                window[this.el + "OnClickLinkEvent"] = this.OnClickLinkEvent;
+            }
+            this.BtnGridOnclickExists = this.colums.find(function (value, index) { return value.Type == "Button"; });
+            if (this.BtnGridOnclickExists != null) {
+                window[this.el + "BtnGridOnclick"] = this.BtnGridOnclick;
+            }
             this.grid = $(this.RefGridTable).DataTable(this.options);
             function SelectedIndex(selected, items) {
                 items.forEach(function (item) {
@@ -366,6 +378,19 @@ var App;
                 });
             }
             return this.grid;
+        };
+        //BtnGridOnclick
+        VGridTable.prototype.BtnGridOnclick = function ($this, BtnStringEvent) {
+            var rowid = parseInt($this.data("rowid"));
+            var valuerow = parseInt($this.data("valuerow"));
+            var datarow = this.grid.row(rowid).data();
+            this.$emit(BtnStringEvent, valuerow, datarow);
+        };
+        //OnClickLinkEvent
+        VGridTable.prototype.OnClickLinkEvent = function ($this, LinkStringEvent) {
+            var rowid = parseInt($this.data("rowid"));
+            var datarow = this.grid.row(rowid).data();
+            this.$emit(LinkStringEvent, datarow);
         };
         //SelectOnDataEvent
         VGridTable.prototype.SelectOnDataCbo = function ($this) {
