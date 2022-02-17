@@ -33,6 +33,8 @@ namespace RazorComponent.Pages
 
         public SecurityPageEntity Seguridad { get; set; } = new() { Eliminar=true };
 
+        public List<JQDataTableClass> columnas { get; set; }
+
         [VueData]
         public List<Persona> ListaPersonas { get; set; } = new List<Persona>() {
         new Persona(){ id=1,edad=15, TipoPersona=new(){ descripcion="Amable" }, Nombre="andrey" },
@@ -101,35 +103,35 @@ namespace RazorComponent.Pages
            
             //order.Body
             
-            ResultMatrix = Matrix.ToLookup(b => b.BusinessId)
-                .Select(b => new LookupEntity<TreeEntity>()
-                {
-                    Key=b.Key,
-                    Entity=b?.FirstOrDefault(),
-                    Details=b?.ToLookup(g=>g.GroupId)
-                    ?.Select(g=>new LookupEntity<TreeEntity>() { 
-                        Key=g.Key,
-                        Entity=g?.FirstOrDefault(),
-                        Details=g?.ToLookup(f=>f.FacilityId)
-                        ?.Select(f=> new LookupEntity<TreeEntity>() { 
-                            Key=f.Key,
-                            Entity=f?.FirstOrDefault(),
-                            Details=f?.ToLookup(l=>l.Level)
-                               ?.Select(l=> new LookupEntity<TreeEntity>() { 
-                                Key=l.Key,
-                                Entity=l?.FirstOrDefault()
-                                })
-                        })
-                    })
-                });
+            //ResultMatrix = Matrix.ToLookup(b => b.BusinessId)
+            //    .Select(b => new LookupEntity<TreeEntity>()
+            //    {
+            //        Key=b.Key,
+            //        Entity=b?.FirstOrDefault(),
+            //        Details=b?.ToLookup(g=>g.GroupId)
+            //        ?.Select(g=>new LookupEntity<TreeEntity>() { 
+            //            Key=g.Key,
+            //            Entity=g?.FirstOrDefault(),
+            //            Details=g?.ToLookup(f=>f.FacilityId)
+            //            ?.Select(f=> new LookupEntity<TreeEntity>() { 
+            //                Key=f.Key,
+            //                Entity=f?.FirstOrDefault(),
+            //                Details=f?.ToLookup(l=>l.Level)
+            //                   ?.Select(l=> new LookupEntity<TreeEntity>() { 
+            //                    Key=l.Key,
+            //                    Entity=l?.FirstOrDefault()
+            //                    })
+            //            })
+            //        })
+            //    });
 
 
-            ResultSiteMap = Sitio.Where(r => r.SiteMapParent == null)
-                .Select(r => new LookupEntity<SiteMapEntity> {
-                    Key=r.SiteMapId,
-                    Entity=r,
-                    Details=RecursiveSitemap(Sitio,r?.SiteMapId)
-                });
+            //ResultSiteMap = Sitio.Where(r => r.SiteMapParent == null)
+            //    .Select(r => new LookupEntity<SiteMapEntity> {
+            //        Key=r.SiteMapId,
+            //        Entity=r,
+            //        Details=RecursiveSitemap(Sitio,r?.SiteMapId)
+            //    });
            
         }
 

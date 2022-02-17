@@ -17,7 +17,7 @@ namespace RazorComponent.Helpers.Vue
         public IDictionary<string, string> OnEvent { get; set; } = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
-
+            if(OnEvent.Any())
             OnEvent.ToList().ForEach(r => output.Attributes.SetAttribute($"@{r.Key}", r.Value));
 
         }

@@ -19,9 +19,9 @@ namespace RazorComponent.Helpers.Vue
 
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
-            var NameFor = VModelinput.Replace(".", "_");
 
-          
+            var NameFor = VModelinput?.Replace(".", "_");
+
             if (!context.AllAttributes.ContainsName("id") && !context.AllAttributes.ContainsName(":id")) {
                 output.Attributes.SetAttribute("id",  NameFor);
             }
@@ -31,7 +31,12 @@ namespace RazorComponent.Helpers.Vue
                 output.Attributes.SetAttribute("name",NameFor);
             }
 
-            output.Attributes.SetAttribute("v-model", VModelinput);
+            if (!string.IsNullOrEmpty(VModelinput))
+            {
+                
+                output.Attributes.SetAttribute("v-model", VModelinput);
+            }
+            
 
            
         }
