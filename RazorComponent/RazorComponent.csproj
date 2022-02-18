@@ -20,6 +20,8 @@
 
   <ItemGroup>
     <None Include="wwwroot\Assets\%40types\vue-template-compiler\VueTemplateCompiler.min.js" />
+    <None Include="wwwroot\Assets\plugin\bootbox\bootbox.min.js" />
+    <None Include="wwwroot\Assets\plugin\sweetalert2\sweetalert2.min.js" />
   </ItemGroup>
 
   <ItemGroup>
@@ -29,6 +31,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Entity\Entity.csproj" />
+    <ProjectReference Include="..\WebServiceProvider\WebServiceProvider.csproj" />
   </ItemGroup>
 
   <ItemGroup>

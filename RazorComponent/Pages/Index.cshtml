@@ -17,13 +17,13 @@
                 {
                     <li>
                         @item.Entity.SiteMapName
-                    @if (item.HasDetails)
-                    {
-                        @RenderSiteMap(item.Details)
-                    }
+                        @if (item.HasDetails)
+                        {
+                            @RenderSiteMap(item.Details)
+                        }
 
-                </li>
-            }
+                    </li>
+                }
 
             }
 
@@ -38,16 +38,14 @@
 
     <div class="row">
         <div class="col">
-           
-            <v-grid-table  id="GridViewVue" :dt.sync="JqGrid" :colums="columnas"  
-                          urldata="api/Persona/List" urledit="edit" urldelete="delete"
+
+            <v-grid-table id="GridViewVue" :dt.sync="JqGrid" :colums="columnas"
+                          urldata="Model" urledit="edit" urldelete="delete"
                           asp-v-security="Model.Seguridad" :buttons="btns"
                           v-model="dataGrid" class="table"
                           v--
                           v-action-pruebamethodo="PruebaMethodo"
-                          
-                          asp-v-selected="SelectedsTable"
-                          ></v-grid-table>
+                          asp-v-selected="SelectedsTable"></v-grid-table>
         </div>
 
     </div>
@@ -57,24 +55,23 @@
             <v-grid-table id="GridViewVue2" class="table" :dt.sync="JqGrid2" :colums="columnas"
                           urldata="api/Persona/List" urledit="Error?id" urldelete="Privacy"
                           :security="{Actualizar:true,Eliminar:true}" :buttons="btns"
-                          v-model="dataGrid2" 
-                         v-- v-action-pruebamethodo="otraprueba"
-                          
+                          v-model="dataGrid2"
+                          v-- v-action-pruebamethodo="otraprueba"
                           :selected.sync="SelectedsTable2"></v-grid-table>
         </div>
 
     </div>
 
-   
 
 
-  
+
+
     <p>{{SelectedsTable}}</p>
     <p>{{SelectedsTable2}}</p>
     <p>{{dataGrid}}</p>
     <p>{{dataGrid2}}</p>
 
-    
+
 </div>
 
 

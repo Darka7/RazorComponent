@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 using System.Threading.Tasks;
+using WebServiceProvider;
 
 namespace RazorComponent
 {
@@ -31,7 +32,7 @@ namespace RazorComponent
               //  option.JsonSerializerOptions.Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping;
             });
 
-
+            services.AddHttpClient<Service>();
             services.AddControllers().AddJsonOptions(option =>
             {
                 option.JsonSerializerOptions.DictionaryKeyPolicy = null;
