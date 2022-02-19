@@ -1,7 +1,10 @@
 ﻿
 export { };
 declare global {
-    
+    export interface DBEntity {
+        CodeError?: number;
+        MsgError?: string;
+    }
     export interface SecurityPageEntity {
         
         Consultar?: boolean;
