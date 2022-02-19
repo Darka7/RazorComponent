@@ -71,7 +71,7 @@ var App;
                         addcolum = {
                             data: col.Column,
                             orderable: false,
-                            width: "5%",
+                            width: "3%",
                             className: "select-checkbox",
                             title: "<i ></i>",
                             render: function (val, types, entity, meta) {
@@ -119,16 +119,16 @@ var App;
                         break;
                     case "Accion":
                         addcolum = {
-                            data: col.Column, title: col.Label, width: "5%", render: function (val, types, entity, meta) {
+                            data: col.Column, title: col.Label, width: "14%", className: "text-center", render: function (val, types, entity, meta) {
                                 var btnedit = (security === null || security === void 0 ? void 0 : security.Actualizar) ? "<button type=\"button\" class=\"btn btn-outline-primary ".concat(col === null || col === void 0 ? void 0 : col.Class, "\" onclick=\"Editbtn").concat(Table, "('").concat(val, "')\">Editar</button>") : "";
                                 var btnDelete = (security === null || security === void 0 ? void 0 : security.Eliminar) ? "<button type=\"button\" class=\"btn btn-outline-danger ".concat(col === null || col === void 0 ? void 0 : col.Class, "\" onclick=\"Deletebtn").concat(Table, "('").concat(val, "')\">Eliminar</button>") : "";
-                                return btnedit + btnDelete;
+                                return btnedit + " " + btnDelete;
                             }
                         };
                         break;
                     case "Button":
                         addcolum = {
-                            data: col.Column, title: col.Label, width: "5%", render: function (val, types, entity, meta) {
+                            data: col.Column, title: col.Label, width: "5%", className: "text-center", render: function (val, types, entity, meta) {
                                 var rowid = meta.row;
                                 return "<button type=\"button\" class=\"btn ".concat(col === null || col === void 0 ? void 0 : col.Class, "\" data-rowid=\"").concat(rowid, "\" data-valuerow=\"").concat(val, "\" onclick=\"").concat(Table, "BtnGridOnclick($(this),'").concat(col.ButtonEvent, "')\">").concat(col.ButtonText, "</button>");
                             }
@@ -136,7 +136,7 @@ var App;
                         break;
                     case "Switch":
                         addcolum = {
-                            data: col.Column, title: col.Label, width: "10%", render: function (val, types, entity, meta) {
+                            data: col.Column, title: col.Label, width: "8%", className: "text-center", render: function (val, types, entity, meta) {
                                 var ischeck = val == true ? 'checked' : '';
                                 var rowid = meta.row;
                                 var colid = meta.col;
@@ -152,7 +152,7 @@ var App;
                         break;
                     case "SwitchData":
                         addcolum = {
-                            data: col.Column, title: col.Label, width: "10%", render: function (val, types, entity, meta) {
+                            data: col.Column, title: col.Label, width: "8%", className: "text-center", render: function (val, types, entity, meta) {
                                 var ischeck = !App.isNullOrEmpty(val) ? 'checked' : '';
                                 var rowid = meta.row;
                                 var colid = meta.col;
@@ -170,7 +170,7 @@ var App;
                         break;
                     case "Input":
                         addcolum = {
-                            data: col.Column, title: col.Label, width: "10%", render: function (val, types, entity, meta) {
+                            data: col.Column, title: col.Label, width: "18%", render: function (val, types, entity, meta) {
                                 var rowid = meta.row;
                                 var colid = meta.col;
                                 var checked = "";
@@ -185,7 +185,7 @@ var App;
                         break;
                     case "Select":
                         addcolum = {
-                            data: col.Column, title: col.Label, width: "10%", render: function (val, types, entity, meta) {
+                            data: col.Column, title: col.Label, width: "18%", render: function (val, types, entity, meta) {
                                 var rowid = meta.row;
                                 var colid = meta.col;
                                 var disable = (col === null || col === void 0 ? void 0 : col.Disabled) ? "disabled" : "";
@@ -202,7 +202,7 @@ var App;
                         break;
                     case "SelectOnData":
                         addcolum = {
-                            data: col.Column, title: col.Label, width: "10%", render: function (val, types, entity, meta) {
+                            data: col.Column, title: col.Label, width: "18%", render: function (val, types, entity, meta) {
                                 var rowid = meta.row;
                                 var colid = meta.col;
                                 var disable = (col === null || col === void 0 ? void 0 : col.Disabled) ? "disabled" : "";

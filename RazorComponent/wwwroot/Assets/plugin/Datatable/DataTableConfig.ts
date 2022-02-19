@@ -51,7 +51,7 @@
                     addcolum = {
                         data: col.Column,
                         orderable: false,
-                        width: "5%",
+                        width: "3%",
                         className: "select-checkbox",
                         title: `<i ></i>`,
                         render: function (val, types, entity, meta) {
@@ -108,19 +108,19 @@
 
                 case "Accion":
                     addcolum = {
-                        data: col.Column, title: col.Label, width: "5%", render: (val, types, entity, meta) => {
+                        data: col.Column, title: col.Label, width: "14%", className: "text-center", render: (val, types, entity, meta) => {
 
                             var btnedit = security?.Actualizar ? `<button type="button" class="btn btn-outline-primary ${col?.Class}" onclick="Editbtn${Table}('${val}')">Editar</button>` : "";
                             var btnDelete = security?.Eliminar ? `<button type="button" class="btn btn-outline-danger ${col?.Class}" onclick="Deletebtn${Table}('${val}')">Eliminar</button>` : "";
 
-                            return btnedit + btnDelete;
+                            return btnedit +" "+ btnDelete;
                         }
                     };
                     break;
 
                 case "Button":
                     addcolum = {
-                        data: col.Column, title: col.Label, width: "5%", render: (val, types, entity, meta) => {
+                        data: col.Column, title: col.Label, width: "5%", className: "text-center", render: (val, types, entity, meta) => {
 
                             var rowid = meta.row;
                             
@@ -132,7 +132,7 @@
 
                 case "Switch":
                     addcolum = {
-                        data: col.Column, title: col.Label, width: "10%", render: (val, types, entity, meta) => {
+                        data: col.Column, title: col.Label, width: "8%",className:"text-center", render: (val, types, entity, meta) => {
                             var ischeck = val == true ? 'checked' : '';
                             var rowid = meta.row;
                             var colid = meta.col;
@@ -150,7 +150,7 @@
 
                 case "SwitchData":
                     addcolum = {
-                        data: col.Column, title: col.Label, width: "10%", render: (val, types, entity, meta) => {
+                        data: col.Column, title: col.Label, width: "8%", className: "text-center", render: (val, types, entity, meta) => {
 
                             var ischeck = !isNullOrEmpty(val) ? 'checked' : '';
                             var rowid = meta.row;
@@ -172,7 +172,7 @@
 
                 case "Input":
                     addcolum = {
-                        data: col.Column, title: col.Label, width: "10%", render: (val, types, entity, meta) => {
+                        data: col.Column, title: col.Label, width: "18%", render: (val, types, entity, meta) => {
 
                             var rowid = meta.row;
                             var colid = meta.col;
@@ -190,7 +190,7 @@
 
                 case "Select":
                     addcolum = {
-                        data: col.Column, title: col.Label, width: "10%", render: (val, types, entity, meta) => {
+                        data: col.Column, title: col.Label, width: "18%", render: (val, types, entity, meta) => {
 
                             var rowid = meta.row;
                             var colid = meta.col;
@@ -212,7 +212,7 @@
 
                 case "SelectOnData":
                     addcolum = {
-                        data: col.Column, title: col.Label, width: "10%",render: (val, types, entity, meta) => {
+                        data: col.Column, title: col.Label, width: "18%",render: (val, types, entity, meta) => {
 
                             var rowid = meta.row;
                             var colid = meta.col;

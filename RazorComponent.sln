@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RazorComponent", "RazorComp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Entity", "Entity\Entity.csproj", "{5C0B7C1B-868D-48C6-AB63-02DA6786100C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebServiceProvider", "WebServiceProvider\WebServiceProvider.csproj", "{BF505FC3-B23B-42EB-BBF5-5206D228E9B3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebServiceProvider", "WebServiceProvider\WebServiceProvider.csproj", "{BF505FC3-B23B-42EB-BBF5-5206D228E9B3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
