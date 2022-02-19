@@ -28,7 +28,7 @@ namespace RazorComponent.Pages
             }
             catch (Exception ex)
             {
-
+                this.PageMessage(ex);
                 return new JsonResult(this.BadRequestResult(ex));
             }
 

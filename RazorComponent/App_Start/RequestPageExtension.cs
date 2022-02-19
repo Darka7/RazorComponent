@@ -60,6 +60,13 @@ namespace RazorComponent
             ctb.TempData.CrearMensaje(Mensaje, Result);
         }
 
+        public static void PageMessage(this PageModel ctb, Exception ex)
+        {
+
+
+            ctb.TempData.CrearMensaje(ex);
+        }
+
         public static void PageMessage(this PageModel ctb, string Mensaje,int TipoMensaje=0)
         {
 
