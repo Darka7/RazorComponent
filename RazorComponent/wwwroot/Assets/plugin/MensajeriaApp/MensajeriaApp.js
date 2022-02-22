@@ -36,13 +36,17 @@ var App;
             }
         }
         MensajeriaApp.Mostrar = Mostrar;
-        function MostrarBD(Result, UrlPass) {
-            var _a, _b, _c, _d, _e;
+        function MostrarBD(Result, UrlPass, MensajeSuccess) {
+            var _a, _b, _c, _d;
             if (UrlPass === void 0) { UrlPass = null; }
+            if (MensajeSuccess === void 0) { MensajeSuccess = null; }
             if (App.isNullOrEmpty(UrlPass)) {
                 var Tipo = (_a = Result === null || Result === void 0 ? void 0 : Result.CodeError) !== null && _a !== void 0 ? _a : -1;
+                var Mensaje = Result === null || Result === void 0 ? void 0 : Result.MsgError;
+                if (Tipo == 0)
+                    Mensaje = App.isNullOrEmpty(MensajeSuccess) ? Result === null || Result === void 0 ? void 0 : Result.MsgError : MensajeSuccess;
                 App.Toast.fire({
-                    title: (_b = Result === null || Result === void 0 ? void 0 : Result.MsgError) !== null && _b !== void 0 ? _b : "Sin mensaje",
+                    title: Mensaje !== null && Mensaje !== void 0 ? Mensaje : "Sin mensaje",
                     icon: Tipo == 0 ? "success"
                         : Tipo > 0 ? "warning"
                             : Tipo < 0 ? "error" : "info"
@@ -50,9 +54,11 @@ var App;
             }
             else {
                 if ((Result === null || Result === void 0 ? void 0 : Result.CodeError) == 0) {
+                    var Mensaje = Result === null || Result === void 0 ? void 0 : Result.MsgError;
+                    Mensaje = App.isNullOrEmpty(MensajeSuccess) ? Result === null || Result === void 0 ? void 0 : Result.MsgError : MensajeSuccess;
                     axios.get("../Mensajeria", {
                         params: {
-                            Mensaje: (_c = Result === null || Result === void 0 ? void 0 : Result.MsgError) !== null && _c !== void 0 ? _c : "Sin mensaje",
+                            Mensaje: (_b = Result === null || Result === void 0 ? void 0 : Result.MsgError) !== null && _b !== void 0 ? _b : "Sin mensaje",
                             Codigo: Result === null || Result === void 0 ? void 0 : Result.CodeError
                         }
                     })
@@ -60,9 +66,9 @@ var App;
                         .catch(function (error) { return App.Toast.fire({ title: error, icon: "error" }); });
                 }
                 else {
-                    var Tipo = (_d = Result === null || Result === void 0 ? void 0 : Result.CodeError) !== null && _d !== void 0 ? _d : -1;
+                    var Tipo = (_c = Result === null || Result === void 0 ? void 0 : Result.CodeError) !== null && _c !== void 0 ? _c : -1;
                     App.Toast.fire({
-                        title: (_e = Result === null || Result === void 0 ? void 0 : Result.MsgError) !== null && _e !== void 0 ? _e : "Sin mensaje",
+                        title: (_d = Result === null || Result === void 0 ? void 0 : Result.MsgError) !== null && _d !== void 0 ? _d : "Sin mensaje",
                         icon: Tipo == 0 ? "success"
                             : Tipo > 0 ? "warning"
                                 : Tipo < 0 ? "error" : "info"

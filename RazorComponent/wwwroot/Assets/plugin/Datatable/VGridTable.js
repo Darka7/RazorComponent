@@ -205,6 +205,7 @@ var App;
                             if ($_this.TableIds.length > 0) {
                                 bootbox.confirm({
                                     title: "Eliminar",
+                                    centerVertical: true,
                                     message: "Esta seguro de que desea Eliminar estos registro(os)!",
                                     buttons: {
                                         cancel: {
@@ -212,21 +213,19 @@ var App;
                                             label: "Cancelar"
                                         },
                                         confirm: {
-                                            className: "btn btn-outline-warning",
+                                            className: "btn btn-outline-danger",
                                             label: "Eliminar"
                                         }
                                     },
-                                    size: "small",
                                     callback: function (result) {
                                         if (result) {
                                             App.Loading.fire("Eliminando...");
-                                            axios.delete($_this.urldelete, {
-                                                params: { ids: $_this.TableIds }
-                                            }).then(function (_a) {
+                                            axios.delete($_this.urldelete + JSON.stringify($_this.TableIds))
+                                                .then(function (_a) {
                                                 var data = _a.data;
                                                 App.Loading.close();
                                                 $_this.grid.ajax.reload();
-                                                App.MensajeriaApp.MostrarBD(data);
+                                                App.MensajeriaApp.MostrarBD(data, null, "Se elimino con exito!");
                                             }).catch(function (ex) { return App.MensajeriaApp.Mostrar(ex, -1); });
                                         }
                                     }
@@ -462,6 +461,7 @@ var App;
             var $_this = this;
             bootbox.confirm({
                 title: "Eliminar",
+                centerVertical: true,
                 message: "Esta seguro de que desea Eliminar estos registro(os)!",
                 buttons: {
                     cancel: {
@@ -469,11 +469,10 @@ var App;
                         label: "Cancelar"
                     },
                     confirm: {
-                        className: "btn btn-outline-warning",
+                        className: "btn btn-outline-danger",
                         label: "Eliminar"
-                    }
+                    },
                 },
-                size: "small",
                 callback: function (result) {
                     if (result) {
                         App.Loading.fire("Eliminando...");
@@ -483,7 +482,7 @@ var App;
                             var data = _a.data;
                             App.Loading.close();
                             $_this.grid.ajax.reload();
-                            App.MensajeriaApp.MostrarBD(data);
+                            App.MensajeriaApp.MostrarBD(data, null, "Se elimino con exito!");
                         }).catch(function (ex) { return App.MensajeriaApp.Mostrar(ex, -1); });
                     }
                 }

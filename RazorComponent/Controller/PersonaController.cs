@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Entity;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -101,5 +102,14 @@ namespace RazorComponent.Controller
            
             #endregion
         }
+
+
+        [HttpDelete("{id}")]
+        public DBEntity Delete(string id)
+        {
+            var test = Request;
+            return new DBEntity();
+        }
+
     }
 }

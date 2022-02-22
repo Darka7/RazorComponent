@@ -4,7 +4,7 @@
 
 
         didOpen: function (toast) {
-            Swal.showLoading();
+            Loading.showLoading();
         },
         toast: true,
         backdrop: "rgba(1,1,1,0.7)",

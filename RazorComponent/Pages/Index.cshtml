@@ -40,7 +40,7 @@
         <div class="col">
 
             <v-grid-table id="GridViewVue" :dt.sync="JqGrid" :colums="columnas"
-                          urldata="api/Persona/List" urledit="edit" urldelete="delete"
+                          urldata="api/Persona/List" urledit="api/Persona" urldelete="api/Persona/"
                           asp-v-security="Model.Seguridad" :buttons="btns"
                           v-model="dataGrid" class="table"
                           v--

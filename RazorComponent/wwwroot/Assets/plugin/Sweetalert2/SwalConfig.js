@@ -3,7 +3,7 @@ var App;
 (function (App) {
     App.Loading = Swal.mixin({
         didOpen: function (toast) {
-            Swal.showLoading();
+            App.Loading.showLoading();
         },
         toast: true,
         backdrop: "rgba(1,1,1,0.7)",

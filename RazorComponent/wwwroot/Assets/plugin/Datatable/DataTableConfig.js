@@ -99,14 +99,18 @@ var App;
                     case "IsActive":
                         addcolum = {
                             data: col.Column, title: col.Label, render: function (val, types, entity, meta) {
-                                return val == true ? Activo : Inactive;
+                                return val == true ?
+                                    "<span class=\"badge bg-success\">".concat(Activo, "</span>")
+                                    : "<span class=\"badge bg-danger\">".concat(Inactive, "</span>");
                             }
                         };
                         break;
                     case "IsActiveText":
                         addcolum = {
                             data: col.Column, title: col.Label, render: function (val, types, entity, meta) {
-                                return val == true ? col.BoolTrue : col.BoolFalse;
+                                return val == true ?
+                                    "<span class=\"badge bg-success\">".concat(col.BoolTrue, "</span>")
+                                    : "<span class=\"badge bg-danger\">".concat(col.BoolFalse, "</span>");
                             }
                         };
                         break;
@@ -146,7 +150,7 @@ var App;
                                     if (IsHidden)
                                         return "";
                                 }
-                                return "<input class=\"form-check-input ".concat(Table, "_Switch_").concat(col.Column, " ").concat(col === null || col === void 0 ? void 0 : col.Class, "\" type=\"checkbox\" data-columid=\"").concat(colid, "\" data-rowid=\"").concat(rowid, "\" onchange=\"").concat(Table, "SwitchEvent($(this))\" ").concat(ischeck, "  ").concat(col.Disabled ? "disabled" : "", " value=\"").concat(val, "\">");
+                                return "<div class=\"form-check form-switch\"><input class=\"form-check-input ".concat(Table, "_Switch_").concat(col.Column, " ").concat(col === null || col === void 0 ? void 0 : col.Class, "\" type=\"checkbox\" data-columid=\"").concat(colid, "\" data-rowid=\"").concat(rowid, "\" onchange=\"").concat(Table, "SwitchEvent($(this))\" ").concat(ischeck, "  ").concat(col.Disabled ? "disabled" : "", " value=\"").concat(val, "\"></div>");
                             }
                         };
                         break;
@@ -164,7 +168,7 @@ var App;
                                     if (IsHidden)
                                         return "";
                                 }
-                                return "<input class=\"form-check-input ".concat(Table, "_SwitchData_").concat(col.Column, " ").concat(col === null || col === void 0 ? void 0 : col.Class, "\" value=\"").concat(SetValue, "\" data-columid=\"").concat(colid, "\" data-rowid=\"").concat(rowid, "\"  type=\"checkbox\"  onchange=\"").concat(Table, "SwitchDataEvent($(this))\"  ").concat(ischeck, "  ").concat(col.Disabled ? "disabled" : "", " >");
+                                return "<div class=\"form-check form-switch\"><input class=\"form-check-input ".concat(Table, "_SwitchData_").concat(col.Column, " ").concat(col === null || col === void 0 ? void 0 : col.Class, "\" value=\"").concat(SetValue, "\" data-columid=\"").concat(colid, "\" data-rowid=\"").concat(rowid, "\"  type=\"checkbox\"  onchange=\"").concat(Table, "SwitchDataEvent($(this))\"  ").concat(ischeck, "  ").concat(col.Disabled ? "disabled" : "", " ></div>");
                             }
                         };
                         break;
@@ -179,7 +183,7 @@ var App;
                                 }
                                 var disable = (col === null || col === void 0 ? void 0 : col.Disabled) ? "disabled" : "";
                                 //var Inputid = "${Table}_${col.Column}_${rowid}_${colid}"
-                                return "<input  ".concat(checked, " ").concat(disable, " type=\"").concat(col.InputType, "\" onchange=\"").concat(Table, "OnChangeInputTable($(this))\" data-typeinput=\"").concat(col.InputType, "\" data-rowid=\"").concat(rowid, "\" data-columid=\"").concat(colid, "\" class=\"").concat(Table, "_Input_").concat(col.Column, " ").concat(col === null || col === void 0 ? void 0 : col.Class, "\"  value=\"").concat(val, "\" />");
+                                return "<input  ".concat(checked, " ").concat(disable, " type=\"").concat(col.InputType, "\" onchange=\"").concat(Table, "OnChangeInputTable($(this))\" data-typeinput=\"").concat(col.InputType, "\" data-rowid=\"").concat(rowid, "\" data-columid=\"").concat(colid, "\" class=\"form-control ").concat(Table, "_Input_").concat(col.Column, " ").concat(col === null || col === void 0 ? void 0 : col.Class, "\"  value=\"").concat(val, "\" />");
                             }
                         };
                         break;
@@ -196,7 +200,7 @@ var App;
                                     var item = "<option value=\"".concat(data.Value, "\" ").concat(selected, " ").concat(dis, ">").concat(data.Text, "</option>");
                                     options = options + item;
                                 });
-                                return "<select data-rowid=\"".concat(rowid, "\" data-columid=\"").concat(colid, "\" class=\"").concat(Table, "_Select_").concat(col.Column, "  ").concat(col === null || col === void 0 ? void 0 : col.Class, "\" ").concat(disable, " onchange=\"").concat(Table, "OnChangeSelectCbo($(this))\" >").concat(options, "</select>");
+                                return "<select data-rowid=\"".concat(rowid, "\" data-columid=\"").concat(colid, "\" class=\"form-select ").concat(Table, "_Select_").concat(col.Column, "  ").concat(col === null || col === void 0 ? void 0 : col.Class, "\" ").concat(disable, " onchange=\"").concat(Table, "OnChangeSelectCbo($(this))\" >").concat(options, "</select>");
                             }
                         };
                         break;
@@ -215,7 +219,7 @@ var App;
                                     var item = "<option value=\"".concat(data.Value, "\" ").concat(selected, " ").concat(dis, ">").concat(data.Text, "</option>");
                                     options = options + item;
                                 });
-                                return "<select data-rowid=\"".concat(rowid, "\" data-columid=\"").concat(colid, "\" class=\"").concat(Table, "_SelectOnData_").concat(col.Column, "  ").concat(col === null || col === void 0 ? void 0 : col.Class, "\" ").concat(disable, " onchange=\"").concat(Table, "SelectOnDataCbo($(this))\" >").concat(options, "</select>");
+                                return "<select data-rowid=\"".concat(rowid, "\" data-columid=\"").concat(colid, "\" class=\"form-select ").concat(Table, "_SelectOnData_").concat(col.Column, "  ").concat(col === null || col === void 0 ? void 0 : col.Class, "\" ").concat(disable, " onchange=\"").concat(Table, "SelectOnDataCbo($(this))\" >").concat(options, "</select>");
                             }
                         };
                         break;
@@ -228,7 +232,7 @@ var App;
                                 if (id == null)
                                     return text;
                                 var url = UrlEdit + id;
-                                return "<a  class=\"".concat(col === null || col === void 0 ? void 0 : col.Class, "\" href=\"").concat(url, "\">").concat(text, "</a>");
+                                return "<a  class=\"stretched-link ".concat(col === null || col === void 0 ? void 0 : col.Class, "\" href=\"").concat(url, "\">").concat(text, "</a>");
                             }
                         };
                         break;
@@ -237,7 +241,7 @@ var App;
                             data: col.Column, title: col.Label, render: function (val, types, entity, meta) {
                                 var text = App.isNullOrEmpty(val) ? "..." : val;
                                 var rowid = meta.row;
-                                return "<a class=\"".concat(col === null || col === void 0 ? void 0 : col.Class, "\" data-rowid=\"").concat(rowid, "\" onclick='").concat(Table, "OnClickLinkEvent($(this),'").concat(col.LinkEvent, "')' href=\"javascript: void(0)\">").concat(text, "</a>");
+                                return "<a class=\"stretched-link ".concat(col === null || col === void 0 ? void 0 : col.Class, "\" data-rowid=\"").concat(rowid, "\" onclick='").concat(Table, "OnClickLinkEvent($(this),'").concat(col.LinkEvent, "')' href=\"javascript: void(0)\">").concat(text, "</a>");
                             }
                         };
                         break;
@@ -246,7 +250,7 @@ var App;
                             data: col.Column, title: col.Label, render: function (val, types, entity, meta) {
                                 var text = App.isNullOrEmpty(val) ? "..." : val;
                                 var url = col.LinkUrl + $.param(entity);
-                                return "<a class=\"".concat(col === null || col === void 0 ? void 0 : col.Class, "\" href=\"").concat(url, "\" >").concat(text, "</a>");
+                                return "<a class=\"stretched-link ".concat(col === null || col === void 0 ? void 0 : col.Class, "\" href=\"").concat(url, "\" >").concat(text, "</a>");
                             }
                         };
                         break;
@@ -444,27 +448,26 @@ var App;
                             bootbox.confirm({
                                 title: "Eliminar",
                                 message: "Esta seguro de que desea Eliminar estos registro(os)!",
+                                centerVertical: true,
                                 buttons: {
                                     cancel: {
                                         className: "btn btn-outline-secondary",
                                         label: "Cancelar"
                                     },
                                     confirm: {
-                                        className: "btn btn-outline-warning",
+                                        className: "btn btn-outline-danger",
                                         label: "Eliminar"
                                     }
                                 },
-                                size: "small",
                                 callback: function (result) {
                                     if (result) {
                                         App.Loading.fire("Eliminando...");
-                                        axios.delete(UrlDelete, {
-                                            params: { ids: TableIds }
-                                        }).then(function (_a) {
+                                        axios.delete(UrlDelete + JSON.stringify(TableIds))
+                                            .then(function (_a) {
                                             var data = _a.data;
                                             App.Loading.close();
                                             grid.ajax.reload();
-                                            App.MensajeriaApp.MostrarBD(data);
+                                            App.MensajeriaApp.MostrarBD(data, null, "Se elimino con exito!");
                                         }).catch(function (ex) { return App.MensajeriaApp.Mostrar(ex, -1); });
                                     }
                                 }
@@ -536,6 +539,7 @@ var App;
             window["Deletebtn" + el] = function (id) {
                 bootbox.confirm({
                     title: "Eliminar",
+                    centerVertical: true,
                     message: "Esta seguro de que desea Eliminar estos registro(os)!",
                     buttons: {
                         cancel: {
@@ -543,11 +547,10 @@ var App;
                             label: "Cancelar"
                         },
                         confirm: {
-                            className: "btn btn-outline-warning",
+                            className: "btn btn-outline-danger",
                             label: "Eliminar"
                         }
                     },
-                    size: "small",
                     callback: function (result) {
                         if (result) {
                             App.Loading.fire("Eliminando...");
@@ -557,7 +560,7 @@ var App;
                                 var data = _a.data;
                                 App.Loading.close();
                                 grid.ajax.reload();
-                                App.MensajeriaApp.MostrarBD(data);
+                                App.MensajeriaApp.MostrarBD(data, null, "Se elimino con exito!");
                             }).catch(function (ex) { return App.MensajeriaApp.Mostrar(ex, -1); });
                         }
                     }

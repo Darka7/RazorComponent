@@ -84,7 +84,9 @@
                     addcolum = {
                         data: col.Column, title: col.Label, render: (val, types, entity, meta) => {
 
-                            return val == true ? Activo : Inactive;
+                            return val == true ?
+                                `<span class="badge bg-success">${Activo}</span>`
+                                : `<span class="badge bg-danger">${Inactive}</span>`;
                         }
                     };
                     break;
@@ -92,7 +94,9 @@
                     addcolum = {
                         data: col.Column, title: col.Label, render: (val, types, entity, meta) => {
 
-                            return val == true ? col.BoolTrue : col.BoolFalse;
+                            return val == true ?
+                                `<span class="badge bg-success">${col.BoolTrue}</span>`
+                                : `<span class="badge bg-danger">${col.BoolFalse}</span>`;
                         }
                     };
                     break;
@@ -143,7 +147,7 @@
                                 if (IsHidden) return "";
                             }
 
-                            return `<input class="form-check-input ${Table}_Switch_${col.Column} ${col?.Class}" type="checkbox" data-columid="${colid}" data-rowid="${rowid}" onchange="${Table}SwitchEvent($(this))" ${ischeck}  ${col.Disabled ? "disabled" : ""} value="${val}">`;
+                            return `<div class="form-check form-switch"><input class="form-check-input ${Table}_Switch_${col.Column} ${col?.Class}" type="checkbox" data-columid="${colid}" data-rowid="${rowid}" onchange="${Table}SwitchEvent($(this))" ${ischeck}  ${col.Disabled ? "disabled" : ""} value="${val}"></div>`;
                         }
                     };
                     break;
@@ -164,7 +168,7 @@
                                 if (IsHidden) return "";
                             }
 
-                            return `<input class="form-check-input ${Table}_SwitchData_${col.Column} ${col?.Class}" value="${SetValue}" data-columid="${colid}" data-rowid="${rowid}"  type="checkbox"  onchange="${Table}SwitchDataEvent($(this))"  ${ischeck}  ${col.Disabled ? "disabled" : ""} >`;
+                            return `<div class="form-check form-switch"><input class="form-check-input ${Table}_SwitchData_${col.Column} ${col?.Class}" value="${SetValue}" data-columid="${colid}" data-rowid="${rowid}"  type="checkbox"  onchange="${Table}SwitchDataEvent($(this))"  ${ischeck}  ${col.Disabled ? "disabled" : ""} ></div>`;
                         }
                     };
                     break;
@@ -183,7 +187,7 @@
 
                             var disable = col?.Disabled ? "disabled" : "";
                             //var Inputid = "${Table}_${col.Column}_${rowid}_${colid}"
-                            return `<input  ${checked} ${disable} type="${col.InputType}" onchange="${Table}OnChangeInputTable($(this))" data-typeinput="${col.InputType}" data-rowid="${rowid}" data-columid="${colid}" class="${Table}_Input_${col.Column} ${col?.Class}"  value="${val}" />`;
+                            return `<input  ${checked} ${disable} type="${col.InputType}" onchange="${Table}OnChangeInputTable($(this))" data-typeinput="${col.InputType}" data-rowid="${rowid}" data-columid="${colid}" class="form-control ${Table}_Input_${col.Column} ${col?.Class}"  value="${val}" />`;
                         }
                     };
                     break;
@@ -205,7 +209,7 @@
                             });
 
                             
-                            return `<select data-rowid="${rowid}" data-columid="${colid}" class="${Table}_Select_${col.Column}  ${col?.Class}" ${disable} onchange="${Table}OnChangeSelectCbo($(this))" >${options}</select>`;
+                            return `<select data-rowid="${rowid}" data-columid="${colid}" class="form-select ${Table}_Select_${col.Column}  ${col?.Class}" ${disable} onchange="${Table}OnChangeSelectCbo($(this))" >${options}</select>`;
                         }
                     };
                     break;
@@ -230,7 +234,7 @@
                             });
 
 
-                            return `<select data-rowid="${rowid}" data-columid="${colid}" class="${Table}_SelectOnData_${col.Column}  ${col?.Class}" ${disable} onchange="${Table}SelectOnDataCbo($(this))" >${options}</select>`;
+                            return `<select data-rowid="${rowid}" data-columid="${colid}" class="form-select ${Table}_SelectOnData_${col.Column}  ${col?.Class}" ${disable} onchange="${Table}SelectOnDataCbo($(this))" >${options}</select>`;
                         }
                     };
                     break;
@@ -247,7 +251,7 @@
 
                             var url = UrlEdit + id;
 
-                            return `<a  class="${col?.Class}" href="${url}">${text}</a>`;
+                            return `<a  class="stretched-link ${col?.Class}" href="${url}">${text}</a>`;
                         }
                     };
                     break;
@@ -258,7 +262,7 @@
 
                             var text = isNullOrEmpty(val) ? "..." : val;
                             var rowid = meta.row;
-                            return `<a class="${col?.Class}" data-rowid="${rowid}" onclick='${Table}OnClickLinkEvent($(this),'${col.LinkEvent}')' href="javascript: void(0)">${text}</a>`;
+                            return `<a class="stretched-link ${col?.Class}" data-rowid="${rowid}" onclick='${Table}OnClickLinkEvent($(this),'${col.LinkEvent}')' href="javascript: void(0)">${text}</a>`;
                         }
                     };
                     break;
@@ -271,7 +275,7 @@
 
                             var url = col.LinkUrl + $.param(entity);
 
-                            return `<a class="${col?.Class}" href="${url}" >${text}</a>`;
+                            return `<a class="stretched-link ${col?.Class}" href="${url}" >${text}</a>`;
                         }
                     };
                     break;
@@ -598,27 +602,27 @@ namespace App{
                             bootbox.confirm({
                                 title:"Eliminar",
                                 message: "Esta seguro de que desea Eliminar estos registro(os)!",
+                                centerVertical: true,
                                 buttons: {
                                     cancel: {
                                         className: "btn btn-outline-secondary",
                                         label:"Cancelar"
                                     },
                                     confirm: {
-                                        className: "btn btn-outline-warning",
+                                        className: "btn btn-outline-danger",
                                         label: "Eliminar"
                                     }
                                 },
-                                size: "small",
+                                
                                 callback: function (result) {
                                     if (result) {
 
                                         Loading.fire("Eliminando...");
-                                        axios.delete<DBEntity>(UrlDelete, {
-                                            params: { ids: TableIds }
-                                        }).then(function ({ data }) {
+                                        axios.delete<DBEntity>(UrlDelete+ JSON.stringify(TableIds))
+                                            .then(function ({ data }) {
                                             Loading.close();
                                             grid.ajax.reload();
-                                            MensajeriaApp.MostrarBD(data);
+                                            MensajeriaApp.MostrarBD(data,null,"Se elimino con exito!");
                                             
                                         }).catch(ex => MensajeriaApp.Mostrar(ex, -1));
 
@@ -714,6 +718,7 @@ namespace App{
 
                 bootbox.confirm({
                     title: "Eliminar",
+                    centerVertical: true,
                     message: "Esta seguro de que desea Eliminar estos registro(os)!",
                     buttons: {
                         cancel: {
@@ -721,11 +726,12 @@ namespace App{
                             label: "Cancelar"
                         },
                         confirm: {
-                            className: "btn btn-outline-warning",
+                            className: "btn btn-outline-danger",
                             label: "Eliminar"
                         }
                     },
-                    size: "small",
+                   
+                    
                     callback: function (result) {
                         if (result) {
 
@@ -735,8 +741,8 @@ namespace App{
                             }).then(function ({ data }) {
                                 Loading.close();
                                 grid.ajax.reload();
-                                MensajeriaApp.MostrarBD(data);
-
+                                
+                                MensajeriaApp.MostrarBD(data, null, "Se elimino con exito!");
                             }).catch(ex => MensajeriaApp.Mostrar(ex, -1));
 
                         }
