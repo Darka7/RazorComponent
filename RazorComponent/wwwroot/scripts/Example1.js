@@ -6,7 +6,7 @@ var App;
         Example1.PruebaMethodo = function (ids, data, dt, node) {
             console.log(ids);
             console.log(data);
-            App.MensajeriaApp.Mostrar("Hola");
+            // MensajeriaApp.Mostrar("Hola",0,"index")
         };
     })(Example1 = App.Example1 || (App.Example1 = {}));
 })(App || (App = {}));
