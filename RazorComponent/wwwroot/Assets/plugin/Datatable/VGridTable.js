@@ -109,8 +109,8 @@ var App;
                 stateSave: this.defaults.stateSave,
                 ordering: this.defaults.ordering,
                 order: this.defaults.order,
-                columnDefs: App.DT.CreateHeaderColumnsDef(this.colums, this.el),
-                columns: App.DT.CreateRowsData(this.colums, this.security, this.el, this.urledit),
+                columnDefs: App.DTRender.CreateHeaderColumnsDef(this.colums, this.el),
+                columns: App.DTRender.CreateRowsData(this.colums, this.security, this.el, this.urledit),
             };
             if (!App.isNullOrEmpty((_e = this.defaults) === null || _e === void 0 ? void 0 : _e.CreateRow)) {
                 this.options.createdRow = this.defaults.CreateRow;

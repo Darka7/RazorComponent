@@ -26,8 +26,8 @@ var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
 };
 var App;
 (function (App) {
-    var DT;
-    (function (DT) {
+    var DTRender;
+    (function (DTRender) {
         var lang = "EN";
         function CreateHeaderColumnsDef(ct, table) {
             var colums = [];
@@ -57,7 +57,7 @@ var App;
             });
             return colums;
         }
-        DT.CreateHeaderColumnsDef = CreateHeaderColumnsDef;
+        DTRender.CreateHeaderColumnsDef = CreateHeaderColumnsDef;
         function CreateRowsData(ct, security, Table, UrlEdit) {
             var formatDateTime = "ES" == lang ? "dd/mm/yyyy h:MM TT" : "mm/dd/yyyy h:MM TT";
             var formatDate = "ES" == lang ? "dd/mm/yyyy" : "mm/dd/yyyy";
@@ -150,7 +150,7 @@ var App;
                                     if (IsHidden)
                                         return "";
                                 }
-                                return "<div class=\"form-check form-switch\"><input class=\"form-check-input ".concat(Table, "_Switch_").concat(col.Column, " ").concat(col === null || col === void 0 ? void 0 : col.Class, "\" type=\"checkbox\" data-columid=\"").concat(colid, "\" data-rowid=\"").concat(rowid, "\" onchange=\"").concat(Table, "SwitchEvent($(this))\" ").concat(ischeck, "  ").concat(col.Disabled ? "disabled" : "", " value=\"").concat(val, "\"></div>");
+                                return "<div class=\"form-switch\"><input class=\"form-check-input ".concat(Table, "_Switch_").concat(col.Column, " ").concat(col === null || col === void 0 ? void 0 : col.Class, "\" type=\"checkbox\" data-columid=\"").concat(colid, "\" data-rowid=\"").concat(rowid, "\" onchange=\"").concat(Table, "SwitchEvent($(this))\" ").concat(ischeck, "  ").concat(col.Disabled ? "disabled" : "", " value=\"").concat(val, "\"></div>");
                             }
                         };
                         break;
@@ -168,7 +168,7 @@ var App;
                                     if (IsHidden)
                                         return "";
                                 }
-                                return "<div class=\"form-check form-switch\"><input class=\"form-check-input ".concat(Table, "_SwitchData_").concat(col.Column, " ").concat(col === null || col === void 0 ? void 0 : col.Class, "\" value=\"").concat(SetValue, "\" data-columid=\"").concat(colid, "\" data-rowid=\"").concat(rowid, "\"  type=\"checkbox\"  onchange=\"").concat(Table, "SwitchDataEvent($(this))\"  ").concat(ischeck, "  ").concat(col.Disabled ? "disabled" : "", " ></div>");
+                                return "<div class=\"form-switch\"><input class=\"form-check-input ".concat(Table, "_SwitchData_").concat(col.Column, " ").concat(col === null || col === void 0 ? void 0 : col.Class, "\" value=\"").concat(SetValue, "\" data-columid=\"").concat(colid, "\" data-rowid=\"").concat(rowid, "\"  type=\"checkbox\"  onchange=\"").concat(Table, "SwitchDataEvent($(this))\"  ").concat(ischeck, "  ").concat(col.Disabled ? "disabled" : "", " ></div>");
                             }
                         };
                         break;
@@ -299,8 +299,8 @@ var App;
             });
             return colums;
         }
-        DT.CreateRowsData = CreateRowsData;
-    })(DT = App.DT || (App.DT = {}));
+        DTRender.CreateRowsData = CreateRowsData;
+    })(DTRender = App.DTRender || (App.DTRender = {}));
 })(App || (App = {}));
 (function (App) {
     var lang = "EN";
@@ -351,8 +351,8 @@ var App;
             stateSave: Defaults.stateSave,
             ordering: Defaults.ordering,
             order: Defaults.order,
-            columnDefs: App.DT.CreateHeaderColumnsDef(Colums, el),
-            columns: App.DT.CreateRowsData(Colums, Security, el, UrlEdit)
+            columnDefs: App.DTRender.CreateHeaderColumnsDef(Colums, el),
+            columns: App.DTRender.CreateRowsData(Colums, Security, el, UrlEdit)
         };
         if (!App.isNullOrEmpty(Defaults === null || Defaults === void 0 ? void 0 : Defaults.CreateRow)) {
             options.createdRow = Defaults.CreateRow;

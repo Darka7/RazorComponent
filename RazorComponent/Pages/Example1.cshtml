@@ -1,0 +1,33 @@
+﻿@page
+@model RazorComponent.Pages.Example1Model
+@{
+}
+
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <table id="Grid1" class="table" runat="server"></table>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <table id="Grid2" class="table" runat="server"></table>
+        </div>
+    </div>
+</div>
+
+
+
+@section app{ 
+
+    <asp-grid-table id="Grid2" colums="Model.Colums"
+                    urldata="api/Persona/List" urldelete="api/Persona/"  
+                    buttons="Model.Btns"
+                    security="new() { Eliminar=true,Insertar=true }"
+                    ></asp-grid-table>
+
+    <script defer src="Example1?handler=GridTable" asp-append-version="true"></script>
+    <script src="~/scripts/Example1.js" defer></script>
+}

@@ -72,12 +72,12 @@ namespace App {
 
      
 
-        var columnas: JQDataTableColum[]=[
-        { Column: "id", Label: "", Type: "Index" },
-        { Column: "nombre", Label: "Nombre", Type: "Text" },
-        { Column: "id", Label: "edit", Type: "Accion" },
-        { Column: "Estado", Label: "Estado", Type: "Text" },
-        { Column: "Estado", Label: "Estado", Type: "Switch" },
+        var columnas: JQDataTableColum[] = [
+            { Column: "id", Label: "", Type: "Index" },
+            { Column: "nombre", Label: "Nombre", Type: "Input", InputType: "text", Class: "form-control" },
+            { Column: "id", Label: "edit", Type: "Accion" },
+            { Column: "Estado", Label: "Estado", Type: "IsActive" },
+            { Column: "Estado", Label: "Estado", Type: "Switch" },
         ];
     var btns: JQDataTableButtons[] = [
         {

@@ -33,7 +33,7 @@ namespace RazorComponent.TagsHelpers
         public SecurityPageEntity securityAsp { get; set; }
 
         [HtmlAttributeName("buttons")]
-        public IEnumerable<JQDataTableButtons> buttonsAps { get; set; }
+        public List<JQDataTableButtons> buttonsAps { get; set; }
 
         [HtmlAttributeName("defaults")]
         public JQDatatableOptions defaults { get; set; }

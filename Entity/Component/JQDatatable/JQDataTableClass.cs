@@ -22,8 +22,8 @@ namespace Entity
     }
     public class JQDatatableOptions
     {
-        public bool serverSide { get; set; } = true;
-        public string rowId { get; set; }
+        public bool serverSide { get; set; } = false;
+        public string rowId { get; set; } = null;
         public bool RowIdEvent { get; set; } = false;
         public int pageLength { get; set; } = 10;
         public bool searching { get; set; } = true;
@@ -31,7 +31,7 @@ namespace Entity
              new List<dynamic>(){ 1,"asc"}
         };
         public bool ordering { get; set; } = true;
-        public bool stateSave { get; set; } = true;
+        public bool stateSave { get; set; } = false;
         public IEnumerable<JQBtnDefaults> BtnDefaults { get; set; }
         public dynamic CreateRow { get; set; } = null;
 

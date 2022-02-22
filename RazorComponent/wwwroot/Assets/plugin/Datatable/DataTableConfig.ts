@@ -1,4 +1,4 @@
-﻿namespace App.DT {
+﻿namespace App.DTRender {
 
     var lang = "EN";
 
@@ -147,7 +147,7 @@
                                 if (IsHidden) return "";
                             }
 
-                            return `<div class="form-check form-switch"><input class="form-check-input ${Table}_Switch_${col.Column} ${col?.Class}" type="checkbox" data-columid="${colid}" data-rowid="${rowid}" onchange="${Table}SwitchEvent($(this))" ${ischeck}  ${col.Disabled ? "disabled" : ""} value="${val}"></div>`;
+                            return `<div class="form-switch"><input class="form-check-input ${Table}_Switch_${col.Column} ${col?.Class}" type="checkbox" data-columid="${colid}" data-rowid="${rowid}" onchange="${Table}SwitchEvent($(this))" ${ischeck}  ${col.Disabled ? "disabled" : ""} value="${val}"></div>`;
                         }
                     };
                     break;
@@ -168,7 +168,7 @@
                                 if (IsHidden) return "";
                             }
 
-                            return `<div class="form-check form-switch"><input class="form-check-input ${Table}_SwitchData_${col.Column} ${col?.Class}" value="${SetValue}" data-columid="${colid}" data-rowid="${rowid}"  type="checkbox"  onchange="${Table}SwitchDataEvent($(this))"  ${ischeck}  ${col.Disabled ? "disabled" : ""} ></div>`;
+                            return `<div class="form-switch"><input class="form-check-input ${Table}_SwitchData_${col.Column} ${col?.Class}" value="${SetValue}" data-columid="${colid}" data-rowid="${rowid}"  type="checkbox"  onchange="${Table}SwitchDataEvent($(this))"  ${ischeck}  ${col.Disabled ? "disabled" : ""} ></div>`;
                         }
                     };
                     break;
@@ -460,8 +460,8 @@ namespace App{
             stateSave:Defaults.stateSave,
             ordering: Defaults.ordering,
             order: Defaults.order,
-            columnDefs: DT.CreateHeaderColumnsDef(Colums,el),
-            columns: DT.CreateRowsData(Colums, Security, el, UrlEdit)
+            columnDefs: DTRender.CreateHeaderColumnsDef(Colums,el),
+            columns: DTRender.CreateRowsData(Colums, Security, el, UrlEdit)
         
            
         };

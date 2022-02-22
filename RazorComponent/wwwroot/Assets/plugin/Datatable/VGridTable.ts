@@ -122,8 +122,8 @@
                 stateSave: this.defaults.stateSave,
                 ordering: this.defaults.ordering,
                 order: this.defaults.order,
-                columnDefs: DT.CreateHeaderColumnsDef(this.colums, this.el),
-                columns: DT.CreateRowsData(this.colums, this.security, this.el, this.urledit),
+                columnDefs: DTRender.CreateHeaderColumnsDef(this.colums, this.el),
+                columns: DTRender.CreateRowsData(this.colums, this.security, this.el, this.urledit),
                 
 
 
