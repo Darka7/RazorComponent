@@ -5,18 +5,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace RazorComponent.Helpers.Vue
+namespace RazorComponent.TagsHelpers.Vue
 {
     // You may need to install the Microsoft.AspNetCore.Razor.Runtime package into your project
-    [HtmlTargetElement(Attributes ="v-change")]
-    public class VueOnChange : TagHelper
+    [HtmlTargetElement(Attributes = "v-if")]
+    public class VueIf : TagHelper
     {
+        [HtmlAttributeName("v-if")]
 
-        [HtmlAttributeName("v-change")]
-        public string OnChange { get; set; }
+        public string VIF { get; set; }
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
-            output.Attributes.SetAttribute("@change", OnChange);
+            output.Attributes.SetAttribute("v-if", VIF);
         }
     }
 }

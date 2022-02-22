@@ -238,7 +238,7 @@
 
 
                             } else {
-                                alert("Seleccione un registro")
+                                MensajeriaApp.Mostrar("Seleccione un registro!", 1);
                             }
 
 
@@ -259,24 +259,40 @@
 
                             if ($_this.TableIds.length > 0) {
 
-                                var si = confirm("Esta seguro de que desea Eliminar estos registro(os)!");
-                                if (si) {
-                                    console.log(JSON.stringify($_this.TableIds));
-                                    //axios.post(urlDelete + JSON.stringify(ids)).then((get) => {
-                                    //    var result = get.data;
-                                    //    console.log(result);
-                                    //    if (false) {
-                                    //        grid.ajax.reload();
-                                    //    }
+                                bootbox.confirm({
+                                    title: "Eliminar",
+                                    message: "Esta seguro de que desea Eliminar estos registro(os)!",
+                                    buttons: {
+                                        cancel: {
+                                            className: "btn btn-outline-secondary",
+                                            label: "Cancelar"
+                                        },
+                                        confirm: {
+                                            className: "btn btn-outline-warning",
+                                            label: "Eliminar"
+                                        }
+                                    },
+                                    size: "small",
+                                    callback: function (result) {
+                                        if (result) {
 
-                                    //}).catch(ex => {
-                                    //    alert(ex);
-                                    //});
-                                }
+                                            Loading.fire("Eliminando...");
+                                            axios.delete<DBEntity>($_this.urldelete, {
+                                                params: { ids: $_this.TableIds }
+                                            }).then(function ({ data }) {
+                                                Loading.close();
+                                                $_this.grid.ajax.reload();
+                                                MensajeriaApp.MostrarBD(data);
+
+                                            }).catch(ex => MensajeriaApp.Mostrar(ex, -1));
+
+                                        }
+                                    }
+                                });
 
 
                             } else {
-                                alert("Seleccione un registro")
+                                MensajeriaApp.Mostrar("Seleccione un registro!", 1);
                             }
 
 
@@ -600,21 +616,37 @@
         }
 
         Deletebtn(id) {
-            var si = confirm("Esta seguro de que desea Eliminar estos registro(os)!");
-            if (si) {
-                console.log(id);
-                //console.log(id);
-                //axios.post(urlDelete + JSON.stringify(ids)).then((get) => {
-                //    var result = get.data;
-                //    console.log(result);
-                //    if (false) {
-                //        grid.ajax.reload();
-                //    }
+            var $_this = this;
+            bootbox.confirm({
+                title: "Eliminar",
+                message: "Esta seguro de que desea Eliminar estos registro(os)!",
+                buttons: {
+                    cancel: {
+                        className: "btn btn-outline-secondary",
+                        label: "Cancelar"
+                    },
+                    confirm: {
+                        className: "btn btn-outline-warning",
+                        label: "Eliminar"
+                    }
+                },
+                size: "small",
+                callback: function (result) {
+                    if (result) {
 
-                //}).catch(ex => {
-                //    alert(ex);
-                //});
-            }
+                        Loading.fire("Eliminando...");
+                        axios.delete<DBEntity>($_this.urldelete, {
+                            params: { id: id }
+                        }).then(function ({ data }) {
+                            Loading.close();
+                            $_this.grid.ajax.reload();
+                            MensajeriaApp.MostrarBD(data);
+
+                        }).catch(ex => MensajeriaApp.Mostrar(ex, -1));
+
+                    }
+                }
+            });
         }
 
 

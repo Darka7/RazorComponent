@@ -1,8 +1,8 @@
 "use strict";
 var App;
 (function (App) {
-    var Mensaje;
-    (function (Mensaje_1) {
+    var MensajeriaApp;
+    (function (MensajeriaApp) {
         function Mostrar(Mensaje, Tipo, UrlPass) {
             if (Tipo === void 0) { Tipo = 0; }
             if (UrlPass === void 0) { UrlPass = null; }
@@ -35,7 +35,7 @@ var App;
                 }
             }
         }
-        Mensaje_1.Mostrar = Mostrar;
+        MensajeriaApp.Mostrar = Mostrar;
         function MostrarBD(Result, UrlPass) {
             var _a, _b, _c, _d, _e;
             if (UrlPass === void 0) { UrlPass = null; }
@@ -70,7 +70,7 @@ var App;
                 }
             }
         }
-        Mensaje_1.MostrarBD = MostrarBD;
-    })(Mensaje = App.Mensaje || (App.Mensaje = {}));
+        MensajeriaApp.MostrarBD = MostrarBD;
+    })(MensajeriaApp = App.MensajeriaApp || (App.MensajeriaApp = {}));
 })(App || (App = {}));
 //# sourceMappingURL=MensajeriaApp.js.map

@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
 
-namespace RazorComponent.Helpers
+namespace RazorComponent.TagsHelpers
 {
     // You may need to install the Microsoft.AspNetCore.Razor.Runtime package into your project
     [HtmlTargetElement(tag: "vuegridtable",Attributes ="table")]

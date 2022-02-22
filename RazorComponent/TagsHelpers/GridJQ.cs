@@ -5,18 +5,22 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace RazorComponent.Helpers.Vue
+namespace RazorComponent.TagsHelpers
 {
     // You may need to install the Microsoft.AspNetCore.Razor.Runtime package into your project
-    [HtmlTargetElement(Attributes = "v-if")]
-    public class VueIf : TagHelper
+    [HtmlTargetElement("gridjq")]
+    public class gridjq : TagHelper
     {
-        [HtmlAttributeName("v-if")]
-
-        public string VIF { get; set; }
+        public string mensaje { get; set; }
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
-            output.Attributes.SetAttribute("v-if", VIF);
+            
+            output.TagName = "script";
+            output.Attributes.Add("defer","");
+            output.Content.SetHtmlContent($@"
+                alert(""{mensaje}"");
+                    ");
+            output.TagMode = TagMode.StartTagAndEndTag;
         }
     }
 }

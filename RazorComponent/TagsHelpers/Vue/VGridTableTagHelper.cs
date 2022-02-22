@@ -8,7 +8,7 @@ using Entity;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using System.Text.Json;
 
-namespace RazorComponent.Helpers.Vue
+namespace RazorComponent.TagsHelpers.Vue
 {
     // You may need to install the Microsoft.AspNetCore.Razor.Runtime package into your project
     [HtmlTargetElement("v-grid-table")]

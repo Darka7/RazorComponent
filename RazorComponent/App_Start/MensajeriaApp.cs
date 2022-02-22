@@ -18,7 +18,7 @@ namespace RazorComponent
                 var codigo = temp.ContainsKey("PageMessageCodeTemp__") ? temp["PageMessageCodeTemp__"] as int? :0;
                 var mensaje = temp["PageMessageTemp__"] as string;
 
-                print = @$"App.Mensaje.Mostrar(""{mensaje}"",{codigo ?? 0});";
+                print = @$"App.MensajeriaApp.Mostrar(""{mensaje}"",{codigo ?? 0});";
 
             }
 

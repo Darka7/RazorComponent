@@ -1,4 +1,4 @@
-﻿namespace App.Mensaje {
+﻿namespace App.MensajeriaApp {
 
     export function Mostrar(Mensaje:string,Tipo:number=0,UrlPass:string=null) {
         if (isNullOrEmpty(UrlPass)) {

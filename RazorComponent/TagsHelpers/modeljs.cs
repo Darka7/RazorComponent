@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Razor.TagHelpers;
 using System.Text.Json;
 
-namespace RazorComponent.Helpers
+namespace RazorComponent.TagsHelpers
 {
     // You may need to install the Microsoft.AspNetCore.Razor.Runtime package into your project
     [HtmlTargetElement("model-js")]

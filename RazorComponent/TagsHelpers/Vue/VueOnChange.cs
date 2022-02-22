@@ -5,22 +5,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace RazorComponent.Helpers
+namespace RazorComponent.TagsHelpers.Vue
 {
     // You may need to install the Microsoft.AspNetCore.Razor.Runtime package into your project
-    [HtmlTargetElement("gridjq")]
-    public class gridjq : TagHelper
+    [HtmlTargetElement(Attributes ="v-change")]
+    public class VueOnChange : TagHelper
     {
-        public string mensaje { get; set; }
+
+        [HtmlAttributeName("v-change")]
+        public string OnChange { get; set; }
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
-            
-            output.TagName = "script";
-            output.Attributes.Add("defer","");
-            output.Content.SetHtmlContent($@"
-                alert(""{mensaje}"");
-                    ");
-            output.TagMode = TagMode.StartTagAndEndTag;
+            output.Attributes.SetAttribute("@change", OnChange);
         }
     }
 }
