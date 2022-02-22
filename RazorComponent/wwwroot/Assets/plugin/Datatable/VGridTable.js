@@ -489,7 +489,7 @@ var App;
             });
         };
         VGridTable.prototype.mounted = function () {
-            this.security = App.isNullOrEmpty(this.security) ? { Consultar: true, Actualizar: true, Eliminar: true, Insertar: true } : this.security;
+            this.security = App.isNullOrEmpty(this.security) ? { Consultar: false, Actualizar: false, Eliminar: false, Insertar: false } : this.security;
             this.defaults = App.isNullOrEmpty(this.defaults) ? new App.GridTableOptions() : this.defaults;
             this.GridResult = this.GridTable();
         };
@@ -518,7 +518,7 @@ var App;
             __metadata("design:type", String)
         ], VGridTable.prototype, "urldelete", void 0);
         __decorate([
-            Prop({ type: Object, default: { Consultar: true, Actualizar: true, Eliminar: true, Insertar: true } }),
+            Prop({ type: Object, default: { Consultar: false, Actualizar: false, Eliminar: false, Insertar: false } }),
             __metadata("design:type", Object)
         ], VGridTable.prototype, "security", void 0);
         __decorate([

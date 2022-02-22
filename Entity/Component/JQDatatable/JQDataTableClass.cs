@@ -106,7 +106,7 @@ namespace Entity
         tel
     }
 
-    public class JQDataTableClass
+    public class JQDataTableColum
     {
         public JQTypeColum Type { get; set; }
 
@@ -147,5 +147,10 @@ namespace Entity
         public string name { get; set; }
         public string titleAttr { get; set; }
     }
+
+
+
+
+
 
 }

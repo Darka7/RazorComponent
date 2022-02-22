@@ -29,7 +29,7 @@ namespace RazorComponent.TagsHelpers.Vue
 
 
         [HtmlAttributeName("asp-v-colums")]
-        public List<JQDataTableClass> ColumsAsp { get; set; }
+        public List<JQDataTableColum> ColumsAsp { get; set; }
 
 
         [HtmlAttributeName("urldata")]
@@ -61,6 +61,12 @@ namespace RazorComponent.TagsHelpers.Vue
         [HtmlAttributeName("asp-v-selected")]
         public ModelExpression selectedAsp { get; set; }
 
+        [HtmlAttributeName("defaults")]
+        public string defaults { get; set; }
+
+        [HtmlAttributeName("asp-v-defaults")]
+        public JQDatatableOptions defaultsAsp { get; set; }
+
 
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
@@ -83,6 +89,11 @@ namespace RazorComponent.TagsHelpers.Vue
             if (buttonsAps != null) output.Attributes.SetAttribute(":buttons", JsonSerializer.Serialize(buttonsAps));
 
             if (!string.IsNullOrEmpty(selectedAspName)) output.Attributes.SetAttribute(":selected.sync", selectedAspName);
+
+            if (defaultsAsp!=null) output.Attributes.SetAttribute(":defaults", JsonSerializer.Serialize(defaultsAsp));
+
+
+
         }
     }
 }

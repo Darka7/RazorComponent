@@ -2,7 +2,7 @@
 
     var lang = "EN";
 
-   export function CreateHeaderColumnsDef(ct: JQDataTableClass[], table: string): DataTables.ColumnDefsSettings[] {
+   export function CreateHeaderColumnsDef(ct: JQDataTableColum[], table: string): DataTables.ColumnDefsSettings[] {
         var colums: DataTables.ColumnDefsSettings[] = [];
 
         ct.forEach((val, index) => {
@@ -36,7 +36,7 @@
         return colums
     }
 
-   export  function CreateRowsData(ct: JQDataTableClass[], security: SecurityPageEntity, Table: string,UrlEdit:string): DataTables.ColumnSettings[] {
+   export  function CreateRowsData(ct: JQDataTableColum[], security: SecurityPageEntity, Table: string,UrlEdit:string): DataTables.ColumnSettings[] {
 
         var formatDateTime = "ES" == lang ? "dd/mm/yyyy h:MM TT" : "mm/dd/yyyy h:MM TT";
         var formatDate = "ES" == lang ? "dd/mm/yyyy" : "mm/dd/yyyy";
@@ -382,7 +382,7 @@ namespace App{
     }
 
 
-    export interface JQDataTableClass {
+    export interface JQDataTableColum {
         Type?: "Index" | "Text" | "DateTime" | "Date" | "IsActive" | "IsActiveText" | "Bool" | "Accion" | "Switch" | "SwitchData"
         | "LinkEdit" | "LinkEvent" | "LinkUrl" | "HTML" | "JavaScript" | "ExecuteFunctionJS" | "Input" | "Select" | "SelectOnData"
         |"Render" |"Button";
@@ -422,14 +422,14 @@ namespace App{
     }
 
     
-
+   
 
     export function GridTable<T>(el: string,
-        Colums: JQDataTableClass[],
+        Colums: JQDataTableColum[],
         UrlData: string=null,
         UrlEdit: string = null,
         UrlDelete: string = null,
-        Security: SecurityPageEntity = { Consultar: true, Actualizar: true, Eliminar: true, Insertar: true },
+        Security: SecurityPageEntity = { Consultar: false, Actualizar: false, Eliminar: false, Insertar: false },
         Buttons: JQDataTableButtons[]=null,
         Defaults: GridTableOptions = new GridTableOptions(),
     ) {

@@ -325,7 +325,7 @@ var App;
         if (UrlData === void 0) { UrlData = null; }
         if (UrlEdit === void 0) { UrlEdit = null; }
         if (UrlDelete === void 0) { UrlDelete = null; }
-        if (Security === void 0) { Security = { Consultar: true, Actualizar: true, Eliminar: true, Insertar: true }; }
+        if (Security === void 0) { Security = { Consultar: false, Actualizar: false, Eliminar: false, Insertar: false }; }
         if (Buttons === void 0) { Buttons = null; }
         if (Defaults === void 0) { Defaults = new GridTableOptions(); }
         if ((Colums === null || Colums === void 0 ? void 0 : Colums.length) == 1) {

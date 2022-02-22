@@ -22,7 +22,7 @@
         GridResult!: DataTables.Api<any>;
 
         @Prop({ type: Array, default: <JQDataTableButtons[]>[] })
-        colums!: JQDataTableClass[];
+        colums!: JQDataTableColum[];
 
         @Prop({ type: String, default: null })
         urldata!: string;
@@ -34,7 +34,7 @@
         urldelete!: string;  
 
 
-        @Prop({ type: Object , default:<SecurityPageEntity> { Consultar: true, Actualizar: true, Eliminar: true, Insertar: true } })
+        @Prop({ type: Object, default: <SecurityPageEntity>{ Consultar: false, Actualizar: false, Eliminar: false, Insertar: false } })
         security!: SecurityPageEntity;  
 
 
@@ -50,23 +50,23 @@
         public grid: DataTables.Api<any> = null;
 
         //Events
-        public Edit: JQDataTableClass = null;
+        public Edit: JQDataTableColum = null;
 
-        public Accion: JQDataTableClass = null;
+        public Accion: JQDataTableColum = null;
 
-        public SwitchEvent: JQDataTableClass = null;
+        public SwitchEvent: JQDataTableColum = null;
 
-        public SwitchDataEvent: JQDataTableClass = null;
+        public SwitchDataEvent: JQDataTableColum = null;
 
-        public InputEvent: JQDataTableClass = null;
+        public InputEvent: JQDataTableColum = null;
 
-        public SelectEvent: JQDataTableClass = null;
+        public SelectEvent: JQDataTableColum = null;
 
-        public SelectOnDataEvent: JQDataTableClass = null;
+        public SelectOnDataEvent: JQDataTableColum = null;
 
-        public OnClickLinkEventExists: JQDataTableClass = null;
+        public OnClickLinkEventExists: JQDataTableColum = null;
 
-        public BtnGridOnclickExists: JQDataTableClass = null;
+        public BtnGridOnclickExists: JQDataTableColum = null;
 
         //prop internals
         public options: DataTables.Settings = null;
@@ -652,7 +652,7 @@
 
 
         mounted() {
-            this.security = isNullOrEmpty(this.security) ? { Consultar: true, Actualizar: true, Eliminar: true, Insertar: true } : this.security;
+            this.security = isNullOrEmpty(this.security) ? { Consultar: false, Actualizar: false, Eliminar: false, Insertar: false } : this.security;
 
             this.defaults = isNullOrEmpty(this.defaults) ? new GridTableOptions() : this.defaults;
             

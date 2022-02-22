@@ -9,7 +9,7 @@ namespace App {
     class PruebaTest extends Vue  {
         
         
-        columnas: JQDataTableClass[] = [
+        columnas: JQDataTableColum[] = [
             { Column: "id", Label: "", Type: "Index" },
             { Column: "nombre", Label: "Nombre", Type: "Input",InputType:"text",Class:"form-control" },
             { Column: "id", Label: "edit", Type: "Accion" },
@@ -72,7 +72,7 @@ namespace App {
 
      
 
-        var columnas: JQDataTableClass[]=[
+        var columnas: JQDataTableColum[]=[
         { Column: "id", Label: "", Type: "Index" },
         { Column: "nombre", Label: "Nombre", Type: "Text" },
         { Column: "id", Label: "edit", Type: "Accion" },
@@ -100,3 +100,6 @@ namespace App {
   
     
 }
+
+
+

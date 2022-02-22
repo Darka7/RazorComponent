@@ -33,7 +33,7 @@ namespace RazorComponent.Pages
 
         public SecurityPageEntity Seguridad { get; set; } = new() { Eliminar=true };
 
-        public List<JQDataTableClass> columnas { get; set; }
+        public List<JQDataTableColum> columnas { get; set; }
 
         [VueData]
         public List<Persona> ListaPersonas { get; set; } = new List<Persona>() {
