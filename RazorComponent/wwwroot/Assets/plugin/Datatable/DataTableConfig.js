@@ -384,8 +384,9 @@ var App;
             buttons: [],
             dom: {
                 button: {
-                    className: "btn btn-outline-primary"
+                    className: "btn btn-outline-primary",
                 },
+                container: { tag: "test" }
             },
         };
         var Edit = Colums.find(function (value, index) { return value.Type == "Index"; });

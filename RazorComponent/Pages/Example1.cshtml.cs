@@ -21,7 +21,8 @@ namespace RazorComponent.Pages
         };
 
         public List<JQDataTableButtons> Btns { get; set; } = new List<JQDataTableButtons>() {
-        new(){ text="Prueba",action="App.Example1.PruebaMethodo",className="btnprueba"}
+        new(){ text="Prueba",action="App.Example1.PruebaMethodo",className="btnprueba"},
+        new(){ text="Prueba 2",action="App.Example1.PruebaMethodo",className="btnprueba"}
         };
 
         public void OnGet()

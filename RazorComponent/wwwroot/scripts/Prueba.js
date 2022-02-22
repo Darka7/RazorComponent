@@ -38,7 +38,10 @@ var App;
             _this.JqGrid2 = null;
             _this.btns = [
                 {
-                    text: "Prueba", action: "pruebamethodo", name: "holaaaaaa", titleAttr: "Holaa", className: "btnedit"
+                    text: "Prueba", action: "pruebamethodo", name: "holaaaaaa", titleAttr: "Holaa", className: "btnedit float-end"
+                },
+                {
+                    text: "Prueba2", action: "pruebamethodo", name: "holaaaaaa", titleAttr: "Holaa", className: "btnedit"
                 }
             ];
             _this.SelectedsTable = [];

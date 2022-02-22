@@ -21,7 +21,10 @@ namespace App {
         public JqGrid2: DataTables.Api<any> = null;
         btns: JQDataTableButtons[] = [
             {
-                text: "Prueba", action: "pruebamethodo", name: "holaaaaaa", titleAttr: "Holaa", className: "btnedit"
+                text: "Prueba", action: "pruebamethodo", name: "holaaaaaa", titleAttr: "Holaa", className: "btnedit float-end"
+            },
+            {
+                text: "Prueba2", action: "pruebamethodo", name: "holaaaaaa", titleAttr: "Holaa", className: "btnedit"
             }
         ];
 

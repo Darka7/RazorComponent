@@ -53,7 +53,7 @@ namespace RazorComponent.TagsHelpers
             var Options = JsonSerializer.Serialize(defaults ?? new JQDatatableOptions());
 
 
-            var scripting = @$"$(document).ready(function () {{ App.GridTable('{Id}',{colums},{urldata},{urledit},{urldelete},{security},{btns},{Options}); }});";
+            var scripting = @$"var {Id}; $(document).ready(function () {{ {Id}= App.GridTable('{Id}',{colums},{urldata},{urledit},{urldelete},{security},{btns},{Options}); }});";
 
             output.Content.SetHtmlContent(scripting);
 

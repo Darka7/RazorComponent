@@ -504,14 +504,16 @@ namespace App{
             buttons: [],
             dom: {
                 button: {
-                    className: "btn btn-outline-primary"
+                    className: "btn btn-outline-primary",
+                    
                 },
-                
+                container: {tag:"test"}
             },
             
             
+            
         };
-
+          
         var Edit = Colums.find(function (value, index) { return value.Type == "Index"; });
 
         //btns por seguridad
@@ -674,6 +676,7 @@ namespace App{
                     className: item?.className ??null,
                     titleAttr: item?.titleAttr ??null,
                     name: item?.name ?? null,
+                    
                     enabled: item?.enabled ?? null,
                     action: function (e, dt, node, config) {
                         var data = dt.rows().data().toArray();

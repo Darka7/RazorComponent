@@ -2,7 +2,7 @@
 
     export function Mostrar(Mensaje:string,Tipo:number=0,UrlPass:string=null) {
         if (isNullOrEmpty(UrlPass)) {
-            Toast.fire({
+           return Toast.fire({
                 title: Mensaje,
                 icon: Tipo == 0 ? "success"
                     : Tipo > 0 ? "warning"
@@ -12,7 +12,7 @@
 
         } else {
             if (Tipo == 0) {
-                axios.get("../Mensajeria", {
+              return  axios.get("../Mensajeria", {
                     params: {
                         Mensaje: Mensaje,
                         Codigo: Tipo
@@ -22,7 +22,7 @@
                     .catch(error => Toast.fire({ title: error, icon: "error" })  );
 
             } else {
-                Toast.fire({
+               return Toast.fire({
                     title: Mensaje,
                     icon: Tipo == 0 ? "success"
                         : Tipo > 0 ? "warning"

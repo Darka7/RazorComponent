@@ -7,7 +7,7 @@ var App;
             if (Tipo === void 0) { Tipo = 0; }
             if (UrlPass === void 0) { UrlPass = null; }
             if (App.isNullOrEmpty(UrlPass)) {
-                App.Toast.fire({
+                return App.Toast.fire({
                     title: Mensaje,
                     icon: Tipo == 0 ? "success"
                         : Tipo > 0 ? "warning"
@@ -16,7 +16,7 @@ var App;
             }
             else {
                 if (Tipo == 0) {
-                    axios.get("../Mensajeria", {
+                    return axios.get("../Mensajeria", {
                         params: {
                             Mensaje: Mensaje,
                             Codigo: Tipo
@@ -26,7 +26,7 @@ var App;
                         .catch(function (error) { return App.Toast.fire({ title: error, icon: "error" }); });
                 }
                 else {
-                    App.Toast.fire({
+                    return App.Toast.fire({
                         title: Mensaje,
                         icon: Tipo == 0 ? "success"
                             : Tipo > 0 ? "warning"

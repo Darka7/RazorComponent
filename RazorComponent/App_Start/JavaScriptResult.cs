@@ -33,7 +33,7 @@ namespace RazorComponent
             var btns = JsonSerializer.Serialize(Buttons);
             var Options = JsonSerializer.Serialize(Defaults ?? new JQDatatableOptions());
 
-            var scripting = @$"$(document).ready(function () {{ App.GridTable('{Id}',{colums},{urldata},{urledit},{urldelete},{securityPage},{btns},{Options}); }});";
+            var scripting = @$" var {Id}; $(document).ready(function () {{ {Id}=  App.GridTable('{Id}',{colums},{urldata},{urledit},{urldelete},{securityPage},{btns},{Options}); }});";
 
             this.Content = scripting;
             this.ContentType = "application/javascript";
