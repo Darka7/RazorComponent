@@ -9,7 +9,7 @@ namespace RazorComponent.TagsHelpers.Vue
 {
     // You may need to install the Microsoft.AspNetCore.Razor.Runtime package into your project
     [HtmlTargetElement(Attributes ="v-change")]
-    public class VueOnChange : TagHelper
+    public class VueOnChangeTagHelper : TagHelper
     {
 
         [HtmlAttributeName("v-change")]

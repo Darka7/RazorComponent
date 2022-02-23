@@ -1,0 +1,45 @@
+﻿@model Entity.SecurityPageEntity
+
+
+
+@if (!Model.Insertar.GetValueOrDefault())
+{
+
+    <style>
+        [sec-insert] {
+            display: none;
+        }
+    </style>
+
+}
+
+@if (!Model.Actualizar.GetValueOrDefault())
+{
+
+    <style>
+        [sec-update] {
+            display: none;
+        }
+    </style>
+
+}
+
+@if (!Model.Eliminar.GetValueOrDefault())
+{
+
+    <style>
+        [sec-delete] {
+            display: none;
+        }
+    </style>
+
+}
+
+@if ((Model.FormUpdate && !Model.Actualizar.GetValueOrDefault() ) || (Model.FormUpdate == false && !Model.Insertar.GetValueOrDefault() ) )
+{
+    <script defer>
+        $(document).ready(function () {
+            $("input,textarea,select").prop("disabled", true); //Disable
+        });
+    </script>
+}

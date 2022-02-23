@@ -9,7 +9,7 @@ namespace RazorComponent.TagsHelpers.Vue
 {
     
    [HtmlTargetElement(Attributes = "v--")]
-    public class VueAction : TagHelper
+    public class VueActionTagHelper : TagHelper
     {
         [HtmlAttributeName("v--")]
         public bool VueCopiler { get; set; }

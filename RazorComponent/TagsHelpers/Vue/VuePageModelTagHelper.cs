@@ -10,11 +10,12 @@ using System.Reflection;
 namespace RazorComponent.TagsHelpers
 {
     // You may need to install the Microsoft.AspNetCore.Razor.Runtime package into your project
-    [HtmlTargetElement("vue-page-model")]
-    public class vuemodel : TagHelper
+    [HtmlTargetElement("vue-page-model",TagStructure=TagStructure.WithoutEndTag)]
+    public class VuePageModelTagHelper : TagHelper
     {
-
+        [HtmlAttributeName("model")]
         public object model { get; set; }
+        [HtmlAttributeName("var")]
         public string var { get; set; }
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
@@ -22,9 +23,11 @@ namespace RazorComponent.TagsHelpers
 
            
 
-            var result= props.Where(item => item.GetCustomAttributes(typeof(VueData), true)?.FirstOrDefault()
-                               as VueData != null)
-                .Select(r => new { r.Name,value=r.GetValue(model) }).ToDictionary(t=>t.Name,t=>t.value);
+            var result= props.Where(item =>
+            item.GetCustomAttributes(typeof(VueData), true)?.FirstOrDefault()as VueData != null)
+                .Select(r => new { r.Name,value=r.GetValue(model) })
+                .ToDictionary(t=>t.Name,t=>t.value);
+
             result = result ?? new Dictionary<string, object>();
 
             output.TagName = "script";

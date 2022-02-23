@@ -33,7 +33,7 @@ namespace RazorComponent
             propertyName = propertyName
                .Replace("ToString", "toString")
                ;
-            return new HtmlString("{{" + $"{key},{propertyName}" + "}}");
+            return new HtmlString("{{" + $"{key}.{propertyName}" + "}}");
         }
 
         public static IHtmlContent For<TModel, TProperty>(Expression<Func<TModel, TProperty>> property)

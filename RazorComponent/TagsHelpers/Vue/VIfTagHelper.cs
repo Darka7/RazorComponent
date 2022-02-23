@@ -5,18 +5,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace RazorComponent.TagsHelpers
+namespace RazorComponent.TagsHelpers.Vue
 {
     // You may need to install the Microsoft.AspNetCore.Razor.Runtime package into your project
-    [HtmlTargetElement(Attributes ="v-click")]
-    public class VueClick : TagHelper
+    [HtmlTargetElement(Attributes ="v-if")]
+    public class VIfTagHelper : TagHelper
     {
-
-        [HtmlAttributeName("v-click")]
-        public string Click { get; set; } = "";
+        [HtmlAttributeName("v-if")]
+        public string prop { get; set; }
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
-            output.Attributes.Add("@click", Click);
+            output.Attributes.SetAttribute("v-if", prop);
         }
     }
 }

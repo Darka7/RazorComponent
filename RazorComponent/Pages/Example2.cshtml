@@ -1,0 +1,61 @@
+﻿@page
+@model RazorComponent.Pages.Example2Model
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="VueApp" class="container">
+    <h1 v-if="!Ocultar">Titulo de entrada</h1>
+
+
+    <input type="text" asp-v-model="Persona.Nombre" /><br />
+    <input type="number" asp-v-model="Persona.edad" /><br />
+
+    <h4 asp-v-text="Persona.Nombre"></h4>
+    <h4 asp-v-text="Persona.edad"></h4>
+    <h5>@Vue.ForHtml((Persona Persona)=>Persona.id)</h5>
+    <h3 v-text="HolaMundo"></h3>
+    <div class="row">
+
+        <div class="col">
+            <button sec-insert v-click="OnClickMe">Prueba</button>
+        </div>
+
+    </div>
+
+    <div class="row">
+
+        <div class="col">
+            <button sec-update>Prueba update</button>
+        </div>
+
+    </div>
+
+    <div class="row">
+
+        <div class="col">
+            <button sec-delete>Prueba delete</button>
+        </div>
+
+    </div>
+
+</div>
+
+
+@section app{ 
+    <vue-page-model var="Model" model="Model" />
+    <script src="~/scripts/example2.js" defer></script>
+}
+
+
+
+@*<partial name="_Security" for="Security "></partial>*@

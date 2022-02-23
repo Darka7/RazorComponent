@@ -8,15 +8,15 @@ using System.Threading.Tasks;
 namespace RazorComponent.TagsHelpers.Vue
 {
     // You may need to install the Microsoft.AspNetCore.Razor.Runtime package into your project
-    [HtmlTargetElement(Attributes = "v-if")]
-    public class VueIf : TagHelper
+    [HtmlTargetElement(Attributes = "v-text")]
+    public class VTextTagHelper : TagHelper
     {
-        [HtmlAttributeName("v-if")]
+        [HtmlAttributeName("v-text")]
+        public string text { get; set; }
 
-        public string VIF { get; set; }
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
-            output.Attributes.SetAttribute("v-if", VIF);
+            output.Attributes.SetAttribute("v-text",text);
         }
     }
 }

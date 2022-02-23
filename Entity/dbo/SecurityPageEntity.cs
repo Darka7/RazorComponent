@@ -12,6 +12,6 @@ namespace Entity
         public bool? Insertar { get; set; }
         public bool? Eliminar { get; set; }
         public bool? Actualizar { get; set; }
-      
+        public bool FormUpdate { get; set; }
     }
 }
