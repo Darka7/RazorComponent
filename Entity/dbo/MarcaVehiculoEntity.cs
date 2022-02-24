@@ -12,5 +12,15 @@ namespace Entity
         public string Descripcion { get; set; }
         public bool? Estado { get; set; }
 
+
+
+        public dynamic GetByIdParam()
+        {
+            return new
+            {
+                MarcaVehiculoId
+            };
+        }
+
     }
 }

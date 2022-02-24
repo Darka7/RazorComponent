@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace BD
 {
-    public class DataAccess : IDataAccess
+    public class DataAccess :  IDataAccess
     {
 
         public IConfiguration config { get; }
@@ -35,7 +35,7 @@ namespace BD
             return new SqlConnection(ConnString);
         }
 
-        public async Task<IEnumerable<T>> QueryAsync<T, U>(string Sp, U Param = default, string ConnId = "Conn1", int? Timeout = null)
+        public async Task<IEnumerable<T>> QueryAsync<T>(string Sp, object Param = null, string ConnId = "Conn1", int? Timeout = null)
         {
             try
             {
@@ -43,7 +43,7 @@ namespace BD
                 {
                     await exec.OpenAsync();
 
-                    var result = exec.QueryAsync<T>(sql: Sp, param: new DynamicParameters(Param),
+                    var result = exec.QueryAsync<T>(sql: Sp, param: Param,
                         commandType: CommandType.StoredProcedure, commandTimeout: Timeout);
 
                     return await result;
@@ -65,8 +65,8 @@ namespace BD
                 using (var exec = DBConection(ConnId))
                 {
                     await exec.OpenAsync();
-
-                    var result = await exec.ExecuteReaderAsync(sql: Sp, param: new DynamicParameters(Param),
+                    var parameter = new DynamicParameters(Param) { RemoveUnused = true };
+                    var result = await exec.ExecuteReaderAsync(sql: Sp, param: parameter,
                         commandType: CommandType.StoredProcedure, commandTimeout: Timeout);
 
                     await result.ReadAsync();

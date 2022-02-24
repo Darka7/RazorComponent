@@ -20,4 +20,12 @@ declare global {
         Nombre?: string;
         //TipoPersona?: TipoPersona;
     }
+
+
+    export interface MarcaVehiculoEntity {
+        MarcaVehiculoId?: number;
+        Descripcion?: string;
+        Estado?: boolean;
+       
+    }
 }
