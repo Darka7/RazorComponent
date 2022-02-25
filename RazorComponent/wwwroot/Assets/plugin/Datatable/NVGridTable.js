@@ -553,4 +553,4 @@ var App;
     }(Vue));
     Vue.component("NvGridTable", NvGridTable);
 })(App || (App = {}));
-//# sourceMappingURL=NVGridTable.js.map
+//# sourceMappingURL=NvGridTable.js.map

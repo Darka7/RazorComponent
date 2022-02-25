@@ -57,11 +57,22 @@ var App;
         NvModal = __decorate([
             Component({
                 inheritAttrs: false,
-                template: "<div class=\"nvmodal\" :id=\"id\"  tabindex=\"-1\" v-show.display=\"show\" >\n  <div :class=\"['modal-dialog modal-dialog-centered',SizeModal]\">\n    <div class=\"modal-content\">\n\n      <div class=\"modal-header\">\n        <h5 class=\"modal-title\" >\n        <slot name=\"h\"> {{title}} </slot>\n        </h5>\n        <button type=\"button\" class=\"btn-close\"  aria-label=\"Close\" @click=\"show=false\"></button>\n      </div>\n      <div class=\"modal-body\">\n        <slot></slot>\n      </div>\n      <div class=\"modal-footer\">\n          <slot name=\"f\">\n        <button type=\"button\" class=\"btn btn-outline-secondary\" @click=\"show=false\">Cerrar</button>\n            </slot>\n      </div>\n    </div>\n  </div>\n</div>"
+                template: "\n<div class=\"nvmodal\" :id=\"id\"  tabindex=\"-1\" v-show.display=\"show\" >\n  <div :class=\"['modal-dialog modal-dialog-centered',SizeModal]\">\n    <div class=\"modal-content\">\n\n      <div class=\"modal-header\">\n        <h5 class=\"modal-title\" >\n        <slot name=\"h\"> {{title}} </slot>\n        </h5>\n        <button type=\"button\" class=\"btn-close\"  aria-label=\"Close\" @click=\"show=false\"></button>\n      </div>\n      <div class=\"modal-body\">\n        <slot></slot>\n      </div>\n      <div class=\"modal-footer\">\n          <slot name=\"f\">\n        <button type=\"button\" class=\"btn btn-outline-secondary\" @click=\"show=false\">Cerrar</button>\n            </slot>\n      </div>\n    </div>\n  </div>\n</div>"
             })
         ], NvModal);
         return NvModal;
     }(Vue));
     Vue.component("NvModal", NvModal);
+    var test = /** @class */ (function (_super) {
+        __extends(test, _super);
+        function test() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        test = __decorate([
+            Component
+        ], test);
+        return test;
+    }(Vue));
+    Vue.component("test", test);
 })(App || (App = {}));
 //# sourceMappingURL=NvModal.js.map

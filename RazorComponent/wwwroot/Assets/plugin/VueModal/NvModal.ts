@@ -6,7 +6,8 @@
     @Component({
         inheritAttrs: false,
         template:
-        `<div class="nvmodal" :id="id"  tabindex="-1" v-show.display="show" >
+        `
+<div class="nvmodal" :id="id"  tabindex="-1" v-show.display="show" >
   <div :class="['modal-dialog modal-dialog-centered',SizeModal]">
     <div class="modal-content">
 
@@ -50,4 +51,11 @@
 
     Vue.component("NvModal", NvModal);
 
+    @Component
+
+    class test extends Vue {
+
+    }
+
+    Vue.component("test", test);
 }
