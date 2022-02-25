@@ -1,5 +1,7 @@
 ﻿namespace App {
-   
+   export import ImportVueDecorator = VuePropertyDecorator 
+
+    
     //const { Component } = VuePropertyDecorator;
     //@Component
     // class VueConfiguration extends Vue{
@@ -44,3 +46,5 @@
     Vue.use(PluginCore);
    
 }
+
+

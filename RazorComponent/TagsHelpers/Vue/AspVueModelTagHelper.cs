@@ -17,10 +17,7 @@ namespace RazorComponent.TagsHelpers.Vue
         
         public ModelExpression For { get; set; }
 
-      
-
-        [HtmlAttributeName("class")]
-        public string Classes { get; set; }
+     
 
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
@@ -36,7 +33,7 @@ namespace RazorComponent.TagsHelpers.Vue
 
             output.Attributes.Add("v-model", key);
 
-            if(string.IsNullOrEmpty(Classes)) output.Attributes.Add("class", "form-control");
+           
         }
     }
 }

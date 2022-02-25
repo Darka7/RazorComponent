@@ -1,0 +1,33 @@
+﻿@page
+@model RazorComponent.Pages.modaltestModel
+@{
+}
+
+
+<div id="ComponentModal1">
+   
+    <button v-click="Modal=true"> Open modal 1</button>
+    <button v-click="Modal2Open"> Open Modal 2</button>
+    <nv-modal id="PruebaModal" title="Modal Titulo 1" v-model="Modal"  size="xl">
+        <template #h>
+            Hola mundo header
+        </template>
+        <h1>hola 1</h1>
+
+        <template #f>
+            <button type="button" v-click="Modal=false"> Prueba</button>
+        </template>
+    </nv-modal>
+
+</div>
+
+<partial name="~/Pages/Modal/ModalExam2.cshtml" />
+
+
+
+@section app{
+
+    <script src="~/scripts/ModalExam2.js" defer></script>
+    <script src="~/scripts/ModalExam1.js" defer></script>
+
+}

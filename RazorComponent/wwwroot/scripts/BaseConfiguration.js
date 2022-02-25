@@ -1,6 +1,7 @@
 "use strict";
 var App;
 (function (App) {
+    App.ImportVueDecorator = VuePropertyDecorator;
     //const { Component } = VuePropertyDecorator;
     //@Component
     // class VueConfiguration extends Vue{

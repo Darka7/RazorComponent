@@ -18,8 +18,11 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css" integrity="sha512-mSYUmp1HYZDFaVKK//63EcZq4iFWFjxSL+Z3T/aCt4IO9Cejm03q3NKKYN6pFQzY0SBOr8h+eCIAZHPXcpZaNw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-    <link href="~/Assets/plugin/Datatable/DataTableConfig.css" rel="stylesheet" />
     
+    
+    <!--Component-->
+    <link href="~/Assets/plugin/Datatable/DataTableConfig.css" rel="stylesheet" />
+    <link href="~/Assets/plugin/VueModal/NvModal.css" rel="stylesheet" />
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
@@ -45,7 +48,7 @@
     <script src="~/Assets/plugin/Sweetalert2/SwalConfig.js"></script>
     <script src="~/Assets/plugin/MensajeriaApp/MensajeriaApp.js" asp-append-version="true"></script>
     <script src="~/Assets/plugin/Bootbox/bootbox.min.js"></script>
-    
+
 
 
 
@@ -53,15 +56,20 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js" integrity="sha512-T/tUfKSV1bihCnd+MxKD0Hm1uBBroVYBOYSk1knyvQ9VyZJpc/ALb4P0r6ubwVPSGB2GvjeoMAJJImBG12TiaQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdn.jsdelivr.net/npm/autonumeric@4.6.0/dist/autoNumeric.min.js"></script>
 
-    <script src="~/Assets/plugin/Datatable/DataTableConfig.js"></script>
-    <script src="~/Assets/plugin/Datatable/VGridTable.js"></script>
+
     <script src="~/scripts/ServiceProvider.js"></script>
     <script src="~/scripts/BaseConfiguration.js" asp-append-version="true"></script>
+
+    <script src="~/Assets/plugin/Datatable/DataTableConfig.js"></script>
+    <script src="~/Assets/plugin/Datatable/VGridTable.js"></script>
+    <script src="~/Assets/plugin/VueModal/NvModal.js"></script>
+
     <script src="~/Assets/plugin/bootstrap-datepicker/bootstrap-datepicker-vue.js"></script>
     <script src="~/Index?handler=Config&v=" asp-append-version="true"></script>
 
     <mensajeria-app></mensajeria-app>
-
     @await RenderSectionAsync("app", required: false)
+   
+
 </body>
 </html>

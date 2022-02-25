@@ -31,14 +31,10 @@ namespace RazorComponent.TagsHelpers.Vue
                 output.Attributes.SetAttribute("name",NameFor);
             }
 
-            if (!string.IsNullOrEmpty(VModelinput))
-            {
-                
-                output.Attributes.SetAttribute("v-model", VModelinput);
-            }
-            
+            output.Attributes.SetAttribute("v-model", VModelinput);
 
-           
+
+
         }
     }
 }
