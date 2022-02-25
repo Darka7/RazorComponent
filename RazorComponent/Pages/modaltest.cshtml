@@ -5,10 +5,11 @@
 
 
 <div id="ComponentModal1">
-   
+
     <button v-click="Modal=true"> Open modal 1</button>
     <button v-click="Modal2Open"> Open Modal 2</button>
-    <nv-modal id="PruebaModal" title="Modal Titulo 1" v-model="Modal"  size="xl">
+    <button v-click="Modalr=true"> Open modal R 1</button>
+    <nv-modal id="PruebaModal" title="Modal Titulo 1" v-model="Modal" size="xl">
         <template #h>
             Hola mundo header
         </template>
@@ -18,6 +19,11 @@
             <button type="button" v-click="Modal=false"> Prueba</button>
         </template>
     </nv-modal>
+
+    <nv-modal-r id="PruebaModalR" title="Modal Titulo R 1" v-model="Modalr"  size="xl">
+        <h1 v-for="item in [1,2,3,4,5,6,7,8,9,54,4,4,2,2,3,3,234,2,2,1,12,2,2,3,1,1,2,2,2,123,123,311,2,1,2,3,1]" >Hola mundo</h1>
+    </nv-modal-r>
+
 
 </div>
 

@@ -6,7 +6,7 @@
         inheritAttrs: false
     })
 
-    class BootstrapDatepicker extends Vue {
+    class NvBsDatepicker extends Vue {
         @VModel({ type: Date, default: new Date() })
         InpuVal!: Date;
 
@@ -74,6 +74,6 @@
 
 
 
-    Vue.component("VBsDatepicker",BootstrapDatepicker);
+    Vue.component("NvBsDatepicker", NvBsDatepicker);
 
 }

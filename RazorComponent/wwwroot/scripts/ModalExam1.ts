@@ -11,7 +11,7 @@
 
 
         Modal = false;
-
+        Modalr = false;
         Modal2Open() {
             VmModalExam2.Modal = true;
         }

@@ -26,14 +26,14 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var App;
 (function (App) {
     var Component = VuePropertyDecorator.Component, VModel = VuePropertyDecorator.VModel, Emit = VuePropertyDecorator.Emit, Ref = VuePropertyDecorator.Ref, Watch = VuePropertyDecorator.Watch, Prop = VuePropertyDecorator.Prop;
-    var BootstrapDatepicker = /** @class */ (function (_super) {
-        __extends(BootstrapDatepicker, _super);
-        function BootstrapDatepicker() {
+    var NvBsDatepicker = /** @class */ (function (_super) {
+        __extends(NvBsDatepicker, _super);
+        function NvBsDatepicker() {
             var _this = _super !== null && _super.apply(this, arguments) || this;
             _this.ElementHTML = null;
             return _this;
         }
-        BootstrapDatepicker.prototype.OnChangeVmodel = function (val, oldval) {
+        NvBsDatepicker.prototype.OnChangeVmodel = function (val, oldval) {
             var _a, _b, _c;
             var old = ((_a = this.ElementHTML) === null || _a === void 0 ? void 0 : _a.datepicker("getDate")) == null ? null :
                 dateFormat((_b = this.ElementHTML) === null || _b === void 0 ? void 0 : _b.datepicker("getDate"), 'dd/MM/yyyy');
@@ -42,12 +42,12 @@ var App;
                 (_c = this.ElementHTML) === null || _c === void 0 ? void 0 : _c.datepicker("update", val);
             }
         };
-        BootstrapDatepicker.prototype.OnChange = function () {
+        NvBsDatepicker.prototype.OnChange = function () {
             var newdate = this.ElementHTML.datepicker("getDate");
             this.InpuVal = newdate;
             return this.InpuVal;
         };
-        BootstrapDatepicker.prototype.mounted = function () {
+        NvBsDatepicker.prototype.mounted = function () {
             var $this = this;
             this.ElementHTML = $(this.InputDate).datepicker({
                 format: this.format,
@@ -63,35 +63,35 @@ var App;
         __decorate([
             VModel({ type: Date, default: new Date() }),
             __metadata("design:type", Date)
-        ], BootstrapDatepicker.prototype, "InpuVal", void 0);
+        ], NvBsDatepicker.prototype, "InpuVal", void 0);
         __decorate([
             Ref(),
             __metadata("design:type", HTMLInputElement)
-        ], BootstrapDatepicker.prototype, "InputDate", void 0);
+        ], NvBsDatepicker.prototype, "InputDate", void 0);
         __decorate([
             Prop({ type: String, default: "mm/dd/yyyy" }),
             __metadata("design:type", String)
-        ], BootstrapDatepicker.prototype, "format", void 0);
+        ], NvBsDatepicker.prototype, "format", void 0);
         __decorate([
             Watch('InpuVal', { immediate: true }),
             __metadata("design:type", Function),
             __metadata("design:paramtypes", [Number, Number]),
             __metadata("design:returntype", void 0)
-        ], BootstrapDatepicker.prototype, "OnChangeVmodel", null);
+        ], NvBsDatepicker.prototype, "OnChangeVmodel", null);
         __decorate([
             Emit('change'),
             __metadata("design:type", Function),
             __metadata("design:paramtypes", []),
             __metadata("design:returntype", void 0)
-        ], BootstrapDatepicker.prototype, "OnChange", null);
-        BootstrapDatepicker = __decorate([
+        ], NvBsDatepicker.prototype, "OnChange", null);
+        NvBsDatepicker = __decorate([
             Component({
                 template: " <input ref=\"InputDate\"  type=\"text\" class=\"form-control\"   v-bind=\"$attrs\" />  ",
                 inheritAttrs: false
             })
-        ], BootstrapDatepicker);
-        return BootstrapDatepicker;
+        ], NvBsDatepicker);
+        return NvBsDatepicker;
     }(Vue));
-    Vue.component("VBsDatepicker", BootstrapDatepicker);
+    Vue.component("NvBsDatepicker", NvBsDatepicker);
 })(App || (App = {}));
-//# sourceMappingURL=bootstrap-datepicker-vue.js.map
+//# sourceMappingURL=NvBsDatepicker.js.map

@@ -52,9 +52,9 @@ var App;
 (function (App) {
     var lang = "EN";
     var Component = VuePropertyDecorator.Component, Ref = VuePropertyDecorator.Ref, Watch = VuePropertyDecorator.Watch, VModel = VuePropertyDecorator.VModel, Prop = VuePropertyDecorator.Prop, PropSync = VuePropertyDecorator.PropSync;
-    var VGridTable = /** @class */ (function (_super) {
-        __extends(VGridTable, _super);
-        function VGridTable() {
+    var NvGridTable = /** @class */ (function (_super) {
+        __extends(NvGridTable, _super);
+        function NvGridTable() {
             var _this = _super !== null && _super.apply(this, arguments) || this;
             _this.grid = null;
             //Events
@@ -73,10 +73,10 @@ var App;
             _this.TableIds = [];
             return _this;
         }
-        VGridTable.prototype.OnChangeGridSelecteds = function (val, oldval) {
+        NvGridTable.prototype.OnChangeGridSelecteds = function (val, oldval) {
             this.TablesSelecteds = val;
         };
-        VGridTable.prototype.GridTable = function () {
+        NvGridTable.prototype.GridTable = function () {
             var _a, _b, _c;
             var _this = this;
             var _d, _e, _f, _g, _h, _j, _k, _l, _m;
@@ -394,34 +394,34 @@ var App;
             return this.grid;
         };
         //BtnGridOnclick
-        VGridTable.prototype.BtnGridOnclick = function ($this, BtnStringEvent) {
+        NvGridTable.prototype.BtnGridOnclick = function ($this, BtnStringEvent) {
             var rowid = parseInt($this.data("rowid"));
             var valuerow = parseInt($this.data("valuerow"));
             var datarow = this.grid.row(rowid).data();
             this.$emit(BtnStringEvent, valuerow, datarow);
         };
         //OnClickLinkEvent
-        VGridTable.prototype.OnClickLinkEvent = function ($this, LinkStringEvent) {
+        NvGridTable.prototype.OnClickLinkEvent = function ($this, LinkStringEvent) {
             var rowid = parseInt($this.data("rowid"));
             var datarow = this.grid.row(rowid).data();
             this.$emit(LinkStringEvent, datarow);
         };
         //SelectOnDataEvent
-        VGridTable.prototype.SelectOnDataCbo = function ($this) {
+        NvGridTable.prototype.SelectOnDataCbo = function ($this) {
             var columid = $this.data("columid");
             var rowid = parseInt($this.data("rowid"));
             var NewValue = $this.val();
             this.grid.cell({ row: rowid, column: columid }).data(NewValue);
         };
         ///SelectEvent
-        VGridTable.prototype.OnChangeSelectCbo = function ($this) {
+        NvGridTable.prototype.OnChangeSelectCbo = function ($this) {
             var columid = $this.data("columid");
             var rowid = parseInt($this.data("rowid"));
             var NewValue = $this.val();
             this.grid.cell({ row: rowid, column: columid }).data(NewValue);
         };
         //InputEvent
-        VGridTable.prototype.OnChangeInputTable = function ($this) {
+        NvGridTable.prototype.OnChangeInputTable = function ($this) {
             var columid = $this.data("columid");
             var typeinput = $this.data("typeinput");
             var rowid = parseInt($this.data("rowid"));
@@ -436,7 +436,7 @@ var App;
             this.grid.cell({ row: rowid, column: columid }).data(NewValue);
         };
         //SwitchDataEvent
-        VGridTable.prototype.SwitchDataEventClick = function ($this) {
+        NvGridTable.prototype.SwitchDataEventClick = function ($this) {
             var columid = $this.data("columid");
             var rowid = parseInt($this.data("rowid"));
             var isChecked = $this.is(":checked");
@@ -447,17 +447,17 @@ var App;
             this.grid.cell({ row: rowid, column: columid }).data(NewValue);
         };
         //SwitchEvent
-        VGridTable.prototype.SwitchEventClick = function ($this) {
+        NvGridTable.prototype.SwitchEventClick = function ($this) {
             var columid = $this.data("columid");
             var rowid = parseInt($this.data("rowid"));
             var NewValue = $this.is(":checked");
             this.grid.cell({ row: rowid, column: columid }).data(NewValue);
         };
         //Accion
-        VGridTable.prototype.Editbtn = function (id) {
+        NvGridTable.prototype.Editbtn = function (id) {
             window.location.href = this.urledit + id;
         };
-        VGridTable.prototype.Deletebtn = function (id) {
+        NvGridTable.prototype.Deletebtn = function (id) {
             var $_this = this;
             bootbox.confirm({
                 title: "Eliminar",
@@ -488,7 +488,7 @@ var App;
                 }
             });
         };
-        VGridTable.prototype.mounted = function () {
+        NvGridTable.prototype.mounted = function () {
             this.security = App.isNullOrEmpty(this.security) ? { Consultar: false, Actualizar: false, Eliminar: false, Insertar: false } : this.security;
             this.defaults = App.isNullOrEmpty(this.defaults) ? new App.GridTableOptions() : this.defaults;
             this.GridResult = this.GridTable();
@@ -496,61 +496,61 @@ var App;
         __decorate([
             Ref(),
             __metadata("design:type", HTMLTableElement)
-        ], VGridTable.prototype, "RefGridTable", void 0);
+        ], NvGridTable.prototype, "RefGridTable", void 0);
         __decorate([
             PropSync("dt", { default: null }),
             __metadata("design:type", Function)
-        ], VGridTable.prototype, "GridResult", void 0);
+        ], NvGridTable.prototype, "GridResult", void 0);
         __decorate([
             Prop({ type: Array, default: [] }),
             __metadata("design:type", Array)
-        ], VGridTable.prototype, "colums", void 0);
+        ], NvGridTable.prototype, "colums", void 0);
         __decorate([
             Prop({ type: String, default: null }),
             __metadata("design:type", String)
-        ], VGridTable.prototype, "urldata", void 0);
+        ], NvGridTable.prototype, "urldata", void 0);
         __decorate([
             Prop({ type: String, default: null }),
             __metadata("design:type", String)
-        ], VGridTable.prototype, "urledit", void 0);
+        ], NvGridTable.prototype, "urledit", void 0);
         __decorate([
             Prop({ type: String, default: null }),
             __metadata("design:type", String)
-        ], VGridTable.prototype, "urldelete", void 0);
+        ], NvGridTable.prototype, "urldelete", void 0);
         __decorate([
             Prop({ type: Object, default: { Consultar: false, Actualizar: false, Eliminar: false, Insertar: false } }),
             __metadata("design:type", Object)
-        ], VGridTable.prototype, "security", void 0);
+        ], NvGridTable.prototype, "security", void 0);
         __decorate([
             Prop({ type: Array, default: null }),
             __metadata("design:type", Array)
-        ], VGridTable.prototype, "buttons", void 0);
+        ], NvGridTable.prototype, "buttons", void 0);
         __decorate([
             Prop({ type: App.GridTableOptions, default: new App.GridTableOptions() }),
             __metadata("design:type", App.GridTableOptions)
-        ], VGridTable.prototype, "defaults", void 0);
+        ], NvGridTable.prototype, "defaults", void 0);
         __decorate([
             VModel({ type: Array, default: [] }),
             __metadata("design:type", Array)
-        ], VGridTable.prototype, "dataGrid", void 0);
+        ], NvGridTable.prototype, "dataGrid", void 0);
         __decorate([
             PropSync("selected", { type: Array, default: [] }),
             __metadata("design:type", Array)
-        ], VGridTable.prototype, "TablesSelecteds", void 0);
+        ], NvGridTable.prototype, "TablesSelecteds", void 0);
         __decorate([
             Watch('TableIds', { immediate: true }),
             __metadata("design:type", Function),
             __metadata("design:paramtypes", [Array, Array]),
             __metadata("design:returntype", void 0)
-        ], VGridTable.prototype, "OnChangeGridSelecteds", null);
-        VGridTable = __decorate([
+        ], NvGridTable.prototype, "OnChangeGridSelecteds", null);
+        NvGridTable = __decorate([
             Component({
                 template: "<table  ref=\"RefGridTable\"  v-bind=\"$attrs\"></table>",
                 inheritAttrs: false,
             })
-        ], VGridTable);
-        return VGridTable;
+        ], NvGridTable);
+        return NvGridTable;
     }(Vue));
-    Vue.component("VGridTable", VGridTable);
+    Vue.component("NvGridTable", NvGridTable);
 })(App || (App = {}));
-//# sourceMappingURL=VGridTable.js.map
+//# sourceMappingURL=NVGridTable.js.map

@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace RazorComponent.TagsHelpers
 {
     // You may need to install the Microsoft.AspNetCore.Razor.Runtime package into your project
-    [HtmlTargetElement("mensajeria-app",TagStructure =TagStructure.NormalOrSelfClosing)]
+    [HtmlTargetElement("nv-mensajeria-app",TagStructure =TagStructure.NormalOrSelfClosing)]
     public class MensajeriaAppTagHelper : TagHelper
     {
         [HtmlAttributeNotBound]

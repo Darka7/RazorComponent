@@ -11,7 +11,7 @@ using System.Text.Json;
 namespace RazorComponent.TagsHelpers.Vue
 {
     // You may need to install the Microsoft.AspNetCore.Razor.Runtime package into your project
-    [HtmlTargetElement("v-grid-table")]
+    [HtmlTargetElement("nv-grid-table")]
     public class VGridTableTagHelper : TagHelper
     {
         [HtmlAttributeName("id")]

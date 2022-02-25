@@ -13,7 +13,7 @@
         template: `<table  ref="RefGridTable"  v-bind="$attrs"></table>`,
         inheritAttrs: false,
     })
-    class VGridTable extends Vue {
+    class NvGridTable extends Vue {
         @Ref()
         readonly RefGridTable!: HTMLTableElement;
 
@@ -665,6 +665,6 @@
 
 
 
-    Vue.component("VGridTable", VGridTable);
+    Vue.component("NvGridTable", NvGridTable);
 
 }

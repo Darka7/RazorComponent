@@ -14,12 +14,11 @@ namespace RazorComponent.TagsHelpers.Vue
         [HtmlAttributeName("v-for")]
         public string Items { get; set; }
 
-        [HtmlAttributeName("key")]
-        public string key { get; set; }
+       
 
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
-            output.Attributes.Add("v-for",$"({key},{key}index) in {Items}");
+            output.Attributes.Add("v-for", Items);
         }
     }
 }

@@ -38,25 +38,25 @@
     <div class="row">
         <div class="col">
 
-            <v-grid-table id="GridViewVue" :dt.sync="JqGrid" :colums="columnas"
+            <nv-grid-table id="GridViewVue" :dt.sync="JqGrid" :colums="columnas"
                           urldata="api/Persona/List" urledit="api/Persona" urldelete="api/Persona/"
                           asp-v-security="Model.Seguridad" :buttons="btns"
                           v-model="dataGrid" class="table"
                           v--
                           v-action-pruebamethodo="PruebaMethodo"
-                          asp-v-selected="SelectedsTable"></v-grid-table>
+                          asp-v-selected="SelectedsTable"></nv-grid-table>
         </div>
 
     </div>
 
     <div class="row">
         <div class="col">
-            <v-grid-table id="GridViewVue2" class="table" :dt.sync="JqGrid2" :colums="columnas"
+            <nv-grid-table id="GridViewVue2" class="table" :dt.sync="JqGrid2" :colums="columnas"
                           urldata="api/Persona/List" urledit="Error?id" urldelete="Privacy"
                           :security="{Actualizar:true,Eliminar:true}" :buttons="btns"
                           v-model="dataGrid2"
                           v-- v-action-pruebamethodo="otraprueba"
-                          :selected.sync="SelectedsTable2"></v-grid-table>
+                          :selected.sync="SelectedsTable2"></nv-grid-table>
         </div>
 
     </div>

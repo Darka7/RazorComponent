@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace RazorComponent.TagsHelpers.Vue
 {
     // You may need to install the Microsoft.AspNetCore.Razor.Runtime package into your project
-    [HtmlTargetElement("v-bs-datepicker")]
+    [HtmlTargetElement("nv-bs-datepicker")]
     public class BootstrapDatepicker : TagHelper
     {
         [HtmlAttributeName("id")]

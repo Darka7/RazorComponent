@@ -29,6 +29,7 @@ var App;
         function ModalExam1() {
             var _this = _super !== null && _super.apply(this, arguments) || this;
             _this.Modal = false;
+            _this.Modalr = false;
             return _this;
         }
         ModalExam1.prototype.Modal2Open = function () {
