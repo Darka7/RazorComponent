@@ -67,4 +67,8 @@
     <TypeScriptCompile Include="wwwroot\scripts\Prueba.ts" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\Assets\plugin\JQuery\" />
+  </ItemGroup>
+
 </Project>

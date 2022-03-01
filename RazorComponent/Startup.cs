@@ -2,6 +2,7 @@ using BD;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -33,7 +34,11 @@ namespace RazorComponent
                 option.JsonSerializerOptions.DictionaryKeyPolicy = null;
                 option.JsonSerializerOptions.PropertyNamingPolicy = null;
               //  option.JsonSerializerOptions.Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping;
-            });
+            }).AddRazorPagesOptions(options =>
+            {
+                options.Conventions
+                       .ConfigureFilter(new IgnoreAntiforgeryTokenAttribute());
+            }); ;
 
             services.AddHttpClient<Service>();
             services.AddControllers().AddJsonOptions(option =>

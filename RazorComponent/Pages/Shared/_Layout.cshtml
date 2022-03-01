@@ -47,7 +47,7 @@
     <script src="~/Assets/plugin/Sweetalert2/sweetalert2.min.js"></script>
     <script src="~/Assets/plugin/Sweetalert2/SwalConfig.js"></script>
     <script src="~/Assets/plugin/MensajeriaApp/MensajeriaApp.js" asp-append-version="true"></script>
-    <script src="~/Assets/plugin/Bootbox/bootbox.min.js"></script>
+    <script src="~/Assets/plugin/Bootbox/bootbox.min.js" defer></script>
 
 
 
@@ -59,7 +59,8 @@
 
     <script src="~/scripts/ServiceProvider.js"></script>
     <script src="~/scripts/BaseConfiguration.js" asp-append-version="true"></script>
-
+    <script src="~/Assets/plugin/File/NvFile.js"></script>
+    <script src="~/Assets/plugin/VueLoader/VueLoad.js"></script>
     <script src="~/Assets/plugin/Datatable/DataTableConfig.js"></script>
 
     <script src="~/Assets/plugin/Datatable/NvGridTable.js"></script>
@@ -67,7 +68,9 @@
     <script src="~/Assets/plugin/VueModal/NvModalR.js"></script>
 
     <script src="~/Assets/plugin/bootstrap-datepicker/NvBsDatepicker.js"></script>
+
     <script src="~/Index?handler=Config&v=" asp-append-version="true"></script>
+
 
     <nv-mensajeria-app></nv-mensajeria-app>
     @await RenderSectionAsync("app", required: false)

@@ -18,5 +18,10 @@ declare global {
         
         
     }
-    
+
+    interface Navigator extends NavigatorAutomationInformation, NavigatorConcurrentHardware, NavigatorContentUtils, NavigatorCookies, NavigatorID, NavigatorLanguage, NavigatorNetworkInformation, NavigatorOnLine, NavigatorPlugins, NavigatorStorage {
+        msSaveOrOpenBlob(file: Blob, nombre: string) : void;
+        msSaveBlob(file: Blob, nombre: string): void;
+    }
+
 }
