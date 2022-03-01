@@ -1,42 +1,34 @@
 ﻿namespace App {
-    //primer caso
-    //NvFile.GetStringAsync("../Loader/CargarPagina?id=anita").then((data) => {
-    //    console.log(data);
-    //    $("#AddHtml").html(data);
-    //})
 
-    //NvFile.PostStringAsync("../Loader/CargarPagina", {id:"Andrey"}).then((data) => {
-    //    console.log(data);
-    //    $("#AddHtml").html(data);
-    //})
 
-    //var { data} = NvFile.GetString("../Loader/CargarPagina?id=anita");
 
-    //console.log(data);
+    const { Component } = ImportVueDecorator;
 
-    //$("#AddHtml").html(data);
 
-    //var { data } = NvFile.PostString("../Loader/CargarPagina", { id: "Andrey" });
+    async function Load () {
+        const {Template }=  await VueLoad.TemplateAsync("../Loader/CargarPagina?id=Andrey");
 
-    //console.log(data);
 
-    //$("#AddHtml").html(data);
+        @Component
+        @Template
+        class Test extends Vue {
 
-    NvFile.PostArrayBufferAsync("../Loader/CargarPagina", { id: "Andrey" }).then(data => {
-        console.log(data);
-       
-    });
+            gg: string = "Hola";
+            OnClickMe() {
+                bootbox.alert("Hola")
+            }
+        }
+
+        new Vue({
+            render(h) { return h(Test) }
+        }).$mount("#AddHtml");
+
+    }
+
+
+    Load();
+
+
 
   
-
-    //$("#AddHtml").html(data);
-
-    $(document).ready(function () {
-        
-      
-    });
-
-
-
-
 }

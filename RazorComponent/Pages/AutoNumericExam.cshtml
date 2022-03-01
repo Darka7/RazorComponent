@@ -1,0 +1,24 @@
+﻿@page
+@model RazorComponent.Pages.AutoNumericExamModel
+@{
+}
+
+
+
+<div id="AppAN">
+    
+
+    <nv-autonumeric  v-model="obj.value" v-change="OnChange" decimal="" symbol ></nv-autonumeric>
+     
+    <nv-bs-datepicker v-change="test" v-model="test" id="test" class="" required disabled format=""></nv-bs-datepicker>
+
+    @*<vue-autonumeric v-model="obj.value" > </vue-autonumeric>*@
+
+<input type="type" name="name" value=""  required readonly disabled/>
+    {{obj.value}}
+</div>
+
+@section app{ 
+    <script src="~/scripts/examAutonumeric.js" defer></script>
+
+}

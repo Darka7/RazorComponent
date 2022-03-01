@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace RazorComponent.Pages
 {
-    public class LoaderExamModel : PageModel
+    public class AutoNumericExamModel : PageModel
     {
-        
+        public int nombre { get; set; }
+
+        public int Decimal { get; set; } = 0;
         public void OnGet()
         {
         }

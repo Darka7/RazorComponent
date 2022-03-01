@@ -12,12 +12,15 @@ namespace RazorComponent.TagsHelpers.Vue
     [HtmlTargetElement(Attributes ="v--")]
     public class AspVBindTagHelper : TagHelper
     {
+
+
         [HtmlAttributeName("v--")]
         public bool VueCopiler { get; set; }
 
         [HtmlAttributeName("asp-v-bind")]
         public IDictionary<string, ModelExpression> OnBind { get; set; } = new Dictionary<string, ModelExpression>(StringComparer.OrdinalIgnoreCase);
 
+        public override int Order => 2;
 
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {

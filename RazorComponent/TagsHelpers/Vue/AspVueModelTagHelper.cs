@@ -17,7 +17,7 @@ namespace RazorComponent.TagsHelpers.Vue
         
         public ModelExpression For { get; set; }
 
-     
+        public override int Order => 2;
 
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {

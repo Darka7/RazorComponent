@@ -10,7 +10,7 @@ namespace RazorComponent.Pages
     public class Example2Model : PageModel
     {
         [VueData]
-        public SecurityPageEntity Security { get; set; } = new() { Insertar = false };
+        public SecurityPageEntity Security { get; set; } = new() { Insertar = true };
         [VueData]
         public bool Ocultar { get; set; }
         [VueData]

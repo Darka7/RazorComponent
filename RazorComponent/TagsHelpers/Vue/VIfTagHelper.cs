@@ -11,11 +11,21 @@ namespace RazorComponent.TagsHelpers.Vue
     [HtmlTargetElement(Attributes ="v-if")]
     public class VIfTagHelper : TagHelper
     {
-        [HtmlAttributeName("v-if")]
-        public string prop { get; set; }
+        
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
-            output.Attributes.SetAttribute("v-if", prop);
+           
+        }
+    }
+
+    [HtmlTargetElement(Attributes = "v-show")]
+    public class VshowTagHelper : TagHelper
+    {
+
+
+        public override void Process(TagHelperContext context, TagHelperOutput output)
+        {
+
         }
     }
 }

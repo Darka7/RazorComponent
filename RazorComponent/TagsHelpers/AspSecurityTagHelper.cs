@@ -12,14 +12,10 @@ namespace RazorComponent.TagsHelpers
    
     public class AspSecurityInsertTagHelper : TagHelper
     {
-        [HtmlAttributeName("sec-insert")]
-        public bool btninsert { get; set; } = false;
-
       
-
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
-            if (btninsert) output.Attributes.SetAttribute("sec-insert", "");
+           
            
         }
     }
@@ -27,16 +23,9 @@ namespace RazorComponent.TagsHelpers
     public class AspSecurityUpdateTagHelper : TagHelper
     {
       
-        [HtmlAttributeName("sec-update")]
-        public bool btnupdate { get; set; } = false;
-
-     
-
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
-            
-            if (btnupdate) output.Attributes.SetAttribute("sec-update", "");
-            
+                     
         }
     }
 
@@ -44,14 +33,9 @@ namespace RazorComponent.TagsHelpers
     public class AspSecurityDeleteTagHelper : TagHelper
     {
        
-
-        [HtmlAttributeName("sec-delete")]
-        public bool btndelete { get; set; } = false;
-
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
            
-            if (btndelete) output.Attributes.SetAttribute("sec-delete", "");
         }
     }
 

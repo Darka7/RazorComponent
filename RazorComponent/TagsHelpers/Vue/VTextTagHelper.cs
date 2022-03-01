@@ -11,12 +11,13 @@ namespace RazorComponent.TagsHelpers.Vue
     [HtmlTargetElement(Attributes = "v-text")]
     public class VTextTagHelper : TagHelper
     {
-        [HtmlAttributeName("v-text")]
-        public string text { get; set; }
+       
 
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
-            output.Attributes.SetAttribute("v-text",text);
+            
         }
     }
+
+   
 }

@@ -20,4 +20,16 @@ namespace RazorComponent.TagsHelpers.Vue
             output.Attributes.SetAttribute("v-if", prop.Name);
         }
     }
+
+    [HtmlTargetElement(Attributes = "asp-v-show")]
+    public class AspVShowTagHelper : TagHelper
+    {
+
+        [HtmlAttributeName("asp-v-show")]
+        public ModelExpression prop { get; set; }
+        public override void Process(TagHelperContext context, TagHelperOutput output)
+        {
+            output.Attributes.SetAttribute("v-show", prop.Name);
+        }
+    }
 }

@@ -11,6 +11,7 @@ namespace RazorComponent.TagsHelpers.Vue
    [HtmlTargetElement(Attributes = "v--")]
     public class VueActionTagHelper : TagHelper
     {
+        public override int Order => 2;
         [HtmlAttributeName("v--")]
         public bool VueCopiler { get; set; }
         [HtmlAttributeName("v-action")]

@@ -8,11 +8,10 @@
 <div>
 
     <h1>Hola mundo  @Model.id     @Model.Parametros.id</h1>
-
-    <input type="text" name="name" value="" /><br />
-    <button type="button">Clickme</button>
+    {{gg}}
+    <input type="text" name="name" v-model="gg" /><br />
+    <button type="button" v-click="OnClickMe">Clickme</button>
 </div>
 
 
 
-<script src="~/scripts/Loader/ExecExam.js" defer></script>

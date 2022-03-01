@@ -8,14 +8,14 @@ using System.Threading.Tasks;
 namespace RazorComponent.TagsHelpers.Vue
 {
     // You may need to install the Microsoft.AspNetCore.Razor.Runtime package into your project
-    [HtmlTargetElement(Attributes ="v-for")]
-    public class VForTagHelper : TagHelper
+    [HtmlTargetElement("nv-bs-datepicker",Attributes = "id,name,class,required,disabled,format")]
+    public class BootstrapDatepickerTagHelper : TagHelper
     {
-       
-
+        
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
-           
+            
+
         }
     }
 }

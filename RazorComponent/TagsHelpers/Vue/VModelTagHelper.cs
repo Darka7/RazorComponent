@@ -15,7 +15,7 @@ namespace RazorComponent.TagsHelpers.Vue
         [HtmlAttributeName("v-model")]
         public string VModelinput { get; set; }
 
-     
+        public override int Order => 2;
 
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
