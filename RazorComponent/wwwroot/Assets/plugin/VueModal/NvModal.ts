@@ -51,11 +51,5 @@
 
     Vue.component("NvModal", NvModal);
 
-    @Component
-
-    class test extends Vue {
-
-    }
-
-    Vue.component("test", test);
+   
 }

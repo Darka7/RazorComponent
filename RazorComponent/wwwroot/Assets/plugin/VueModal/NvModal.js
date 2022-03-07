@@ -63,16 +63,5 @@ var App;
         return NvModal;
     }(Vue));
     Vue.component("NvModal", NvModal);
-    var test = /** @class */ (function (_super) {
-        __extends(test, _super);
-        function test() {
-            return _super !== null && _super.apply(this, arguments) || this;
-        }
-        test = __decorate([
-            Component
-        ], test);
-        return test;
-    }(Vue));
-    Vue.component("test", test);
 })(App || (App = {}));
 //# sourceMappingURL=NvModal.js.map
