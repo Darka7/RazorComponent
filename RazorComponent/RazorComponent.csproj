@@ -36,6 +36,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <TypeScriptCompile Include="wwwroot\Assets\%40types\prop-types\index.d.ts" />
+    <TypeScriptCompile Include="wwwroot\Assets\%40types\react-doom\index.d.ts" />
+    <TypeScriptCompile Include="wwwroot\Assets\%40types\react-doom\test-utils.d.ts" />
+    <TypeScriptCompile Include="wwwroot\Assets\%40types\react\global.d.ts" />
+    <TypeScriptCompile Include="wwwroot\Assets\%40types\react\index.d.ts" />
+    <TypeScriptCompile Include="wwwroot\Assets\%40types\scheduler\index.d.ts" />
+    <TypeScriptCompile Include="wwwroot\Assets\%40types\scheduler\tracing.d.ts" />
     <TypeScriptCompile Include="wwwroot\Assets\%40types\sizzle\index.d.ts" />
     <TypeScriptCompile Include="wwwroot\Assets\%40types\vue-class-component\component.d.ts" />
     <TypeScriptCompile Include="wwwroot\Assets\%40types\vue-class-component\data.d.ts" />
