@@ -14,8 +14,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Remove="wwwroot\Assets\plugin\VueModal\NvModalReact.tsx" />
     <Content Remove="wwwroot\scripts\Entity.d.ts" />
     <Content Remove="wwwroot\scripts\Prueba.ts" />
+    <Content Remove="wwwroot\scripts\React\ModalReactPrueba.tsx" />
   </ItemGroup>
 
   <ItemGroup>
@@ -70,8 +72,10 @@
     <TypeScriptCompile Include="wwwroot\Assets\%40types\vue-template-compiler\index.d.ts" />
     <TypeScriptCompile Include="wwwroot\Assets\%40types\vue-template-compiler\VueTemplateCompiler.d.ts" />
     <TypeScriptCompile Include="wwwroot\Assets\plugin\Datatable\DataTableConfig.ts" />
+    <TypeScriptCompile Include="wwwroot\Assets\plugin\VueModal\NvModalReact.tsx" />
     <TypeScriptCompile Include="wwwroot\scripts\Entity.d.ts" />
     <TypeScriptCompile Include="wwwroot\scripts\Prueba.ts" />
+    <TypeScriptCompile Include="wwwroot\scripts\React\ModalReactPrueba.tsx" />
   </ItemGroup>
 
   <ItemGroup>
