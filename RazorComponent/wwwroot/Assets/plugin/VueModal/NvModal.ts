@@ -7,8 +7,8 @@
         inheritAttrs: false,
         template:
         `
-<div class="nvmodal" :id="id"  tabindex="-1" v-show.display="show" >
-  <div :class="['modal-dialog modal-dialog-centered',SizeModal]">
+<div class="nvmodal" :id="id"  tabindex="-1" v-show.display="show"  :style="indexStyle">
+  <div :class="['modal-dialog modal-dialog-centered',SizeModal]" :style="indexStyle">
     <div class="modal-content">
 
       <div class="modal-header">
@@ -45,6 +45,13 @@
 
         get SizeModal() {
             return isNullOrEmpty(this.size) ? '' : 'modal-'+this.size;
+        }
+
+        @Prop({ default: null, type: String })
+        index!: string;
+
+        get indexStyle() {
+            return this.index != null ? { "z-index": this.index } : {};
         }
     }
 

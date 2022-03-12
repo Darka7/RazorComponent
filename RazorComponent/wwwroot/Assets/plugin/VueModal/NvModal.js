@@ -38,6 +38,13 @@ var App;
             enumerable: false,
             configurable: true
         });
+        Object.defineProperty(NvModal.prototype, "indexStyle", {
+            get: function () {
+                return this.index != null ? { "z-index": this.index } : {};
+            },
+            enumerable: false,
+            configurable: true
+        });
         __decorate([
             Prop({ default: null, type: String }),
             __metadata("design:type", String)
@@ -54,10 +61,14 @@ var App;
             Prop({ default: null, type: String }),
             __metadata("design:type", String)
         ], NvModal.prototype, "size", void 0);
+        __decorate([
+            Prop({ default: null, type: String }),
+            __metadata("design:type", String)
+        ], NvModal.prototype, "index", void 0);
         NvModal = __decorate([
             Component({
                 inheritAttrs: false,
-                template: "\n<div class=\"nvmodal\" :id=\"id\"  tabindex=\"-1\" v-show.display=\"show\" >\n  <div :class=\"['modal-dialog modal-dialog-centered',SizeModal]\">\n    <div class=\"modal-content\">\n\n      <div class=\"modal-header\">\n        <h5 class=\"modal-title\" >\n        <slot name=\"h\"> {{title}} </slot>\n        </h5>\n        <button type=\"button\" class=\"btn-close\"  aria-label=\"Close\" @click=\"show=false\"></button>\n      </div>\n      <div class=\"modal-body\">\n        <slot></slot>\n      </div>\n      <div class=\"modal-footer\">\n          <slot name=\"f\">\n        <button type=\"button\" class=\"btn btn-outline-secondary\" @click=\"show=false\">Cerrar</button>\n            </slot>\n      </div>\n    </div>\n  </div>\n</div>"
+                template: "\n<div class=\"nvmodal\" :id=\"id\"  tabindex=\"-1\" v-show.display=\"show\"  :style=\"indexStyle\">\n  <div :class=\"['modal-dialog modal-dialog-centered',SizeModal]\" :style=\"indexStyle\">\n    <div class=\"modal-content\">\n\n      <div class=\"modal-header\">\n        <h5 class=\"modal-title\" >\n        <slot name=\"h\"> {{title}} </slot>\n        </h5>\n        <button type=\"button\" class=\"btn-close\"  aria-label=\"Close\" @click=\"show=false\"></button>\n      </div>\n      <div class=\"modal-body\">\n        <slot></slot>\n      </div>\n      <div class=\"modal-footer\">\n          <slot name=\"f\">\n        <button type=\"button\" class=\"btn btn-outline-secondary\" @click=\"show=false\">Cerrar</button>\n            </slot>\n      </div>\n    </div>\n  </div>\n</div>"
             })
         ], NvModal);
         return NvModal;

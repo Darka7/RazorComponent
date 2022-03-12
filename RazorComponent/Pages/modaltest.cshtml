@@ -9,19 +9,20 @@
     <button v-click="Modal=true"> Open modal 1</button>
     <button v-click="Modal2Open"> Open Modal 2</button>
     <button v-click="Modalr=true"> Open modal R 1</button>
-    <nv-modal id="" title="" size="" v-model="Modal" >
+    <nv-modal id="" title="" size="" v-model="Modal" index="1600" >
         <template #h>
             Hola mundo header
         </template>
         <h1>hola 1</h1>
-
+         <button v-click="Modalr=true"> Open modal R 1</button>
         <template #f>
             <button type="button" v-click="Modal=false"> Prueba</button>
         </template>
     </nv-modal>
 
-    <nv-modal-r id="PruebaModalR" title="Modal Titulo R 1" v-model="Modalr"  size="xl">
+    <nv-modal-r id="PruebaModalR" title="Modal Titulo R 1" v-model="Modalr"  size="xl" index="1500">
         <h1 v-for="item in [1,2,3,4,5,6,7,8,9,54,4,4,2,2,3,3,234,2,2,1,12,2,2,3,1,1,2,2,2,123,123,311,2,1,2,3,1]" >Hola mundo</h1>
+         <button v-click="Modal=true"> Open modal 1</button>
     </nv-modal-r>
 
     <nv-modal-r id="" title="" size="" ></nv-modal-r>

@@ -7,8 +7,8 @@
         inheritAttrs: false,
         template:
             `
-<div class="nvmodalr-backdrop" v-show="show">
-<div :class="{'nvmodalr':true,'show':show,'nvmodalr-md':size=='md', 'nvmodalr-lg':size=='lg', 'nvmodalr-xl':size=='xl','nvmodalr-xxl':size=='xxl'}" 
+<div class="nvmodalr-backdrop" v-show="show" :style="indexStyle">
+<div :class="{'nvmodalr':true,'show':show,'nvmodalr-md':size=='md', 'nvmodalr-lg':size=='lg', 'nvmodalr-xl':size=='xl','nvmodalr-xxl':size=='xxl'}"  :style="indexStyle"
 tabindex="-1" :id="id" >
   <div class="offcanvas-header nvmodalr-header">
     <h4 id="offcanvasTopLabel"> <slot name="h"> {{title}} </slot> </h4>
@@ -35,7 +35,15 @@ tabindex="-1" :id="id" >
         @Prop({ default: null, type: String })
         size!: string
 
-        
+
+        @Prop({ default: null, type: String })
+        index!: string;
+
+        get indexStyle() {
+           return this.index != null ? { "z-index" :  this.index } : {};
+           
+           
+        }
     }
 
 

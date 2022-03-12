@@ -18,9 +18,16 @@ declare global {
         id?: number;
         edad?: number;
         Nombre?: string;
-        //TipoPersona?: TipoPersona;
+        TipoPersona?: TipoPersona;
+    }
+    export interface TipoPersona {
+        descripcion?: string;
+        PielEntity?: PielEntity;
     }
 
+    export interface PielEntity {
+        color?: string;
+    }
 
     export interface MarcaVehiculoEntity {
         MarcaVehiculoId?: number;

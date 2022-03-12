@@ -14,9 +14,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Remove="wwwroot\Assets\plugin\Component\useInput.tsx" />
+    <Content Remove="wwwroot\Assets\plugin\VueModal\NvModalR-React.tsx" />
     <Content Remove="wwwroot\Assets\plugin\VueModal\NvModalReact.tsx" />
     <Content Remove="wwwroot\scripts\Entity.d.ts" />
     <Content Remove="wwwroot\scripts\Prueba.ts" />
+    <Content Remove="wwwroot\scripts\React\FormInput.tsx" />
     <Content Remove="wwwroot\scripts\React\ModalReactPrueba.tsx" />
   </ItemGroup>
 
@@ -71,10 +74,13 @@
     <TypeScriptCompile Include="wwwroot\Assets\%40types\vue-property-decorator\helpers\provideInject.d.ts" />
     <TypeScriptCompile Include="wwwroot\Assets\%40types\vue-template-compiler\index.d.ts" />
     <TypeScriptCompile Include="wwwroot\Assets\%40types\vue-template-compiler\VueTemplateCompiler.d.ts" />
+    <TypeScriptCompile Include="wwwroot\Assets\plugin\Component\useInput.tsx" />
     <TypeScriptCompile Include="wwwroot\Assets\plugin\Datatable\DataTableConfig.ts" />
+    <TypeScriptCompile Include="wwwroot\Assets\plugin\VueModal\NvModalR-React.tsx" />
     <TypeScriptCompile Include="wwwroot\Assets\plugin\VueModal\NvModalReact.tsx" />
     <TypeScriptCompile Include="wwwroot\scripts\Entity.d.ts" />
     <TypeScriptCompile Include="wwwroot\scripts\Prueba.ts" />
+    <TypeScriptCompile Include="wwwroot\scripts\React\FormInput.tsx" />
     <TypeScriptCompile Include="wwwroot\scripts\React\ModalReactPrueba.tsx" />
   </ItemGroup>
 

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace RazorComponent.TagsHelpers.Vue
 {
     // You may need to install the Microsoft.AspNetCore.Razor.Runtime package into your project
-    [HtmlTargetElement("nv-modal",Attributes = "id,title,size")]
+    [HtmlTargetElement("nv-modal",Attributes = "id,title,size,index")]
     public class NvModalTagHelper : TagHelper
     {
        
@@ -18,7 +18,7 @@ namespace RazorComponent.TagsHelpers.Vue
         }
     }
 
-    [HtmlTargetElement("nv-modal-r",Attributes = "id,title,size")]
+    [HtmlTargetElement("nv-modal-r",Attributes = "id,title,size,index")]
     public class NvModalRTagHelper : TagHelper
     {
        

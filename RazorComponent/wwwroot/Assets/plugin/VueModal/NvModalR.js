@@ -31,6 +31,13 @@ var App;
         function NvModalR() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
+        Object.defineProperty(NvModalR.prototype, "indexStyle", {
+            get: function () {
+                return this.index != null ? { "z-index": this.index } : {};
+            },
+            enumerable: false,
+            configurable: true
+        });
         __decorate([
             Prop({ default: null, type: String }),
             __metadata("design:type", String)
@@ -47,10 +54,14 @@ var App;
             Prop({ default: null, type: String }),
             __metadata("design:type", String)
         ], NvModalR.prototype, "size", void 0);
+        __decorate([
+            Prop({ default: null, type: String }),
+            __metadata("design:type", String)
+        ], NvModalR.prototype, "index", void 0);
         NvModalR = __decorate([
             Component({
                 inheritAttrs: false,
-                template: "\n<div class=\"nvmodalr-backdrop\" v-show=\"show\">\n<div :class=\"{'nvmodalr':true,'show':show,'nvmodalr-md':size=='md', 'nvmodalr-lg':size=='lg', 'nvmodalr-xl':size=='xl','nvmodalr-xxl':size=='xxl'}\" \ntabindex=\"-1\" :id=\"id\" >\n  <div class=\"offcanvas-header nvmodalr-header\">\n    <h4 id=\"offcanvasTopLabel\"> <slot name=\"h\"> {{title}} </slot> </h4>\n    <button type=\"button\" class=\"btn-close\"  aria-label=\"Close\" @click=\"show=false\"></button>\n  </div>\n  <div class=\"offcanvas-body\">\n   <slot></slot>\n  </div>\n</div>\n</div>\n"
+                template: "\n<div class=\"nvmodalr-backdrop\" v-show=\"show\" :style=\"indexStyle\">\n<div :class=\"{'nvmodalr':true,'show':show,'nvmodalr-md':size=='md', 'nvmodalr-lg':size=='lg', 'nvmodalr-xl':size=='xl','nvmodalr-xxl':size=='xxl'}\"  :style=\"indexStyle\"\ntabindex=\"-1\" :id=\"id\" >\n  <div class=\"offcanvas-header nvmodalr-header\">\n    <h4 id=\"offcanvasTopLabel\"> <slot name=\"h\"> {{title}} </slot> </h4>\n    <button type=\"button\" class=\"btn-close\"  aria-label=\"Close\" @click=\"show=false\"></button>\n  </div>\n  <div class=\"offcanvas-body\">\n   <slot></slot>\n  </div>\n</div>\n</div>\n"
             })
         ], NvModalR);
         return NvModalR;

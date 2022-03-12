@@ -1,4 +1,4 @@
-﻿namespace App {
+﻿namespace App.ImportNvComponents {
 
     type NvModalProps = {
         footer?: React.ReactNode;
@@ -7,9 +7,10 @@
         show: boolean;
         title?: string | React.ReactNode;
         size?: "md" | "lg" | "xl" | "sm";
+        Index?: string;
         children?: React.ReactNode;
     }
-    export function NvModal({ OnClose, show, children, id = "ModalNv_", title = null, size = null, footer = null }: NvModalProps) {
+    export function NvModal({ OnClose, show, children, id = "ModalNv_", title = null, size = null, footer = null, Index = null }: NvModalProps) {
         
         if (!show) return null;
 
@@ -19,10 +20,10 @@
 
 
         const SizeModal = isNullOrEmpty(size) ? "" : 'modal-' + size;
-        
+        const IndexStyle = Index != null ? { zIndex: Index } : {};
         return (<>
-            <div className="nvmodal" id={id} tabIndex={ -1 } >
-                <div className={"modal-dialog modal-dialog-centered " + SizeModal}>
+            <div className="nvmodal" id={id} tabIndex={-1} style={IndexStyle} >
+                <div className={"modal-dialog modal-dialog-centered " + SizeModal} style={IndexStyle}>
                     <div className="modal-content">
                         <div className="modal-header">
                             <h5 className="modal-title" >
