@@ -1,11 +1,11 @@
 ﻿namespace App {
 
     const {
-        useNvInputFormModel, useNvInput
+        useNvInputFormModel, useNvInput, NvAutoNumeric
     }= ImportNvComponents
 
 
-
+    const { useState }= React
     function App() {
       
         const [values, SetValues, Bind, FormNames] = useNvInputFormModel<Persona>({
@@ -16,7 +16,9 @@
         });
 
         const [Email, SetImail, EmailModel] = useNvInput("Andrey@gmail.com")
-        
+
+        const [Money, SetMoney,MoneyModel] = useNvInput(0);
+
         function HandleForm() {
             console.log(values);
         }
@@ -24,6 +26,7 @@
         function HandlerNombre(evt) {
             console.log(evt);
         }
+
         
         return (<>
             { values.id } <br/>
@@ -41,7 +44,12 @@
 
             {Email} <br />
             <input type="text" className="form-control"  {...EmailModel} /> <br />
-            
+
+            {Money} <br />
+            <NvAutoNumeric id="Money"  {...MoneyModel} /> <br />
+
+            <button type="button" className="btn btn-primary" onClick={()=> SetMoney(1000)} > cambiar numero</button>
+
             <button type="button" className="btn btn-primary" onClick={ HandleForm } > Guardar</button>
 
         </>)

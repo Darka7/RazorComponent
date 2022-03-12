@@ -12,7 +12,8 @@ var __assign = (this && this.__assign) || function () {
 };
 var App;
 (function (App_1) {
-    var useNvInputFormModel = App_1.ImportNvComponents.useNvInputFormModel, useNvInput = App_1.ImportNvComponents.useNvInput;
+    var useNvInputFormModel = App_1.ImportNvComponents.useNvInputFormModel, useNvInput = App_1.ImportNvComponents.useNvInput, NvAutoNumeric = App_1.ImportNvComponents.NvAutoNumeric;
+    var useState = React.useState;
     function App() {
         var _a = useNvInputFormModel({
             id: 1, edad: 0, Nombre: "ANDREY",
@@ -21,6 +22,7 @@ var App;
             }
         }), values = _a[0], SetValues = _a[1], Bind = _a[2], FormNames = _a[3];
         var _b = useNvInput("Andrey@gmail.com"), Email = _b[0], SetImail = _b[1], EmailModel = _b[2];
+        var _c = useNvInput(0), Money = _c[0], SetMoney = _c[1], MoneyModel = _c[2];
         function HandleForm() {
             console.log(values);
         }
@@ -64,6 +66,13 @@ var App;
             React.createElement("input", __assign({ type: "text", className: "form-control" }, EmailModel)),
             " ",
             React.createElement("br", null),
+            Money,
+            " ",
+            React.createElement("br", null),
+            React.createElement(NvAutoNumeric, __assign({ id: "Money" }, MoneyModel)),
+            " ",
+            React.createElement("br", null),
+            React.createElement("button", { type: "button", className: "btn btn-primary", onClick: function () { return SetMoney(1000); } }, " cambiar numero"),
             React.createElement("button", { type: "button", className: "btn btn-primary", onClick: HandleForm }, " Guardar")));
     }
     ReactDOM.render(React.createElement(App, null), document.getElementById("AppReact"));
