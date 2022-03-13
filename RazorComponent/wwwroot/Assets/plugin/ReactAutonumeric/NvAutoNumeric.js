@@ -18,20 +18,35 @@ var App;
 (function (App) {
     var ImportNvComponents;
     (function (ImportNvComponents) {
-        var createRef = React.createRef;
         var NvAutoNumeric = /** @class */ (function (_super) {
             __extends(NvAutoNumeric, _super);
             function NvAutoNumeric(pr) {
                 var _this = _super.call(this, pr) || this;
                 _this.HandlerCall = _this.HandlerCall.bind(_this);
+                _this.Options = _this.Options.bind(_this);
                 return _this;
             }
+            NvAutoNumeric.prototype.Options = function () {
+                if (this.props.default != null)
+                    return this.props.default;
+                var options = {
+                    digitGroupSeparator: ',',
+                    decimalCharacter: '.',
+                    currencySymbol: this.props.symbol,
+                    decimalPlaces: this.props.decimal
+                };
+                if (!App.isNullOrEmpty(this.props.min))
+                    options.minimumValue = this.props.min;
+                if (!App.isNullOrEmpty(this.props.rounding))
+                    options.roundingMethod = this.props.rounding;
+                return options;
+            };
             NvAutoNumeric.prototype.componentWillUnmount = function () {
                 if (this.input)
                     this.input.remove();
             };
             NvAutoNumeric.prototype.componentDidMount = function () {
-                this.input = new AutoNumeric(this.$el, this.props.value);
+                this.input = new AutoNumeric(this.$el, this.props.value, this.Options());
             };
             NvAutoNumeric.prototype.componentWillReceiveProps = function (nextProps, nextContext) {
                 if (this.input != null) {
@@ -41,13 +56,16 @@ var App;
                 }
             };
             NvAutoNumeric.prototype.HandlerCall = function (event, EventName) {
-                if (this.input != null && this.props[EventName] != null) {
+                if (this.input != null) {
                     var val = this.input.getNumber();
                     var NewEvent = Object.assign(event, {
                         target: { value: val },
                         currentTarget: { value: val }
                     });
-                    this.props[EventName](this.props.GetVal == "input" ? NewEvent : val);
+                    if (this.props[EventName] != null)
+                        this.props[EventName](NewEvent);
+                    if (this.props[EventName + "Number"] != null)
+                        this.props[EventName + "Number"](val);
                 }
             };
             NvAutoNumeric.prototype.render = function () {
@@ -57,7 +75,11 @@ var App;
             };
             NvAutoNumeric.defaultProps = {
                 className: "form-control",
-                GetVal: "input"
+                symbol: "",
+                min: null,
+                decimal: 0,
+                rounding: null,
+                default: null
             };
             return NvAutoNumeric;
         }(React.Component));

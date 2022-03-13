@@ -7,7 +7,7 @@
     export function useNvInputFormModel<T>(inititalvalue: T): [
         T,
         React.Dispatch<React.SetStateAction<T>>,
-        (NameInput: string | any) => { value: any, name: string, onChange: (event: React.ChangeEvent<HTMLInputElement>|any) => void },
+        (NameInput: string | any) => { value: any, name: string, onChange: (event: React.ChangeEvent<HTMLInputElement>) => void },
         T,
         ()=>void
     ] {
@@ -88,7 +88,7 @@
     export function useNvInputForm<T>(inititalvalue: T): [
         T,
         React.Dispatch<React.SetStateAction<T>>,
-         {  onChange: (event: React.ChangeEvent<HTMLInputElement>|any) => void },
+         {  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void },
         () => void
     ] {
 
@@ -159,7 +159,7 @@
     export function useNvInput<T>(inititalvalue: T): [
         T,
         React.Dispatch <React.SetStateAction<T>>,
-        { value: T, onChange: (event: React.ChangeEvent<HTMLInputElement>|any) => void },
+        { value: T, onChange: (event: React.ChangeEvent<HTMLInputElement>) => void },
         () => void
     ]{
 

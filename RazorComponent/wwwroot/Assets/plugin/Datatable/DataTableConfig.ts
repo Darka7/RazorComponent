@@ -13,7 +13,7 @@
                     orderable: false,
                     className: `toggle-all${table} select-checkbox text-center noVis`,
 
-
+                  
                 };
                 colums.push(ob);
             } else {
@@ -87,7 +87,8 @@
                             return val == true ?
                                 `<span class="badge bg-success">${Activo}</span>`
                                 : `<span class="badge bg-danger">${Inactive}</span>`;
-                        }
+                        },
+                        
                     };
                     break;
                 case "IsActiveText":
@@ -113,7 +114,8 @@
                 case "Accion":
                     addcolum = {
                         data: col.Column, title: col.Label, width: "14%", className: "text-center", render: (val, types, entity, meta) => {
-
+                           
+                          
                             var btnedit = security?.Actualizar ? `<button type="button" class="btn btn-outline-primary ${col?.Class}" onclick="Editbtn${Table}('${val}')">Editar</button>` : "";
                             var btnDelete = security?.Eliminar ? `<button type="button" class="btn btn-outline-danger ${col?.Class}" onclick="Deletebtn${Table}('${val}')">Eliminar</button>` : "";
 
@@ -127,9 +129,9 @@
                         data: col.Column, title: col.Label, width: "5%", className: "text-center", render: (val, types, entity, meta) => {
 
                             var rowid = meta.row;
-                            
+                            var disable = col?.Disabled ? "disabled" : "";
                          
-                            return `<button type="button" class="btn ${col?.Class}" data-rowid="${rowid}" data-valuerow="${val}" onclick="${Table}BtnGridOnclick($(this),'${col.ButtonEvent}')">${col.ButtonText}</button>` ;
+                            return `<button type="button" ${disable} class="btn ${col?.Class}" data-rowid="${rowid}" data-valuerow="${val}" onclick="${Table}BtnGridOnclick($(this),'${col.ButtonEvent}')">${col.ButtonText}</button>` ;
                         }
                     };
                     break;
@@ -182,7 +184,7 @@
                             var colid = meta.col;
                             var checked = "";
                             if (col?.InputType == "checkbox") {
-                                checked = val == true ? "" : "checked";
+                                checked = val == false ? "" : "checked";
                             }
 
                             var disable = col?.Disabled ? "disabled" : "";
@@ -262,7 +264,7 @@
 
                             var text = isNullOrEmpty(val) ? "..." : val;
                             var rowid = meta.row;
-                            return `<a class="stretched-link ${col?.Class}" data-rowid="${rowid}" onclick='${Table}OnClickLinkEvent($(this),'${col.LinkEvent}')' href="javascript: void(0)">${text}</a>`;
+                            return `<a class="stretched-link ${col?.Class}" data-rowid="${rowid}" onclick="${Table}OnClickLinkEvent($(this),'${col.LinkEvent}')" href="javascript: void(0)">${text}</a>`;
                         }
                     };
                     break;
@@ -274,8 +276,8 @@
                             var text = isNullOrEmpty(val) ? "..." : val;
 
                             var url = col.LinkUrl + $.param(entity);
-
-                            return `<a class="stretched-link ${col?.Class}" href="${url}" >${text}</a>`;
+                            var disable = col?.Disabled==true ? "disabled" : "";
+                            return `<a class="stretched-link ${col?.Class}" href="${url}" ${disable} >${text}</a>`;
                         }
                     };
                     break;
@@ -287,7 +289,7 @@
                             var rowid = meta.row;
                             var columid = meta.col;
 
-                            eval(`result= ${col.Html} ;`);
+                            eval(`result= "${col.Html}" ;`);
                             return result;
                         }
                     };
@@ -323,7 +325,11 @@
                         data: col.Column, title: col.Label, render: col.render
                     };
                     break;
-
+                case "createdCell":
+                    addcolum = {
+                        data: col.Column, title: col.Label, createdCell: col.createdCell
+                    };
+                    break;
                 
 
 
@@ -385,7 +391,7 @@ namespace App{
     export interface JQDataTableColum {
         Type?: "Index" | "Text" | "DateTime" | "Date" | "IsActive" | "IsActiveText" | "Bool" | "Accion" | "Switch" | "SwitchData"
         | "LinkEdit" | "LinkEvent" | "LinkUrl" | "HTML" | "JavaScript" | "ExecuteFunctionJS" | "Input" | "Select" | "SelectOnData"
-        |"Render" |"Button";
+        | "Render" | "Button" |"createdCell";
         Orderable?: boolean;
         ClassColum?: string;
         VisibleColum?: boolean;
@@ -416,6 +422,7 @@ namespace App{
         SelectOnDataProperty?: string;
 
         render?: DataTables.FunctionColumnRender;
+        createdCell?: DataTables.FunctionColumnCreatedCell;
         //Button
         ButtonText?: string;
         ButtonEvent?:string;

@@ -73,7 +73,7 @@
 
         public el: string = null;
 
-        public TableIds: string[] = []
+        public TableIds: string[] = [];
 
         @PropSync("selected", { type: Array, default: <string[]>[] })
         TablesSelecteds!: string[];

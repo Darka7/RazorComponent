@@ -77,7 +77,7 @@ var App;
                                 return val == true ?
                                     "<span class=\"badge bg-success\">".concat(Activo, "</span>")
                                     : "<span class=\"badge bg-danger\">".concat(Inactive, "</span>");
-                            }
+                            },
                         };
                         break;
                     case "IsActiveText":
@@ -109,7 +109,8 @@ var App;
                         addcolum = {
                             data: col.Column, title: col.Label, width: "5%", className: "text-center", render: function (val, types, entity, meta) {
                                 var rowid = meta.row;
-                                return "<button type=\"button\" class=\"btn ".concat(col === null || col === void 0 ? void 0 : col.Class, "\" data-rowid=\"").concat(rowid, "\" data-valuerow=\"").concat(val, "\" onclick=\"").concat(Table, "BtnGridOnclick($(this),'").concat(col.ButtonEvent, "')\">").concat(col.ButtonText, "</button>");
+                                var disable = (col === null || col === void 0 ? void 0 : col.Disabled) ? "disabled" : "";
+                                return "<button type=\"button\" ".concat(disable, " class=\"btn ").concat(col === null || col === void 0 ? void 0 : col.Class, "\" data-rowid=\"").concat(rowid, "\" data-valuerow=\"").concat(val, "\" onclick=\"").concat(Table, "BtnGridOnclick($(this),'").concat(col.ButtonEvent, "')\">").concat(col.ButtonText, "</button>");
                             }
                         };
                         break;
@@ -154,7 +155,7 @@ var App;
                                 var colid = meta.col;
                                 var checked = "";
                                 if ((col === null || col === void 0 ? void 0 : col.InputType) == "checkbox") {
-                                    checked = val == true ? "" : "checked";
+                                    checked = val == false ? "" : "checked";
                                 }
                                 var disable = (col === null || col === void 0 ? void 0 : col.Disabled) ? "disabled" : "";
                                 //var Inputid = "${Table}_${col.Column}_${rowid}_${colid}"
@@ -216,7 +217,7 @@ var App;
                             data: col.Column, title: col.Label, render: function (val, types, entity, meta) {
                                 var text = App.isNullOrEmpty(val) ? "..." : val;
                                 var rowid = meta.row;
-                                return "<a class=\"stretched-link ".concat(col === null || col === void 0 ? void 0 : col.Class, "\" data-rowid=\"").concat(rowid, "\" onclick='").concat(Table, "OnClickLinkEvent($(this),'").concat(col.LinkEvent, "')' href=\"javascript: void(0)\">").concat(text, "</a>");
+                                return "<a class=\"stretched-link ".concat(col === null || col === void 0 ? void 0 : col.Class, "\" data-rowid=\"").concat(rowid, "\" onclick=\"").concat(Table, "OnClickLinkEvent($(this),'").concat(col.LinkEvent, "')\" href=\"javascript: void(0)\">").concat(text, "</a>");
                             }
                         };
                         break;
@@ -225,7 +226,8 @@ var App;
                             data: col.Column, title: col.Label, render: function (val, types, entity, meta) {
                                 var text = App.isNullOrEmpty(val) ? "..." : val;
                                 var url = col.LinkUrl + $.param(entity);
-                                return "<a class=\"stretched-link ".concat(col === null || col === void 0 ? void 0 : col.Class, "\" href=\"").concat(url, "\" >").concat(text, "</a>");
+                                var disable = (col === null || col === void 0 ? void 0 : col.Disabled) == true ? "disabled" : "";
+                                return "<a class=\"stretched-link ".concat(col === null || col === void 0 ? void 0 : col.Class, "\" href=\"").concat(url, "\" ").concat(disable, " >").concat(text, "</a>");
                             }
                         };
                         break;
@@ -235,7 +237,7 @@ var App;
                                 var result = "";
                                 var rowid = meta.row;
                                 var columid = meta.col;
-                                eval("result= ".concat(col.Html, " ;"));
+                                eval("result= \"".concat(col.Html, "\" ;"));
                                 return result;
                             }
                         };
@@ -265,6 +267,11 @@ var App;
                     case "Render":
                         addcolum = {
                             data: col.Column, title: col.Label, render: col.render
+                        };
+                        break;
+                    case "createdCell":
+                        addcolum = {
+                            data: col.Column, title: col.Label, createdCell: col.createdCell
                         };
                         break;
                 }

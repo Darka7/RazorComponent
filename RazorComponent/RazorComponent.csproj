@@ -15,6 +15,7 @@
 
   <ItemGroup>
     <Content Remove="wwwroot\Assets\plugin\Component\useInput.tsx" />
+    <Content Remove="wwwroot\Assets\plugin\Datatable\NvGridTableReact.tsx" />
     <Content Remove="wwwroot\Assets\plugin\ReactAutonumeric\NvAutoNumeric.tsx" />
     <Content Remove="wwwroot\Assets\plugin\VueModal\NvModalR-React.tsx" />
     <Content Remove="wwwroot\Assets\plugin\VueModal\NvModalReact.tsx" />
@@ -77,6 +78,7 @@
     <TypeScriptCompile Include="wwwroot\Assets\%40types\vue-template-compiler\VueTemplateCompiler.d.ts" />
     <TypeScriptCompile Include="wwwroot\Assets\plugin\Component\useInput.tsx" />
     <TypeScriptCompile Include="wwwroot\Assets\plugin\Datatable\DataTableConfig.ts" />
+    <TypeScriptCompile Include="wwwroot\Assets\plugin\Datatable\NvGridTableReact.tsx" />
     <TypeScriptCompile Include="wwwroot\Assets\plugin\ReactAutonumeric\NvAutoNumeric.tsx" />
     <TypeScriptCompile Include="wwwroot\Assets\plugin\VueModal\NvModalR-React.tsx" />
     <TypeScriptCompile Include="wwwroot\Assets\plugin\VueModal\NvModalReact.tsx" />
