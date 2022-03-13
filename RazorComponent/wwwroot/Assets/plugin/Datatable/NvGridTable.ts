@@ -395,7 +395,7 @@
 
             this.InputEvent = this.colums.find(function (value, index) { return value.Type == "Input"; });
 
-            if (InputEvent != null) {
+            if (this.InputEvent != null) {
                 window[this.el + "OnChangeInputTable"] = this.OnChangeInputTable;
             }
 

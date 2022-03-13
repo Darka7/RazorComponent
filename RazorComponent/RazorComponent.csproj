@@ -23,6 +23,7 @@
     <Content Remove="wwwroot\scripts\Prueba.ts" />
     <Content Remove="wwwroot\scripts\React\FormInput.tsx" />
     <Content Remove="wwwroot\scripts\React\ModalReactPrueba.tsx" />
+    <Content Remove="wwwroot\scripts\React\ReactTabletsx.tsx" />
   </ItemGroup>
 
   <ItemGroup>
@@ -86,6 +87,7 @@
     <TypeScriptCompile Include="wwwroot\scripts\Prueba.ts" />
     <TypeScriptCompile Include="wwwroot\scripts\React\FormInput.tsx" />
     <TypeScriptCompile Include="wwwroot\scripts\React\ModalReactPrueba.tsx" />
+    <TypeScriptCompile Include="wwwroot\scripts\React\ReactTabletsx.tsx" />
   </ItemGroup>
 
   <ItemGroup>

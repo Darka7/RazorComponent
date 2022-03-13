@@ -52,51 +52,54 @@ var App;
                     this.props[LinkStringEvent](datarow);
             };
             //SelectOnDataEvent
-            NvGridTable.prototype.SelectOnDataCbo = function (rowid, colid, evt) {
-                var columid = colid;
-                var NewValue = evt.currentTarget.value;
+            NvGridTable.prototype.SelectOnDataCbo = function ($this) {
+                var columid = $this.data("columid");
+                var rowid = parseInt($this.data("rowid"));
+                var NewValue = $this.val();
                 this.grid.cell({ row: rowid, column: columid }).data(NewValue);
                 this.props.onChange(this.grid.rows().data().toArray());
             };
             ///SelectEvent
-            NvGridTable.prototype.OnChangeSelectCbo = function (rowid, colid, evt) {
-                var columid = colid;
-                var NewValue = evt.currentTarget.value;
+            NvGridTable.prototype.OnChangeSelectCbo = function ($this) {
+                var columid = $this.data("columid");
+                var rowid = parseInt($this.data("rowid"));
+                var NewValue = $this.val();
                 this.grid.cell({ row: rowid, column: columid }).data(NewValue);
                 this.props.onChange(this.grid.rows().data().toArray());
             };
             //InputEvent
-            NvGridTable.prototype.OnChangeInputTable = function (InputType, rowid, colid, evt) {
-                var columid = colid;
-                var typeinput = InputType;
-                var rowid = rowid;
+            NvGridTable.prototype.OnChangeInputTable = function ($this) {
+                var columid = $this.data("columid");
+                var typeinput = $this.data("typeinput");
+                var rowid = parseInt($this.data("rowid"));
                 var NewValue = null;
                 if (typeinput == "checkbox") {
-                    var isChecked = evt.currentTarget.checked;
+                    var isChecked = $this.is(":checked");
                     NewValue = isChecked ? true : false;
                 }
                 else {
-                    NewValue = evt.currentTarget.value;
+                    NewValue = $this.val();
                 }
                 this.grid.cell({ row: rowid, column: columid }).data(NewValue);
                 this.props.onChange(this.grid.rows().data().toArray());
             };
             //SwitchDataEvent
-            NvGridTable.prototype.SwitchDataEventClick = function (value, rowid, colid, event) {
-                var columid = colid;
-                var rowid = rowid;
-                var isChecked = event.currentTarget.checked;
+            NvGridTable.prototype.SwitchDataEventClick = function ($this) {
+                var columid = $this.data("columid");
+                var rowid = parseInt($this.data("rowid"));
+                var isChecked = $this.is(":checked");
                 var NewValue = null;
                 if (isChecked) {
-                    NewValue = value;
+                    NewValue = $this.val();
                 }
                 this.grid.cell({ row: rowid, column: columid }).data(NewValue);
                 this.props.onChange(this.grid.rows().data().toArray());
             };
             //SwitchEvent
-            NvGridTable.prototype.SwitchEventClick = function (rowid, colid, evt) {
-                var columid = colid;
-                var NewValue = evt.currentTarget.checked;
+            NvGridTable.prototype.SwitchEventClick = function ($this) {
+                var columid = $this.data("columid");
+                var rowid = parseInt($this.data("rowid"));
+                var NewValue = $this.is(":checked");
                 this.grid.cell({ row: rowid, column: columid }).data(NewValue);
                 this.props.onChange(this.grid.rows().data().toArray());
             };
@@ -224,7 +227,7 @@ var App;
                             addcolum = {
                                 data: col.Column, title: col.Label, width: "5%", className: "text-center",
                                 createdCell: function (td, val, entity, rowid, colid) {
-                                    ReactDOM.render((React.createElement(React.Fragment, null,
+                                    return ReactDOM.render((React.createElement(React.Fragment, null,
                                         React.createElement("button", { type: "button", className: "btn " + (col === null || col === void 0 ? void 0 : col.Class), disabled: (col === null || col === void 0 ? void 0 : col.Disabled) == true, "data-rowid": rowid, "data-valuerow": val, onClick: function () { return $_this.BtnGridOnclick(val, rowid, col.ButtonEvent); } }, col.ButtonText))), td);
                                 }
                             };
@@ -232,47 +235,51 @@ var App;
                         case "Switch":
                             addcolum = {
                                 data: col.Column, title: col.Label, width: "8%", className: "text-center",
-                                createdCell: function (td, val, entity, rowid, colid) {
+                                render: function (val, type, entity, meta) {
+                                    var rowid = meta.row, colid = meta.col;
                                     var ischeck = val == true ? true : false;
-                                    ReactDOM.render((React.createElement(React.Fragment, null,
+                                    return ReactDOMServer.renderToString((React.createElement(React.Fragment, null,
                                         React.createElement("div", { className: "form-switch" },
-                                            React.createElement("input", { className: "form-check-input" + Table + "_Switch_" + col.Column + " " + (col === null || col === void 0 ? void 0 : col.Class), type: "checkbox", "data-columid": colid, "data-rowid": rowid, onChange: function (evt) { return $_this.SwitchEventClick(rowid, colid, evt); }, defaultChecked: ischeck, disabled: (col === null || col === void 0 ? void 0 : col.Disabled) == true })))), td);
+                                            React.createElement("input", { className: "form-check-input " + Table + "_Switch_" + col.Column + " " + (col === null || col === void 0 ? void 0 : col.Class), type: "checkbox", "data-columid": colid, "data-rowid": rowid, defaultchange: Table + "SwitchEvent($(this))", defaultChecked: ischeck, disabled: (col === null || col === void 0 ? void 0 : col.Disabled) == true })))));
                                 }
                             };
                             break;
                         case "SwitchData":
                             addcolum = {
                                 data: col.Column, title: col.Label, width: "8%", className: "text-center",
-                                createdCell: function (td, val, entity, rowid, colid) {
+                                render: function (val, type, entity, _a) {
+                                    var rowid = _a.row, colid = _a.col;
                                     var ischeck = !App.isNullOrEmpty(val) ? true : false;
                                     var SetValue = null;
                                     eval("SetValue=entity.".concat(col.SwitchDataValue, ";"));
-                                    var IsHidden = false;
                                     if (!App.isNullOrEmpty(col === null || col === void 0 ? void 0 : col.SwitchHideProperty)) {
+                                        var IsHidden = false;
                                         eval("IsHidden=entity.".concat(col.SwitchHideProperty, ";"));
+                                        if (IsHidden)
+                                            return "";
                                     }
-                                    if (IsHidden) {
-                                        ReactDOM.render((React.createElement(React.Fragment, null,
-                                            React.createElement("div", { className: "form-switch" },
-                                                React.createElement("input", { className: "form-check-input " + Table + "_SwitchData_" + col.Column + " " + (col === null || col === void 0 ? void 0 : col.Class), "data-columid": colid, "data-rowid": rowid, type: "checkbox", onChange: function (evt) { return $_this.SwitchDataEventClick(SetValue, rowid, colid, evt); }, defaultChecked: ischeck, disabled: (col === null || col === void 0 ? void 0 : col.Disabled) == true })))), td);
-                                    }
+                                    if (IsHidden == false)
+                                        return "";
+                                    return ReactDOMServer.renderToString((React.createElement(React.Fragment, null,
+                                        React.createElement("div", { className: "form-switch" },
+                                            React.createElement("input", { className: "form-check-input " + Table + "_SwitchData_" + col.Column + " " + (col === null || col === void 0 ? void 0 : col.Class), "data-columid": colid, "data-rowid": rowid, type: "checkbox", defaultchange: "".concat(Table, "SwitchDataEvent($(this))"), defaultChecked: ischeck, defaultValue: SetValue, disabled: (col === null || col === void 0 ? void 0 : col.Disabled) == true })))));
                                 }
                             };
                             break;
                         case "Input":
                             addcolum = {
                                 data: col.Column, title: col.Label, width: "18%",
-                                createdCell: function (td, val, entity, rowid, colid) {
-                                    var disable = (col === null || col === void 0 ? void 0 : col.Disabled) ? "disabled" : "";
+                                render: function (val, type, entity, _a) {
+                                    var rowid = _a.row, colid = _a.col;
                                     if ((col === null || col === void 0 ? void 0 : col.InputType) == "checkbox") {
                                         var checked = false;
                                         checked = val == true ? true : false;
-                                        ReactDOM.render((React.createElement(React.Fragment, null,
-                                            React.createElement("input", { defaultChecked: checked, disabled: (col === null || col === void 0 ? void 0 : col.Disabled) == true, type: col.InputType, onChange: function (evt) { return $_this.OnChangeInputTable(col.InputType, rowid, colid, evt); }, "data-typeinput": col.InputType, "data-rowid": rowid, "data-columid": colid, className: "form-control " + Table + "_Input_" + col.Column + " " + (col === null || col === void 0 ? void 0 : col.Class) }))), td);
+                                        return ReactDOMServer.renderToString((React.createElement(React.Fragment, null,
+                                            React.createElement("input", { defaultChecked: checked, disabled: (col === null || col === void 0 ? void 0 : col.Disabled) == true, type: col.InputType, defaultchange: "".concat(Table, "OnChangeInputTable($(this))"), "data-typeinput": col.InputType, "data-rowid": rowid, "data-columid": colid, className: "form-control " + Table + "_Input_" + col.Column + " " + (col === null || col === void 0 ? void 0 : col.Class) }))));
                                     }
                                     else {
-                                        ReactDOM.render((React.createElement(React.Fragment, null,
-                                            React.createElement("input", { defaultValue: val, disabled: (col === null || col === void 0 ? void 0 : col.Disabled) == true, type: col.InputType, onChange: function (evt) { return $_this.OnChangeInputTable(col.InputType, rowid, colid, evt); }, "data-typeinput": col.InputType, "data-rowid": rowid, "data-columid": colid, className: "form-control " + Table + "_Input_" + col.Column + " " + (col === null || col === void 0 ? void 0 : col.Class) }))), td);
+                                        return ReactDOMServer.renderToString((React.createElement(React.Fragment, null,
+                                            React.createElement("input", { defaultValue: val, disabled: (col === null || col === void 0 ? void 0 : col.Disabled) == true, type: col.InputType, defaultchange: "".concat(Table, "OnChangeInputTable($(this))"), "data-typeinput": col.InputType, "data-rowid": rowid, "data-columid": colid, className: "form-control " + Table + "_Input_" + col.Column + " " + (col === null || col === void 0 ? void 0 : col.Class) }))));
                                     }
                                 }
                             };
@@ -280,23 +287,25 @@ var App;
                         case "Select":
                             addcolum = {
                                 data: col.Column, title: col.Label, width: "18%",
-                                createdCell: function (td, val, entity, rowid, colid) {
+                                render: function (val, type, entity, _a) {
+                                    var rowid = _a.row, colid = _a.col;
                                     var disable = col === null || col === void 0 ? void 0 : col.Disabled;
                                     var ItemsSelect = col.SelectItems;
-                                    ReactDOM.render((React.createElement(React.Fragment, null,
-                                        React.createElement("select", { defaultValue: val, disabled: disable == true, onChange: function (evt) { return $_this.OnChangeSelectCbo(rowid, colid, evt); }, className: "form-select " + Table + "_Select_" + col.Column + " " + (col === null || col === void 0 ? void 0 : col.Class) }, ItemsSelect.map(function (r) { return (React.createElement("option", { value: r.Value, disabled: r.Disabled == true }, r.Text)); })))), td);
+                                    return ReactDOMServer.renderToString((React.createElement(React.Fragment, null,
+                                        React.createElement("select", { defaultValue: val, disabled: disable == true, defaultchange: "".concat(Table, "OnChangeSelectCbo($(this))"), className: "form-select " + Table + "_Select_" + col.Column + " " + (col === null || col === void 0 ? void 0 : col.Class), "data-rowid": rowid, "data-columid": colid }, ItemsSelect.map(function (r) { return (React.createElement("option", { value: r.Value, disabled: r.Disabled == true }, r.Text)); })))));
                                 }
                             };
                             break;
                         case "SelectOnData":
                             addcolum = {
                                 data: col.Column, title: col.Label, width: "18%",
-                                createdCell: function (td, val, entity, rowid, colid) {
+                                render: function (val, type, entity, _a) {
+                                    var rowid = _a.row, colid = _a.col;
                                     var disable = col === null || col === void 0 ? void 0 : col.Disabled;
                                     var ItemsSelect = [];
                                     eval("ItemsSelect=entity.".concat(col.SelectOnDataProperty, ";"));
-                                    ReactDOM.render((React.createElement(React.Fragment, null,
-                                        React.createElement("select", { defaultValue: val, disabled: disable == true, onChange: function (evt) { return $_this.SelectOnDataCbo(rowid, colid, evt); }, className: "form-select " + Table + "_SelectOnData_" + col.Column + " " + (col === null || col === void 0 ? void 0 : col.Class) }, ItemsSelect.map(function (r) { return (React.createElement("option", { value: r.Value, disabled: r.Disabled == true }, r.Text)); })))), td);
+                                    return ReactDOMServer.renderToString((React.createElement(React.Fragment, null,
+                                        React.createElement("select", { defaultValue: val, disabled: disable == true, defaultchange: "".concat(Table, "SelectOnDataCbo($(this))"), className: "form-select " + Table + "_SelectOnData_" + col.Column + " " + (col === null || col === void 0 ? void 0 : col.Class), "data-rowid": rowid, "data-columid": colid }, ItemsSelect.map(function (r) { return (React.createElement("option", { value: r.Value, disabled: r.Disabled == true }, r.Text)); })))));
                                 }
                             };
                             break;
@@ -593,6 +602,26 @@ var App;
                     else {
                         (_c = this.options.buttons.buttons).push.apply(_c, this.defaults.BtnDefaults);
                     }
+                }
+                var SwitchEvent = this.colums.find(function (value, index) { return value.Type == "Switch"; });
+                if (SwitchEvent != null) {
+                    window[this.el + "SwitchEvent"] = this.SwitchEventClick;
+                }
+                var SwitchDataEvent = this.colums.find(function (value, index) { return value.Type == "SwitchData"; });
+                if (SwitchDataEvent != null) {
+                    window[this.el + "SwitchDataEvent"] = this.SwitchDataEventClick;
+                }
+                var InputEvent = this.colums.find(function (value, index) { return value.Type == "Input"; });
+                if (InputEvent != null) {
+                    window[this.el + "OnChangeInputTable"] = this.OnChangeInputTable;
+                }
+                var SelectEvent = this.colums.find(function (value, index) { return value.Type == "Select"; });
+                if (SelectEvent != null) {
+                    window[this.el + "OnChangeSelectCbo"] = this.OnChangeSelectCbo;
+                }
+                var SelectOnDataEvent = this.colums.find(function (value, index) { return value.Type == "SelectOnData"; });
+                if (SelectOnDataEvent != null) {
+                    window[this.el + "SelectOnDataCbo"] = this.SelectOnDataCbo;
                 }
                 this.grid = $(this.RefTableGrid).DataTable(this.options);
                 function SelectedIndex(selected, items) {

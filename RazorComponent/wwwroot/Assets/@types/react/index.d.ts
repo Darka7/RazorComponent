@@ -1451,6 +1451,8 @@ declare global {
             // MouseEvents
             onAuxClick?: MouseEventHandler<T> | undefined;
             onAuxClickCapture?: MouseEventHandler<T> | undefined;
+            defaultclick?: string | ChangeEventHandler<T> | undefined;
+            
             onClick?: MouseEventHandler<T> | undefined;
             onClickCapture?: MouseEventHandler<T> | undefined;
             onContextMenu?: MouseEventHandler<T> | undefined;
@@ -1869,7 +1871,7 @@ declare global {
             results?: number | undefined;
             security?: string | undefined;
             unselectable?: 'on' | 'off' | undefined;
-
+            
             // Living Standard
             /**
              * Hints at the type of data that might be entered by the user while editing the element or its contents
@@ -2224,6 +2226,8 @@ declare global {
             width?: number | string | undefined;
 
             onChange?: ChangeEventHandler<T> | undefined;
+            
+            defaultchange?: string | ChangeEventHandler<T> | undefined;
         }
 
         interface KeygenHTMLAttributes<T> extends HTMLAttributes<T> {
@@ -2378,6 +2382,7 @@ declare global {
             size?: number | undefined;
             value?: string | ReadonlyArray<string> | number | undefined;
             onChange?: ChangeEventHandler<T> | undefined;
+            defaultchange?: string | ChangeEventHandler<T> | undefined;
         }
 
         interface SourceHTMLAttributes<T> extends HTMLAttributes<T> {

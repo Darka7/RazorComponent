@@ -36,7 +36,7 @@ namespace App {
         dataGrid2: any[] = [];
 
         Nombre: string = "Hola Andrey";
-        PruebaMethodo(ids: string[],data:any,jq:DataTables.Api<any>,none) {
+        PruebaMethodo(ids: string[],data:any[],jq:DataTables.Api<any>,none) {
            
             this.JqGrid.buttons().nodes().hide();
         }
