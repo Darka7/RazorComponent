@@ -3,19 +3,18 @@
 
 
     type NvAutoNumericProps = {
-        id?: string;
+        id?: string | any;
+        name?: string | any;
         className?: string;
-        value?: number;
+        value?: number ;
         symbol?: string;
         min?: string;
         decimal?: number;
         default?: string;
         rounding?: IAutoNumeric.RoundingMethodOption;
         //eventos
-        onChange?: (val: React.ChangeEvent<HTMLInputElement>) => void;
-        onChangeNumber?: (val: number) => void;
-        onBlur?: (val: React.ChangeEvent<HTMLInputElement>) => void;
-        onBlurNumber?: (val: number) => void;
+        onChange?: (evt: React.ChangeEvent<HTMLInputElement>,val?:number) => void;
+        onBlur?: (evt: React.ChangeEvent<HTMLInputElement>,val?:number) => void;
     }
     type NvAutoNumericState = {
         
@@ -25,6 +24,9 @@
 
         public input: AutoNumeric;
         static defaultProps: NvAutoNumericProps = {
+            id: null,
+            name: null,
+            value:null,
             className: "form-control",
             symbol: "",
             min: null,
@@ -83,32 +85,35 @@
             
             if (this.input != null ) {
                 var val = this.input.getNumber();
-                var NewEvent = Object.assign(event, {
-                    target: { value: val },
-                    currentTarget: { value: val }
+                var name = event.currentTarget.name;
+
+                var NewEvent = Object.assign(event,{
+                    target: { value: val as any, name,type:"text"  },
+                    currentTarget: { value: val as any, name, type: "text" }
                 });
 
+                
                 if (this.props[EventName] != null)
-                    this.props[EventName](NewEvent);
+                    this.props[EventName](NewEvent,val);
 
-                if (this.props[EventName +"Number"] != null)
-                    this.props[EventName +"Number"](val);
             }
         }
 
       
 
         render() {
-            const { id, className, } = this.props;
-           
+            const { id, className,name } = this.props;
+
+            var InputFor = id == null ? name : id;
+
 
             return (<input
                 type="text"
-                id={id}
-                name={id}
+                id={InputFor}
+                name={InputFor}
                 className={className}
                 ref={ ref=> (this.$el=ref)}
-                onChange={e => this.HandlerCall(e,"onChange")}
+                onChange={e =>  this.HandlerCall(e,"onChange")}
                 onBlur={e => this.HandlerCall(e, "onBlur") }
             />)
         }

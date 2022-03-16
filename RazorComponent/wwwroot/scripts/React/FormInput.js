@@ -12,68 +12,46 @@ var __assign = (this && this.__assign) || function () {
 };
 var App;
 (function (App_1) {
-    var useNvInputFormModel = App_1.ImportNvComponents.useNvInputFormModel, useNvInput = App_1.ImportNvComponents.useNvInput, NvAutoNumeric = App_1.ImportNvComponents.NvAutoNumeric;
+    var useNvInput = App_1.ImportNvComponents.useNvInput, NvAutoNumeric = App_1.ImportNvComponents.NvAutoNumeric, useNvInputForm = App_1.ImportNvComponents.useNvInputForm, useNvInputFormModel = App_1.ImportNvComponents.useNvInputFormModel;
     var useState = React.useState;
     function App() {
-        var _a = useNvInputFormModel({
-            id: 1, edad: 0, Nombre: "ANDREY",
-            TipoPersona: {
-                descripcion: "Responsable", PielEntity: { color: "Blanco" }
-            }
-        }), values = _a[0], SetValues = _a[1], Bind = _a[2], FormNames = _a[3];
-        var _b = useNvInput("Andrey@gmail.com"), Email = _b[0], SetImail = _b[1], EmailModel = _b[2];
-        var _c = useNvInput(0), Money = _c[0], SetMoney = _c[1], MoneyModel = _c[2];
-        function HandleForm() {
-            console.log(values);
-        }
-        function HandlerNombre(evt) {
-            console.log(evt);
+        var _a = useNvInput(0), Num = _a[0], SetNum = _a[1], ModelNum = _a[2], ResetNum = _a[3];
+        var _b = useNvInputFormModel({
+            id: null,
+            edad: null,
+            Nombre: null,
+            TipoPersona: { descripcion: null }
+        }), Model = _b[0], SetModel = _b[1], BindModel = _b[2], ModelNames = _b[3], ResetModel = _b[4];
+        function Guardar() {
+            console.log(Model);
         }
         return (React.createElement(React.Fragment, null,
-            values.id,
+            Model.id,
             " ",
             React.createElement("br", null),
-            React.createElement("input", __assign({ type: "number", className: "form-control" }, Bind(FormNames.id))),
+            React.createElement("input", __assign({ type: "number" }, BindModel(ModelNames.id))),
+            "  ",
+            React.createElement("br", null),
+            Model.Nombre,
             " ",
             React.createElement("br", null),
-            values.Nombre,
+            React.createElement("input", __assign({ type: "text" }, BindModel(ModelNames.Nombre))),
+            "  ",
+            React.createElement("br", null),
+            Model.TipoPersona.descripcion,
             " ",
             React.createElement("br", null),
-            React.createElement("input", __assign({ type: "text", className: "form-control", onBlur: HandlerNombre }, Bind(FormNames.Nombre))),
+            React.createElement("input", __assign({ type: "text" }, BindModel("TipoPersona.descripcion"))),
+            "  ",
+            React.createElement("br", null),
+            Model.edad,
             " ",
             React.createElement("br", null),
-            values.edad,
-            " ",
+            React.createElement(NvAutoNumeric, __assign({}, BindModel(ModelNames.edad))),
+            "  ",
             React.createElement("br", null),
-            React.createElement("input", __assign({ type: "number", className: "form-control" }, Bind(FormNames.edad))),
-            " ",
-            React.createElement("br", null),
-            values.TipoPersona.descripcion,
-            " ",
-            React.createElement("br", null),
-            React.createElement("input", __assign({ type: "text", className: "form-control" }, Bind("TipoPersona.descripcion"))),
-            " ",
-            React.createElement("br", null),
-            values.TipoPersona.PielEntity.color,
-            " ",
-            React.createElement("br", null),
-            React.createElement("input", __assign({ type: "text", className: "form-control" }, Bind("TipoPersona.PielEntity.color"))),
-            " ",
-            React.createElement("br", null),
-            Email,
-            " ",
-            React.createElement("br", null),
-            React.createElement("input", __assign({ type: "text", className: "form-control" }, EmailModel)),
-            " ",
-            React.createElement("br", null),
-            Money,
-            " ",
-            React.createElement("br", null),
-            React.createElement(NvAutoNumeric, __assign({ id: "Money" }, MoneyModel)),
-            " ",
-            React.createElement("br", null),
-            React.createElement("button", { type: "button", className: "btn btn-primary", onClick: function () { return SetMoney(1000); } }, " cambiar numero"),
-            React.createElement("button", { type: "button", className: "btn btn-primary", onClick: HandleForm }, " Guardar")));
+            React.createElement("button", { type: "button", className: "btn btn-primary", onClick: ResetModel }, " cambiar numero"),
+            React.createElement("button", { type: "button", className: "btn btn-primary", onClick: function () { return Guardar(); } }, " Guardar")));
     }
     ReactDOM.render(React.createElement(App, null), document.getElementById("AppReact"));
 })(App || (App = {}));

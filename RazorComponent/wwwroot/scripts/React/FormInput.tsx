@@ -1,56 +1,42 @@
 ﻿namespace App {
 
     const {
-        useNvInputFormModel, useNvInput, NvAutoNumeric
+         useNvInput, NvAutoNumeric,useNvInputForm,useNvInputFormModel
     }= ImportNvComponents
 
 
     const { useState }= React
     function App() {
       
-        const [values, SetValues, Bind, FormNames] = useNvInputFormModel<Persona>({
-            id: 1, edad: 0, Nombre: "ANDREY",
-            TipoPersona: {
-                descripcion: "Responsable", PielEntity: { color:"Blanco"} }
+        const [Num, SetNum,ModelNum,ResetNum] = useNvInput(0);
+
+        const [Model, SetModel, BindModel, ModelNames, ResetModel] = useNvInputFormModel<Persona>({
+            id: null ,
+            edad:null,
+            Nombre:null,
+            TipoPersona: {descripcion:null}
 
         });
 
-        const [Email, SetImail, EmailModel] = useNvInput("Andrey@gmail.com")
-
-        const [Money, SetMoney,MoneyModel] = useNvInput(0);
-
-        function HandleForm() {
-            console.log(values);
+        function Guardar() {
+            console.log(Model);
         }
-
-        function HandlerNombre(evt) {
-            console.log(evt);
-        }
-
         
         return (<>
-            { values.id } <br/>
-            <input type="number" className="form-control"   {...Bind(FormNames.id)} /> <br />
-            {values.Nombre} <br />
-            <input type="text" className="form-control" onBlur={HandlerNombre } {...Bind(FormNames.Nombre)}  /> <br />
-            {values.edad} <br />
-            <input type="number" className="form-control"  {...Bind(FormNames.edad)} /> <br />
+            { Model.id} <br/>
+            <input type="number"  {...BindModel(ModelNames.id)} />  <br />
+            {Model.Nombre} <br />
+            <input type="text"  {...BindModel(ModelNames.Nombre)} />  <br />
 
-            {values.TipoPersona.descripcion} <br />
-            <input type="text" className="form-control" {...Bind("TipoPersona.descripcion")} /> <br />
+            {Model.TipoPersona.descripcion} <br />
+            <input type="text"   {...BindModel("TipoPersona.descripcion")} />  <br />
 
-            {values.TipoPersona.PielEntity.color} <br />
-            <input type="text" className="form-control"  {...Bind("TipoPersona.PielEntity.color")} /> <br />
+            {Model.edad} <br />
+            <NvAutoNumeric  {...BindModel(ModelNames.edad)} />  <br />
 
-            {Email} <br />
-            <input type="text" className="form-control"  {...EmailModel} /> <br />
+            <button type="button" className="btn btn-primary" onClick={ResetModel} > cambiar numero</button>
 
-            {Money} <br />
-            <NvAutoNumeric id="Money"  {...MoneyModel} /> <br />
-
-            <button type="button" className="btn btn-primary" onClick={()=> SetMoney(1000)} > cambiar numero</button>
-
-            <button type="button" className="btn btn-primary" onClick={ HandleForm } > Guardar</button>
+            <button type="button" className="btn btn-primary" onClick={() => Guardar() } > Guardar</button>
 
         </>)
 

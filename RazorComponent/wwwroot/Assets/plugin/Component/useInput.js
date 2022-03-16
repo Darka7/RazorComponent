@@ -20,134 +20,96 @@ var App;
             var ObjectNames = {};
             Object.getOwnPropertyNames(Form).forEach(function (r) { return ObjectNames[r] = r; });
             var reset = function () { return setForm(inititalvalue); };
-            var Model = function (NameInput) {
-                var PropNames = NameInput === null || NameInput === void 0 ? void 0 : NameInput.split(".");
-                var len = PropNames === null || PropNames === void 0 ? void 0 : PropNames.length;
+            var Bind = function (NameFor, options) {
+                if (options === void 0) { options = "event"; }
                 return {
-                    value: len == 1 ? Form[NameInput]
-                        : len == 2 ? Form[PropNames[0]][PropNames[1]]
-                            : Form[PropNames[0]][PropNames[1]][PropNames[2]],
-                    onChange: function (event) {
+                    name: NameFor,
+                    value: eval("Form.".concat(NameFor, " || \"\"")),
+                    onChange: function (event, value) {
+                        if (value === void 0) { value = null; }
                         var _a = event.currentTarget, type = _a.type, name = _a.name;
                         var currentvalue = null;
-                        if (type == "checkbox") {
-                            var checked = event.currentTarget.checked;
-                            currentvalue = checked;
+                        if (options == "event") {
+                            if (type == "checkbox") {
+                                var checked = event.currentTarget.checked;
+                                currentvalue = checked;
+                            }
+                            else {
+                                var value_1 = event.currentTarget.value;
+                                currentvalue = value_1;
+                            }
                         }
                         else {
-                            var value = event.currentTarget.value;
                             currentvalue = value;
                         }
-                        switch (len) {
-                            case 1:
-                                setForm(function (inputs) {
-                                    var _a;
-                                    return (__assign(__assign({}, inputs), (_a = {}, _a[name] = currentvalue, _a)));
-                                });
-                                break;
-                            case 2:
-                                var obj1 = PropNames[0];
-                                var obj2 = PropNames[1];
-                                setForm(function (inputs) {
-                                    var _a, _b;
-                                    return (__assign(__assign({}, inputs), (_a = {}, _a[obj1] = __assign(__assign({}, inputs[obj1]), (_b = {}, _b[obj2] = currentvalue, _b)), _a)));
-                                });
-                                break;
-                            case 3:
-                                var obj1 = PropNames[0];
-                                var obj2 = PropNames[1];
-                                var obj3 = PropNames[2];
-                                setForm(function (inputs) {
-                                    var _a, _b, _c;
-                                    return (__assign(__assign({}, inputs), (_a = {}, _a[obj1] = __assign(__assign({}, inputs[obj1]), (_b = {}, _b[obj2] = __assign(__assign({}, inputs[obj2]), (_c = {}, _c[obj3] = currentvalue, _c)), _b)), _a)));
-                                });
-                                break;
-                            default:
-                                setForm(function (inputs) {
-                                    var _a;
-                                    return (__assign(__assign({}, inputs), (_a = {}, _a[name] = currentvalue, _a)));
-                                });
-                                break;
-                        }
-                    },
-                    name: NameInput,
+                        eval("Form.".concat(name, " = currentvalue;"));
+                        setForm(function (prev) { return (__assign({}, Form)); });
+                    }
                 };
             };
-            return [Form, setForm, Model, ObjectNames, reset];
+            return [Form, setForm, Bind, ObjectNames, reset];
         }
         ImportNvComponents.useNvInputFormModel = useNvInputFormModel;
         function useNvInputForm(inititalvalue) {
             var _a = useState(inititalvalue), Form = _a[0], setForm = _a[1];
+            var ObjectNames = {};
+            Object.getOwnPropertyNames(Form).forEach(function (r) { return ObjectNames[r] = r; });
             var reset = function () { return setForm(inititalvalue); };
-            var Bind = {
-                onChange: function (event) {
-                    var _a = event.currentTarget, type = _a.type, name = _a.name;
-                    var PropNames = name === null || name === void 0 ? void 0 : name.split(".");
-                    var len = PropNames === null || PropNames === void 0 ? void 0 : PropNames.length;
-                    var currentvalue = null;
-                    console.log(len, PropNames);
-                    if (type == "checkbox") {
-                        var checked = event.currentTarget.checked;
-                        currentvalue = checked;
+            var Bind = function (options) {
+                if (options === void 0) { options = "event"; }
+                return {
+                    onChange: function (event, value) {
+                        if (value === void 0) { value = null; }
+                        var _a = event.currentTarget, type = _a.type, name = _a.name;
+                        var currentvalue = null;
+                        if (options == "event") {
+                            if (type == "checkbox") {
+                                var checked = event.currentTarget.checked;
+                                currentvalue = checked;
+                            }
+                            else {
+                                var value_2 = event.currentTarget.value;
+                                currentvalue = value_2;
+                            }
+                        }
+                        else {
+                            currentvalue = value;
+                        }
+                        eval("Form.".concat(name, " = currentvalue;"));
+                        setForm(function (prev) { return (__assign({}, Form)); });
                     }
-                    else {
-                        var value = event.currentTarget.value;
-                        currentvalue = value;
-                    }
-                    switch (len) {
-                        case 1:
-                            setForm(function (inputs) {
-                                var _a;
-                                return (__assign(__assign({}, inputs), (_a = {}, _a[name] = currentvalue, _a)));
-                            });
-                            break;
-                        case 2:
-                            var obj1 = PropNames[0];
-                            var obj2 = PropNames[1];
-                            setForm(function (inputs) {
-                                var _a, _b;
-                                return (__assign(__assign({}, inputs), (_a = {}, _a[obj1] = __assign(__assign({}, inputs[obj1]), (_b = {}, _b[obj2] = currentvalue, _b)), _a)));
-                            });
-                            break;
-                        case 3:
-                            var obj1 = PropNames[0];
-                            var obj2 = PropNames[1];
-                            var obj3 = PropNames[2];
-                            setForm(function (inputs) {
-                                var _a, _b, _c;
-                                return (__assign(__assign({}, inputs), (_a = {}, _a[obj1] = __assign(__assign({}, inputs[obj1]), (_b = {}, _b[obj2] = __assign(__assign({}, inputs[obj2]), (_c = {}, _c[obj3] = currentvalue, _c)), _b)), _a)));
-                            });
-                            break;
-                        default:
-                            setForm(function (inputs) {
-                                var _a;
-                                return (__assign(__assign({}, inputs), (_a = {}, _a[name] = currentvalue, _a)));
-                            });
-                            break;
-                    }
-                }
+                };
             };
-            return [Form, setForm, Bind, reset];
+            return [Form, setForm, Bind, ObjectNames, reset];
         }
         ImportNvComponents.useNvInputForm = useNvInputForm;
         function useNvInput(inititalvalue) {
-            var _a = useState(inititalvalue), value = _a[0], setValue = _a[1];
+            var _a = useState(inititalvalue), valueInput = _a[0], setValue = _a[1];
             var reset = function () { return setValue(inititalvalue); };
-            var Model = {
-                value: value,
-                onChange: function (event) {
-                    var type = event.currentTarget.type;
-                    if (type == "checkbox") {
-                        var checked = event.currentTarget.checked;
-                        setValue(checked);
+            var Model = function (option) {
+                if (option === void 0) { option = "event"; }
+                return {
+                    value: valueInput || "",
+                    onChange: function (event, val) {
+                        if (val === void 0) { val = null; }
+                        var type = event.currentTarget.type;
+                        if (option == "event") {
+                            if (type == "checkbox") {
+                                var checked = event.currentTarget.checked;
+                                setValue(checked);
+                            }
+                            else {
+                                var value = event.currentTarget.value;
+                                setValue(value);
+                            }
+                        }
+                        else {
+                            setValue(val);
+                        }
                     }
-                    else {
-                        var value_1 = event.currentTarget.value;
-                        setValue(value_1);
-                    }
-                }
+                };
             };
-            return [value, setValue, Model, reset];
+            return [valueInput, setValue, Model, reset];
         }
         ImportNvComponents.useNvInput = useNvInput;
     })(ImportNvComponents = App.ImportNvComponents || (App.ImportNvComponents = {}));

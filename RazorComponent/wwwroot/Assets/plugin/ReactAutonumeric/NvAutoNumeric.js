@@ -58,22 +58,25 @@ var App;
             NvAutoNumeric.prototype.HandlerCall = function (event, EventName) {
                 if (this.input != null) {
                     var val = this.input.getNumber();
+                    var name = event.currentTarget.name;
                     var NewEvent = Object.assign(event, {
-                        target: { value: val },
-                        currentTarget: { value: val }
+                        target: { value: val, name: name, type: "text" },
+                        currentTarget: { value: val, name: name, type: "text" }
                     });
                     if (this.props[EventName] != null)
-                        this.props[EventName](NewEvent);
-                    if (this.props[EventName + "Number"] != null)
-                        this.props[EventName + "Number"](val);
+                        this.props[EventName](NewEvent, val);
                 }
             };
             NvAutoNumeric.prototype.render = function () {
                 var _this = this;
-                var _a = this.props, id = _a.id, className = _a.className;
-                return (React.createElement("input", { type: "text", id: id, name: id, className: className, ref: function (ref) { return (_this.$el = ref); }, onChange: function (e) { return _this.HandlerCall(e, "onChange"); }, onBlur: function (e) { return _this.HandlerCall(e, "onBlur"); } }));
+                var _a = this.props, id = _a.id, className = _a.className, name = _a.name;
+                var InputFor = id == null ? name : id;
+                return (React.createElement("input", { type: "text", id: InputFor, name: InputFor, className: className, ref: function (ref) { return (_this.$el = ref); }, onChange: function (e) { return _this.HandlerCall(e, "onChange"); }, onBlur: function (e) { return _this.HandlerCall(e, "onBlur"); } }));
             };
             NvAutoNumeric.defaultProps = {
+                id: null,
+                name: null,
+                value: null,
                 className: "form-control",
                 symbol: "",
                 min: null,

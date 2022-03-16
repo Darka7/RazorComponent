@@ -24,7 +24,8 @@ namespace RazorComponent.Pages
         public Persona Persona { get; set; } = new Persona()
         {
             id = 1,
-            Nombre = "anita"
+            Nombre = "anita",
+            TipoPersona= new() { descripcion="test"}
         };
         [VueData]
         public string mensaje { get; set; } = "Hola";
