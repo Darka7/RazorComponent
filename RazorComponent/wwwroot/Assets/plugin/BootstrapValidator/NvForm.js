@@ -53,21 +53,6 @@ var App;
             }); });
             return (React.createElement("div", __assign({}, atributes), children));
         });
-        function NvInput(_a) {
-            var Model = _a.Model, type = _a.type, props = __rest(_a, ["Model", "type"]);
-            var InputVal = Model[0], SetInputVal = Model[1];
-            function HandlerEvent(evt, NameEvent) {
-                if (props[NameEvent] != null)
-                    props[NameEvent](evt);
-            }
-            function HandlerEventChange(evt, NameEvent) {
-                SetInputVal(evt.currentTarget.value);
-                if (props[NameEvent] != null)
-                    props[NameEvent](evt);
-            }
-            return (React.createElement("input", __assign({}, props, { type: type, value: InputVal, onChange: function (evt) { return HandlerEventChange(evt, "onChange"); }, onBlur: function (evt) { return HandlerEvent(evt, "onBlur"); } })));
-        }
-        ImportNvComponents.NvInput = NvInput;
     })(ImportNvComponents = App.ImportNvComponents || (App.ImportNvComponents = {}));
 })(App || (App = {}));
 //# sourceMappingURL=NvForm.js.map
