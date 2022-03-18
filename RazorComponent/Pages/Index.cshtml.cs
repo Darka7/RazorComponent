@@ -97,11 +97,26 @@ namespace RazorComponent.Pages
         };
 
         public IEnumerable<LookupEntity<SiteMapEntity>> ResultSiteMap{ get; set; }
+
+        public class ReactData
+        {
+           [VueData]
+            public int? id { get; set; }
+            [VueData]
+            public string nombre { get; set; }
+
+            public bool Estado { get; set; }
+        }
+
+
         public void OnGet()
         {
+            var pr = new ReactData() { id = null, nombre = null, Estado = true };
 
-            
-           
+            var props = pr.GetType().GetProperties();
+
+          //var resulmodel=  props.Where(r => r.GetCustomAttributes(typeof(VueData), true)?.FirstOrDefault() != null)
+          //       .ToDictionary(key => key.Name, val => val.GetValue(pr));
             //order.Body
             
             //ResultMatrix = Matrix.ToLookup(b => b.BusinessId)

@@ -1,13 +1,17 @@
-﻿namespace App {
+﻿namespace App.ViewComponent{
 
     const {
-         useNvInput, NvAutoNumeric,useNvInputForm,useNvInputFormModel
+        useNvInput, NvAutoNumeric, useNvInputForm, useNvInputFormModel, NvForm,
+        NvValidateData,nv
     }= ImportNvComponents
 
 
-    const { useState }= React
-    function App() {
-      
+    const { useState , useEffect, createRef}= React
+   export function FormInputComponent() {
+
+       //const [FormInit,FormValid] = UseFormValidator("#FormInputModule");
+       const Formulario = createRef<NvFormValidator>();
+
         const [Num, SetNum,ModelNum,ResetNum] = useNvInput(0);
 
         const [Model, SetModel, BindModel, ModelNames, ResetModel] = useNvInputFormModel<Persona>({
@@ -18,31 +22,50 @@
 
         });
 
-        function Guardar() {
-            console.log(Model);
-        }
+       function Guardar() {
+           if (Formulario.current.Validate()) {
+               console.log(Model);
+           } else {
+               MensajeriaApp.Mostrar("Por favor validar los campos!", 1);
+           }
+       }
+
+     
         
         return (<>
-            { Model.id} <br/>
-            <input type="number"  {...BindModel(ModelNames.id)} />  <br />
-            {Model.Nombre} <br />
-            <input type="text"  {...BindModel(ModelNames.Nombre)} />  <br />
+            <NvValidateData id="FormInputModule" ref={Formulario} >
+                <div className="nv-validar">
+                    <label  className="form-label">id {Model.id }</label>
+                    <input {...BindModel(ModelNames.id)} type="number" className="form-control" required   />  
+                   
+                </div>
+                <br />
+                <div className="nv-validar">
+                    <label  className="form-label">Nombre {Model.Nombre}</label>
+                    <input  {...BindModel(ModelNames.Nombre)} type="text"  className="form-control" required  /> 
+                </div>
+                <br />
+                <div className="nv-validar">
+                    <label className="form-label">Tipo Persona {Model.TipoPersona.descripcion}</label>
+                    <input  {...BindModel("TipoPersona.descripcion")} type="text"  className="form-control" required />  
+                </div>
 
-            {Model.TipoPersona.descripcion} <br />
-            <input type="text"   {...BindModel("TipoPersona.descripcion")} />  <br />
-
-            {Model.edad} <br />
-            <NvAutoNumeric  {...BindModel(ModelNames.edad)} />  <br />
-
-            <button type="button" className="btn btn-primary" onClick={ResetModel} > cambiar numero</button>
-
-            <button type="button" className="btn btn-primary" onClick={() => Guardar() } > Guardar</button>
-
+                
+          
+                
+                <button type="button" className="btn btn-primary" onClick={() => { ResetModel(); Formulario.current.Reset(); }} > cambiar numero</button>
+                {" "}
+                <button type="button" name="submit" className="btn btn-primary" onClick={() => Guardar() } > Guardar</button>
+            </NvValidateData>
         </>)
 
     }
 
 
-    ReactDOM.render(<App />, document.getElementById("AppReact"));
+   
+    
 
+    AppRender.Default = FormInputComponent;
+
+   
 }

@@ -2,6 +2,9 @@
 var App;
 (function (App) {
     App.ImportVueDecorator = VuePropertyDecorator;
+    var AppRender;
+    (function (AppRender) {
+    })(AppRender = App.AppRender || (App.AppRender = {}));
     //const { Component } = VuePropertyDecorator;
     //@Component
     // class VueConfiguration extends Vue{

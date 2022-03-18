@@ -1,7 +1,11 @@
 ﻿namespace App {
    export import ImportVueDecorator = VuePropertyDecorator 
 
-    
+
+    export namespace AppRender {
+        export var Default:  () => JSX.Element;
+    }
+
     //const { Component } = VuePropertyDecorator;
     //@Component
     // class VueConfiguration extends Vue{

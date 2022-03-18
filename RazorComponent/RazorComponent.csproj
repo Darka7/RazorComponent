@@ -14,9 +14,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Remove="bundleconfig.json" />
+    <Content Remove="wwwroot\Assets\plugin\BootstrapValidator\NvForm.tsx" />
     <Content Remove="wwwroot\Assets\plugin\Component\useInput.tsx" />
     <Content Remove="wwwroot\Assets\plugin\Datatable\NvGridTableReact.tsx" />
     <Content Remove="wwwroot\Assets\plugin\ReactAutonumeric\NvAutoNumeric.tsx" />
+    <Content Remove="wwwroot\Assets\plugin\React\MountApp.tsx" />
     <Content Remove="wwwroot\Assets\plugin\VueModal\NvModalR-React.tsx" />
     <Content Remove="wwwroot\Assets\plugin\VueModal\NvModalReact.tsx" />
     <Content Remove="wwwroot\scripts\Entity.d.ts" />
@@ -27,8 +30,40 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="bundleconfig.json" />
     <None Include="wwwroot\Assets\%40types\vue-template-compiler\VueTemplateCompiler.min.js" />
     <None Include="wwwroot\Assets\plugin\Bootbox\bootbox.min.js" />
+    <None Include="wwwroot\Assets\plugin\BootstrapValidator\language\ar_MA.js" />
+    <None Include="wwwroot\Assets\plugin\BootstrapValidator\language\be_FR.js" />
+    <None Include="wwwroot\Assets\plugin\BootstrapValidator\language\be_NL.js" />
+    <None Include="wwwroot\Assets\plugin\BootstrapValidator\language\bg_BG.js" />
+    <None Include="wwwroot\Assets\plugin\BootstrapValidator\language\cs_CZ.js" />
+    <None Include="wwwroot\Assets\plugin\BootstrapValidator\language\da_DK.js" />
+    <None Include="wwwroot\Assets\plugin\BootstrapValidator\language\de_DE.js" />
+    <None Include="wwwroot\Assets\plugin\BootstrapValidator\language\en_US.js" />
+    <None Include="wwwroot\Assets\plugin\BootstrapValidator\language\es_CL.js" />
+    <None Include="wwwroot\Assets\plugin\BootstrapValidator\language\es_ES.js" />
+    <None Include="wwwroot\Assets\plugin\BootstrapValidator\language\fa_IR.js" />
+    <None Include="wwwroot\Assets\plugin\BootstrapValidator\language\fr_FR.js" />
+    <None Include="wwwroot\Assets\plugin\BootstrapValidator\language\gr_EL.js" />
+    <None Include="wwwroot\Assets\plugin\BootstrapValidator\language\hu_HU.js" />
+    <None Include="wwwroot\Assets\plugin\BootstrapValidator\language\id_ID.js" />
+    <None Include="wwwroot\Assets\plugin\BootstrapValidator\language\it_IT.js" />
+    <None Include="wwwroot\Assets\plugin\BootstrapValidator\language\ja_JP.js" />
+    <None Include="wwwroot\Assets\plugin\BootstrapValidator\language\nl_NL.js" />
+    <None Include="wwwroot\Assets\plugin\BootstrapValidator\language\no_NO.js" />
+    <None Include="wwwroot\Assets\plugin\BootstrapValidator\language\pl_PL.js" />
+    <None Include="wwwroot\Assets\plugin\BootstrapValidator\language\pt_BR.js" />
+    <None Include="wwwroot\Assets\plugin\BootstrapValidator\language\ro_RO.js" />
+    <None Include="wwwroot\Assets\plugin\BootstrapValidator\language\ru_RU.js" />
+    <None Include="wwwroot\Assets\plugin\BootstrapValidator\language\sr_RS.js" />
+    <None Include="wwwroot\Assets\plugin\BootstrapValidator\language\sv_SE.js" />
+    <None Include="wwwroot\Assets\plugin\BootstrapValidator\language\th_TH.js" />
+    <None Include="wwwroot\Assets\plugin\BootstrapValidator\language\tr_TR.js" />
+    <None Include="wwwroot\Assets\plugin\BootstrapValidator\language\ua_UA.js" />
+    <None Include="wwwroot\Assets\plugin\BootstrapValidator\language\vi_VN.js" />
+    <None Include="wwwroot\Assets\plugin\BootstrapValidator\language\zh_CN.js" />
+    <None Include="wwwroot\Assets\plugin\BootstrapValidator\language\zh_TW.js" />
     <None Include="wwwroot\Assets\plugin\Sweetalert2\sweetalert2.min.js" />
   </ItemGroup>
 
@@ -77,10 +112,12 @@
     <TypeScriptCompile Include="wwwroot\Assets\%40types\vue-property-decorator\helpers\provideInject.d.ts" />
     <TypeScriptCompile Include="wwwroot\Assets\%40types\vue-template-compiler\index.d.ts" />
     <TypeScriptCompile Include="wwwroot\Assets\%40types\vue-template-compiler\VueTemplateCompiler.d.ts" />
+    <TypeScriptCompile Include="wwwroot\Assets\plugin\BootstrapValidator\NvForm.tsx" />
     <TypeScriptCompile Include="wwwroot\Assets\plugin\Component\useInput.tsx" />
     <TypeScriptCompile Include="wwwroot\Assets\plugin\Datatable\DataTableConfig.ts" />
     <TypeScriptCompile Include="wwwroot\Assets\plugin\Datatable\NvGridTableReact.tsx" />
     <TypeScriptCompile Include="wwwroot\Assets\plugin\ReactAutonumeric\NvAutoNumeric.tsx" />
+    <TypeScriptCompile Include="wwwroot\Assets\plugin\React\MountApp.tsx" />
     <TypeScriptCompile Include="wwwroot\Assets\plugin\VueModal\NvModalR-React.tsx" />
     <TypeScriptCompile Include="wwwroot\Assets\plugin\VueModal\NvModalReact.tsx" />
     <TypeScriptCompile Include="wwwroot\scripts\Entity.d.ts" />

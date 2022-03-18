@@ -9,8 +9,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - RazorComponent</title>
     <script src="~/Assets/plugin/IsNull/IsNull.js"></script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous" />
 
+    <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous" />
+    <link href="~/Assets/plugin/BootstrapValidator/bootstrapValidator.css" rel="stylesheet" />
 
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs5/jszip-2.5.0/dt-1.11.4/b-2.2.2/b-colvis-2.2.2/b-html5-2.2.2/sl-1.3.4/datatables.min.css" />
 
@@ -18,6 +21,8 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css" integrity="sha512-mSYUmp1HYZDFaVKK//63EcZq4iFWFjxSL+Z3T/aCt4IO9Cejm03q3NKKYN6pFQzY0SBOr8h+eCIAZHPXcpZaNw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
+
+    
 
 
     <!--Component-->
@@ -34,22 +39,28 @@
     <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
     <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
     <script src="~/Assets/plugin/React/ReactDOMServer.min.js"></script>
-    
+
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 <body>
     <br /><br /><br />
 
     @RenderBody()
-
+    <div id="MainReactApp"></div>
 
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/v/bs5/jszip-2.5.0/dt-1.11.4/b-2.2.2/b-colvis-2.2.2/b-html5-2.2.2/sl-1.3.4/datatables.min.js"></script>
+
+
+    
+    <script src="~/Assets/plugin/BootstrapValidator/bootstrapValidator.min.js"></script>
     <!--Component React-->
     <script src="~/Assets/plugin/Component/useInput.js"></script>
+    <script src="~/Assets/plugin/BootstrapValidator/bv-validators.js"></script>
+    <script src="~/Assets/plugin/BootstrapValidator/FormValidateConfig.js"></script>
 
     <script src="~/Assets/plugin/Sweetalert2/sweetalert2.min.js"></script>
     <script src="~/Assets/plugin/Sweetalert2/SwalConfig.js"></script>
@@ -75,17 +86,17 @@
     <script src="~/Assets/plugin/VueModal/NvModal.js"></script>
     <script src="~/Assets/plugin/VueModal/NvModalR.js"></script>
     <script src="~/Assets/plugin/VueModal/NvModalReact.js"></script>
-     <script src="~/Assets/plugin/VueModal/NvModalR-React.js"></script>
+    <script src="~/Assets/plugin/VueModal/NvModalR-React.js"></script>
     <script src="~/Assets/plugin/VueAutonumeric/NvAutonumeric.js"></script>
     <script src="~/Assets/plugin/ReactAutonumeric/NvAutoNumeric.js"></script>
     <script src="~/Assets/plugin/bootstrap-datepicker/NvBsDatepicker.js"></script>
-
+    <script src="~/Assets/plugin/BootstrapValidator/NvForm.js"></script>
     <script src="~/Index?handler=Config&v=" asp-append-version="true"></script>
 
 
     <nv-mensajeria-app></nv-mensajeria-app>
     @await RenderSectionAsync("app", required: false)
-
+    <script src="~/Assets/plugin/React/MountApp.js" defer></script>
 
 </body>
 </html>

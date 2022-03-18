@@ -1,0 +1,8 @@
+[
+  {
+    "outputFileName": "wwwroot/Assets/plugin/BootstrapValidator/bootstrapValidator.min.js",
+    "inputFiles": [
+      "wwwroot/Assets/plugin/BootstrapValidator/bootstrapValidator.js"
+    ]
+  }
+]

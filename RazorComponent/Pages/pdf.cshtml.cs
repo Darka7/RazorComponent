@@ -7,12 +7,14 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace RazorComponent.Pages
 {
-    public class FormReactModel : PageModel
+    public class pdfModel : PageModel
     {
-        public Persona exam { get; set; } = new Persona() { TipoPersona = new TipoPersona() };
+
+        [BindProperty(SupportsGet =true)]
+        public int? id { get; set; }
         public void OnGet()
         {
-            
+
 
         }
     }
