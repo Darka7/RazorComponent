@@ -14,7 +14,7 @@ var App;
 (function (App) {
     var ViewComponent;
     (function (ViewComponent) {
-        var useNvInputFormModel = App.ImportNvComponents.useNvInputFormModel, NvLayoutValidator = App.ImportNvComponents.NvLayoutValidator, NvInput = App.ImportNvComponents.NvInput, useModelState = App.ImportNvComponents.useModelState, NvInputModel = App.ImportNvComponents.NvInputModel;
+        var useNvInputFormModel = App.ImportNvComponents.useNvInputFormModel, NvLayoutValidator = App.ImportNvComponents.NvLayoutValidator, NvInput = App.ImportNvComponents.NvInput, useModelState = App.ImportNvComponents.useModelState, NvInputModel = App.ImportNvComponents.NvInputModel, NvAutoNumeric = App.ImportNvComponents.NvAutoNumeric;
         var useState = React.useState, useEffect = React.useEffect, createRef = React.createRef;
         function FormInputComponent() {
             //const [FormInit,FormValid] = UseFormValidator("#FormInputModule");
@@ -57,9 +57,13 @@ var App;
                     React.createElement(NvInputModel, __assign({}, BindModel, { value: Model.TipoPersona.descripcion, name: "TipoPersona.descripcion", type: "text", Label: "Tipo Persona " + Model.TipoPersona.descripcion, required: true })),
                     React.createElement("br", null),
                     React.createElement(NvInputModel, __assign({}, BindModel, { checked: Model.estado, name: "estado", id: "estado", type: "checkbox", Label: "Estado " + Model.estado })),
-                    React.createElement("button", { type: "button", className: "btn btn-primary", onClick: function () { ResetModel(); Formulario.current.Reset(); } }, " cambiar numero"),
+                    React.createElement("button", { type: "button", className: "btn btn-primary", onClick: function () { SetNum(1000); } }, " cambiar numero"),
                     " ",
                     React.createElement("button", { type: "button", name: "submit", className: "btn btn-primary", onClick: function () { return Guardar(); } }, " Guardar")),
+                React.createElement("div", null,
+                    Num,
+                    React.createElement("br", null),
+                    React.createElement(NvAutoNumeric, { name: "estado", value: Num, onChange: function (e, val) { return SetNum(e.currentTarget.value); } })),
                 React.createElement("div", { className: "" },
                     React.createElement("br", null),
                     React.createElement("label", { className: "form-label" },

@@ -14,6 +14,28 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
+var __rest = (this && this.__rest) || function (s, e) {
+    var t = {};
+    for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
+        t[p] = s[p];
+    if (s != null && typeof Object.getOwnPropertySymbols === "function")
+        for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
+            if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i]))
+                t[p[i]] = s[p[i]];
+        }
+    return t;
+};
 var App;
 (function (App) {
     var ImportNvComponents;
@@ -46,32 +68,42 @@ var App;
                     this.input.remove();
             };
             NvAutoNumeric.prototype.componentDidMount = function () {
+                console.log("componentDidMount");
                 this.input = new AutoNumeric(this.$el, this.props.value, this.Options());
             };
-            NvAutoNumeric.prototype.componentWillReceiveProps = function (nextProps, nextContext) {
+            NvAutoNumeric.prototype.UNSAFE_componentWillReceiveProps = function (nextProps, nextContext) {
                 if (this.input != null) {
                     if (nextProps.value != this.input.getNumber()) {
                         this.input.set(nextProps.value);
                     }
                 }
             };
-            NvAutoNumeric.prototype.HandlerCall = function (event, EventName) {
+            NvAutoNumeric.prototype.HandlerCall = function (evt, EventName) {
                 if (this.input != null) {
                     var val = this.input.getNumber();
-                    var name = event.currentTarget.name;
-                    var NewEvent = Object.assign(event, {
-                        target: { value: val, name: name, type: "text" },
-                        currentTarget: { value: val, name: name, type: "text" }
-                    });
+                    var name = evt.currentTarget.name;
+                    var NewEvent = {
+                        target: {
+                            name: name,
+                            value: val,
+                            type: "number",
+                            id: evt.currentTarget.id
+                        },
+                        currentTarget: {
+                            name: name,
+                            value: val,
+                            type: "number",
+                            id: evt.currentTarget.id
+                        }
+                    };
                     if (this.props[EventName] != null)
                         this.props[EventName](NewEvent, val);
                 }
             };
             NvAutoNumeric.prototype.render = function () {
                 var _this = this;
-                var _a = this.props, id = _a.id, className = _a.className, name = _a.name;
-                var InputFor = id == null ? name : id;
-                return (React.createElement("input", { type: "text", id: InputFor, name: InputFor, className: className, ref: function (ref) { return (_this.$el = ref); }, onChange: function (e) { return _this.HandlerCall(e, "onChange"); }, onBlur: function (e) { return _this.HandlerCall(e, "onBlur"); } }));
+                var _a = this.props, type = _a.type, value = _a.value, _b = _a.onChange, onChange = _b === void 0 ? null : _b, _c = _a.onBlur, onBlur = _c === void 0 ? null : _c, setprops = __rest(_a, ["type", "value", "onChange", "onBlur"]);
+                return (React.createElement("input", __assign({}, setprops, { type: "text", ref: function (ref) { return (_this.$el = ref); }, onChange: function (e) { return _this.HandlerCall(e, "onChange"); }, onBlur: function (e) { return _this.HandlerCall(e, "onBlur"); } })));
             };
             NvAutoNumeric.defaultProps = {
                 id: null,

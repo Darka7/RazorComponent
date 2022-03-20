@@ -2,11 +2,8 @@
 
 
 
-    type NvAutoNumericProps = {
-        id?: string | any;
-        name?: string | any;
-        className?: string;
-        value?: number ;
+    interface NvAutoNumericProps extends Omit<React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>, "onChange" | "onBlur">  {
+        value?: number;
         symbol?: string;
         min?: string;
         decimal?: number;
@@ -63,17 +60,17 @@
         }
 
         componentDidMount() {
-
-            this.input = new AutoNumeric(this.$el, this.props.value,this.Options());
+            console.log("componentDidMount");
+            this.input = new AutoNumeric(this.$el, this.props.value ,this.Options());
 
         }
 
-        componentWillReceiveProps(nextProps: NvAutoNumericProps,nextContext) {
+        UNSAFE_componentWillReceiveProps(nextProps: NvAutoNumericProps,nextContext) {
             
             if (this.input != null) {
                 if ( nextProps.value != this.input.getNumber()) {
 
-                    this.input.set(nextProps.value);
+                    this.input.set(nextProps.value );
 
                 }
             }
@@ -81,17 +78,27 @@
         }
 
 
-        HandlerCall(event: React.ChangeEvent<HTMLInputElement>,EventName) {
+        HandlerCall(evt: React.ChangeEvent<HTMLInputElement>,EventName) {
             
             if (this.input != null ) {
                 var val = this.input.getNumber();
-                var name = event.currentTarget.name;
+                var name = evt.currentTarget.name;
 
-                var NewEvent = Object.assign(event,{
-                    target: { value: val as any, name,type:"text"  },
-                    currentTarget: { value: val as any, name, type: "text" }
-                });
-
+                var NewEvent = {
+                    target: {
+                        name: name,
+                        value: val as any,
+                        type: "number",
+                        id:evt.currentTarget.id
+                    },
+                    currentTarget: {
+                        name: name,
+                        value: val as any,
+                        type: "number",
+                        id: evt.currentTarget.id
+                    }
+                } as React.ChangeEvent<HTMLInputElement>
+              
                 
                 if (this.props[EventName] != null)
                     this.props[EventName](NewEvent,val);
@@ -102,18 +109,13 @@
       
 
         render() {
-            const { id, className,name } = this.props;
-
-            var InputFor = id == null ? name : id;
-
+            const { type,value,onChange=null,onBlur=null,...setprops } = this.props;
 
             return (<input
-                type="text"
-                id={InputFor}
-                name={InputFor}
-                className={className}
+                {...setprops}
+                type="text" 
                 ref={ ref=> (this.$el=ref)}
-                onChange={e =>  this.HandlerCall(e,"onChange")}
+                onChange={e => this.HandlerCall(e,"onChange")}
                 onBlur={e => this.HandlerCall(e, "onBlur") }
             />)
         }

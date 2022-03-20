@@ -2,7 +2,7 @@
 
     const {
       useNvInputFormModel,
-        NvLayoutValidator,NvInput,useModelState,NvInputModel
+        NvLayoutValidator,NvInput,useModelState,NvInputModel,NvAutoNumeric
     }= ImportNvComponents
 
 
@@ -69,10 +69,15 @@
 
               
                 
-                <button type="button" className="btn btn-primary" onClick={() => { ResetModel(); Formulario.current.Reset(); }} > cambiar numero</button>
+                <button type="button" className="btn btn-primary" onClick={() => { SetNum(1000) }} > cambiar numero</button>
                 {" "}
                 <button type="button" name="submit" className="btn btn-primary" onClick={() => Guardar() } > Guardar</button>
             </NvLayoutValidator>
+
+            <div>
+                {Num}<br />
+                <NvAutoNumeric name="estado"   value={Num} onChange={(e,val)=> SetNum(e.currentTarget.value as any)} />
+            </div>
 
             <div className="">
 
