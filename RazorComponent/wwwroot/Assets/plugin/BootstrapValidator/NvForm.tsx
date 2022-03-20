@@ -26,7 +26,7 @@
         return (<form {...atributes}>{children}</form>)
     });
 
-    export var NvValidateData = forwardRef(({ children, ...atributes }: NvFormProps, ref: React.ForwardedRef<NvFormValidator>) => {
+    export var NvLayoutValidator = forwardRef(({ children, ...atributes }: NvFormProps, ref: React.ForwardedRef<NvFormValidator>) => {
         const [Init, Validate, Reset] = UseFormValidator("#" + atributes.id);
 
         useEffect(() => {

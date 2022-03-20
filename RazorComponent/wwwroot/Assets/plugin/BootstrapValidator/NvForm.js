@@ -40,7 +40,7 @@ var App;
             }); });
             return (React.createElement("form", __assign({}, atributes), children));
         });
-        ImportNvComponents.NvValidateData = forwardRef(function (_a, ref) {
+        ImportNvComponents.NvLayoutValidator = forwardRef(function (_a, ref) {
             var children = _a.children, atributes = __rest(_a, ["children"]);
             var _b = UseFormValidator("#" + atributes.id), Init = _b[0], Validate = _b[1], Reset = _b[2];
             useEffect(function () {

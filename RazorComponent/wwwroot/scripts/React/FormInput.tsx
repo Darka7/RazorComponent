@@ -2,7 +2,7 @@
 
     const {
       useNvInputFormModel,
-        NvValidateData,NvInput,useModelState,NvInputModel
+        NvLayoutValidator,NvInput,useModelState,NvInputModel
     }= ImportNvComponents
 
 
@@ -18,11 +18,20 @@
             id: 1 ,
             edad:null,
             Nombre:null,
-            TipoPersona: {descripcion:null}
+            TipoPersona: {descripcion:null},
+            estado:null 
+       });
 
-        });
+       const [InputModel, setInputModel, BindInputModel, ResetInputModel] = useNvInputFormModel<Persona>({
+           id: 1,
+           edad: null,
+           Nombre: null,
+           TipoPersona: { descripcion: null },
+           estado: true
+       });
 
        function Guardar() {
+           console.log(InputModel);
            if (Formulario.current.Validate()) {
                console.log(Model);
                console.log({numero:Num});
@@ -35,37 +44,47 @@
        function HandlerBlurInput(evt:React.ChangeEvent<HTMLInputElement>,val) {
            console.log(val);
        }
-        
+        const List=[1,2,3,4,5,5,7]
         return (<>
-            <NvValidateData id="FormInputModule" ref={Formulario} >
-                <div className="nv-validar">
-                    <label  className="form-label">id {Model.id }</label>
-                    <NvInputModel {...BindModel} value={Model.id} name="id" type="number" className="form-control" required
-                        onChange={ HandlerBlurInput }
-                    />  
-                   
-                </div>
-                <br />
-                <div className="nv-validar">
-                    <label  className="form-label">Nombre {Model.Nombre}</label>
-                    <NvInputModel {...BindModel} value={Model.Nombre} name="Nombre" type="text"  className="form-control" required  /> 
-                </div>
-                <br />
-                <div className="nv-validar">
-                    <label className="form-label">Tipo Persona {Model.TipoPersona.descripcion}</label>
-                    <NvInputModel {...BindModel} value={Model.TipoPersona.descripcion} name="TipoPersona.descripcion"  type="text"  className="form-control" required />  
-                </div>
+            <NvLayoutValidator id="FormInputModule" ref={Formulario} >
 
-                <div className="nv-validar">
-                    <label className="form-label">Numero {Num}</label>
-                    <NvInput {...BindNum} name="NumeroPrueba" type="number" className="form-control"  onChange={HandlerBlurInput }  required/>
-                </div>
-          
+                <NvInputModel {...BindModel} value={Model.id} type="number" name="id"
+                    Label={"id " + Model.id}  required
+                    onChange={HandlerBlurInput}
+                />  
+                <br />
+                <NvInputModel {...BindModel} value={Model.Nombre} name="Nombre" type="text"
+                    Label={"Nombre " + Model.Nombre}  required /> 
+
+                <br />
+                <NvInputModel {...BindModel} value={Model.TipoPersona.descripcion} name="TipoPersona.descripcion" type="text"
+                    Label={"Tipo Persona " + Model.TipoPersona.descripcion} required />  
+
+                <br />
+                <NvInputModel {...BindModel} checked={Model.estado} name="estado" id="estado" type="checkbox"
+                    Label={"Estado "+Model.estado }
+                      />
+
+
+
+              
                 
                 <button type="button" className="btn btn-primary" onClick={() => { ResetModel(); Formulario.current.Reset(); }} > cambiar numero</button>
                 {" "}
                 <button type="button" name="submit" className="btn btn-primary" onClick={() => Guardar() } > Guardar</button>
-            </NvValidateData>
+            </NvLayoutValidator>
+
+            <div className="">
+
+                <br />
+                <label className="form-label" >id {InputModel.id}</label>
+                <input type="number"  className="form-control" {...BindInputModel("id")} />
+            </div>
+            <div className="form-check">
+                
+                <label className="form-check-label" htmlFor="frmestado" >Estado { JSON.stringify( InputModel.estado)}</label>
+                <input type="checkbox" id="frmestado" className="form-check-input" {...BindInputModel("estado","event",true)}  />
+            </div>
         </>)
 
     }

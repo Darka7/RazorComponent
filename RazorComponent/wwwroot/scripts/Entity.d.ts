@@ -18,6 +18,7 @@ declare global {
         id?: number;
         edad?: number;
         Nombre?: string;
+        estado?: boolean;
         TipoPersona?: TipoPersona;
     }
     export interface TipoPersona {
