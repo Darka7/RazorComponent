@@ -48,19 +48,19 @@ var App;
                 _this.Options = _this.Options.bind(_this);
                 return _this;
             }
-            NvAutoNumeric.prototype.Options = function () {
-                if (this.props.default != null)
-                    return this.props.default;
+            NvAutoNumeric.prototype.Options = function (PropsOptions) {
+                if (PropsOptions.default != null)
+                    return PropsOptions.default;
                 var options = {
                     digitGroupSeparator: ',',
                     decimalCharacter: '.',
-                    currencySymbol: this.props.symbol,
-                    decimalPlaces: this.props.decimal
+                    currencySymbol: PropsOptions.symbol,
+                    decimalPlaces: PropsOptions.decimal
                 };
-                if (!App.isNullOrEmpty(this.props.min))
-                    options.minimumValue = this.props.min;
-                if (!App.isNullOrEmpty(this.props.rounding))
-                    options.roundingMethod = this.props.rounding;
+                if (!App.isNullOrEmpty(PropsOptions.minvalue))
+                    options.minimumValue = PropsOptions.minvalue;
+                if (!App.isNullOrEmpty(PropsOptions.rounding))
+                    options.roundingMethod = PropsOptions.rounding;
                 return options;
             };
             NvAutoNumeric.prototype.componentWillUnmount = function () {
@@ -68,13 +68,18 @@ var App;
                     this.input.remove();
             };
             NvAutoNumeric.prototype.componentDidMount = function () {
-                console.log("componentDidMount");
-                this.input = new AutoNumeric(this.$el, this.props.value, this.Options());
+                this.input = new AutoNumeric(this.$el, this.props.value, this.Options(this.props));
             };
-            NvAutoNumeric.prototype.UNSAFE_componentWillReceiveProps = function (nextProps, nextContext) {
+            NvAutoNumeric.prototype.componentDidUpdate = function (nextProps, nextContext) {
                 if (this.input != null) {
-                    if (nextProps.value != this.input.getNumber()) {
+                    if (nextProps.value != this.input.getNumber() && this.props.value != this.input.getNumber()) {
                         this.input.set(nextProps.value);
+                    }
+                    var isOptionsChanged = JSON.stringify(__assign(__assign({}, this.props), { value: undefined })) !==
+                        JSON.stringify(__assign(__assign({}, nextProps), { value: undefined }));
+                    if (isOptionsChanged) {
+                        var NewOptions = this.Options(nextProps);
+                        this.input.update(NewOptions);
                     }
                 }
             };

@@ -1,11 +1,11 @@
 ﻿namespace App.ImportNvComponents {
 
+    
 
-
-    interface NvAutoNumericProps extends Omit<React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>, "onChange" | "onBlur">  {
+   export interface NvAutoNumericProps extends Omit<React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>, "onChange" | "onBlur">  {
         value?: number;
         symbol?: string;
-        min?: string;
+        minvalue?: string;
         decimal?: number;
         default?: string;
         rounding?: IAutoNumeric.RoundingMethodOption;
@@ -37,19 +37,19 @@
             this.Options = this.Options.bind(this);
         }
 
-         Options(): IAutoNumeric.Options | string {
-            if (this.props.default != null) return this.props.default;
+        Options(PropsOptions: NvAutoNumericProps): IAutoNumeric.Options | string {
+            if (PropsOptions.default != null) return PropsOptions.default;
 
             var options = {
                 digitGroupSeparator: ',',
                 decimalCharacter: '.',
-                currencySymbol: this.props.symbol,
-                decimalPlaces: this.props.decimal
+                currencySymbol: PropsOptions.symbol,
+                decimalPlaces: PropsOptions.decimal
 
             } as IAutoNumeric.Options;
 
-             if (!isNullOrEmpty(this.props.min)) options.minimumValue = this.props.min;
-             if (!isNullOrEmpty(this.props.rounding)) options.roundingMethod = this.props.rounding;
+            if (!isNullOrEmpty(PropsOptions.minvalue)) options.minimumValue = PropsOptions.minvalue;
+            if (!isNullOrEmpty(PropsOptions.rounding)) options.roundingMethod = PropsOptions.rounding;
 
             return options;
            
@@ -60,18 +60,25 @@
         }
 
         componentDidMount() {
-            console.log("componentDidMount");
-            this.input = new AutoNumeric(this.$el, this.props.value ,this.Options());
+            
+            this.input = new AutoNumeric(this.$el, this.props.value ,this.Options(this.props));
 
         }
 
-        UNSAFE_componentWillReceiveProps(nextProps: NvAutoNumericProps,nextContext) {
+        componentDidUpdate(nextProps: NvAutoNumericProps,nextContext) {
             
             if (this.input != null) {
-                if ( nextProps.value != this.input.getNumber()) {
+                if (nextProps.value != this.input.getNumber() && this.props.value != this.input.getNumber()  ) {
 
                     this.input.set(nextProps.value );
 
+                }
+                const isOptionsChanged =
+                    JSON.stringify({ ...this.props, value: undefined } as NvAutoNumericProps) !==
+                    JSON.stringify({ ...nextProps, value: undefined } as NvAutoNumericProps);
+                if (isOptionsChanged) {
+                    var NewOptions = this.Options(nextProps) as IAutoNumeric.Options;
+                    this.input.update(NewOptions);
                 }
             }
 

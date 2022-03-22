@@ -2,7 +2,7 @@
 
     const {
       useNvInputFormModel,
-        NvLayoutValidator,NvInput,useModelState,NvInputModel,NvAutoNumeric
+        NvLayoutValidator,NvInput,useModelState,NvInputModel
     }= ImportNvComponents
 
 
@@ -31,7 +31,7 @@
        });
 
        function Guardar() {
-           console.log(InputModel);
+           
            if (Formulario.current.Validate()) {
                console.log(Model);
                console.log({numero:Num});
@@ -51,45 +51,40 @@
                 <NvInputModel {...BindModel} value={Model.id} type="number" name="id"
                     Label={"id " + Model.id}  required
                     onChange={HandlerBlurInput}
+                    classContainer="col-6" 
                 />  
                 <br />
                 <NvInputModel {...BindModel} value={Model.Nombre} name="Nombre" type="text"
-                    Label={"Nombre " + Model.Nombre}  required /> 
+                    Label={"Nombre " + Model.Nombre} required
+                    classContainer="col-6" 
+                /> 
 
                 <br />
-                <NvInputModel {...BindModel} value={Model.TipoPersona.descripcion} name="TipoPersona.descripcion" type="text"
-                    Label={"Tipo Persona " + Model.TipoPersona.descripcion} required />  
+                <NvInputModel {...BindModel} value={Model.TipoPersona.descripcion} keyprop="'TipoPersona'" name="descripcion" type="text"
+                    Label={"Tipo Persona " + Model.TipoPersona.descripcion} required
+                    classContainer="col-6" 
+                />  
 
                 <br />
                 <NvInputModel {...BindModel} checked={Model.estado} name="estado" id="estado" type="checkbox"
-                    Label={"Estado "+Model.estado }
+                    Label={"Estado " + Model.estado} classContainer="col-6" 
                       />
 
 
-
-              
+                <br />
+                <NvInput.Numeric Label={"Numeric " + Num} symbol="GG " {...BindNum} id="Num" name="Num" minvalue="0"
+                    classContainer="col-6" 
+                    decimal={2} required />
+                <br />
                 
                 <button type="button" className="btn btn-primary" onClick={() => { SetNum(1000) }} > cambiar numero</button>
                 {" "}
                 <button type="button" name="submit" className="btn btn-primary" onClick={() => Guardar() } > Guardar</button>
             </NvLayoutValidator>
 
-            <div>
-                {Num}<br />
-                <NvAutoNumeric name="estado"   value={Num} onChange={(e,val)=> SetNum(e.currentTarget.value as any)} />
-            </div>
+           
 
-            <div className="">
-
-                <br />
-                <label className="form-label" >id {InputModel.id}</label>
-                <input type="number"  className="form-control" {...BindInputModel("id")} />
-            </div>
-            <div className="form-check">
-                
-                <label className="form-check-label" htmlFor="frmestado" >Estado { JSON.stringify( InputModel.estado)}</label>
-                <input type="checkbox" id="frmestado" className="form-check-input" {...BindInputModel("estado","event",true)}  />
-            </div>
+            
         </>)
 
     }
