@@ -65,17 +65,19 @@
 
         }
 
-        componentDidUpdate(nextProps: NvAutoNumericProps,nextContext) {
+        UNSAFE_componentWillReceiveProps(nextProps: NvAutoNumericProps,nextContext) {
             
             if (this.input != null) {
-                if (nextProps.value != this.input.getNumber() && this.props.value != this.input.getNumber()  ) {
-
+                
+                if (nextProps.value != this.input.getNumber()   ) {
+                    
                     this.input.set(nextProps.value );
 
                 }
                 const isOptionsChanged =
                     JSON.stringify({ ...this.props, value: undefined } as NvAutoNumericProps) !==
                     JSON.stringify({ ...nextProps, value: undefined } as NvAutoNumericProps);
+                
                 if (isOptionsChanged) {
                     var NewOptions = this.Options(nextProps) as IAutoNumeric.Options;
                     this.input.update(NewOptions);

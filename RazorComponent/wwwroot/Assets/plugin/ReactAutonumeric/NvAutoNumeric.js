@@ -70,9 +70,9 @@ var App;
             NvAutoNumeric.prototype.componentDidMount = function () {
                 this.input = new AutoNumeric(this.$el, this.props.value, this.Options(this.props));
             };
-            NvAutoNumeric.prototype.componentDidUpdate = function (nextProps, nextContext) {
+            NvAutoNumeric.prototype.UNSAFE_componentWillReceiveProps = function (nextProps, nextContext) {
                 if (this.input != null) {
-                    if (nextProps.value != this.input.getNumber() && this.props.value != this.input.getNumber()) {
+                    if (nextProps.value != this.input.getNumber()) {
                         this.input.set(nextProps.value);
                     }
                     var isOptionsChanged = JSON.stringify(__assign(__assign({}, this.props), { value: undefined })) !==

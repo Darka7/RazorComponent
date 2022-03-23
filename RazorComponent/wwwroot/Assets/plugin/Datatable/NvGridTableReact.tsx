@@ -34,13 +34,16 @@
         colums?: JQDataTableColum[];
         defaults?: GridTableOptions;
         
+
         static defaultProps: NvGridTableProps = {
             colums: [],
             security: { Consultar: false, Actualizar: false, Eliminar: false, Insertar: false },
             buttons: null,
             defaults: new GridTableOptions(),
             onChange: (r: any) => r,
-            selected:(r)=>r,
+            selected: (r) => r,
+            className: "table table-hover table-striped",
+            id:"TableGridGenericId",
             urldata: null,
             urledit: null,
             urldelete: null, 
@@ -63,7 +66,7 @@
             //set variables
             this.colums = this.props.colums;
             this.defaults = this.props.defaults;
-
+            
         }
      
 
@@ -559,7 +562,6 @@
                     url: this.props.urldata,
                     type: "POST",
                     async: true,
-
                     complete: function (result, tx) {
                         if (!isNullOrEmpty(result.responseJSON)) {
                             $_this.props.onChange(  result.responseJSON.data);
@@ -956,10 +958,17 @@
 
             this.props.dt(GridResult);
         }
+        
+        componentWillUnmount() {
+            $(this.RefTableGrid).DataTable().destroy();
+            $(this.RefTableGrid).empty();
+        }
 
         render() {
             const { id, className } = this.props;
-            return (<> <table ref={r => this.RefTableGrid = r} id={id} className={className} ></table> </>)
+            return (<><div className="table-responsive">
+                <table ref={r => this.RefTableGrid = r} id={id} className={className} ></table>
+            </div> </>)
         }
 
     }

@@ -698,12 +698,16 @@ var App;
                 var GridResult = this.GridTable();
                 this.props.dt(GridResult);
             };
+            NvGridTable.prototype.componentWillUnmount = function () {
+                $(this.RefTableGrid).DataTable().destroy();
+                $(this.RefTableGrid).empty();
+            };
             NvGridTable.prototype.render = function () {
                 var _this = this;
                 var _a = this.props, id = _a.id, className = _a.className;
                 return (React.createElement(React.Fragment, null,
-                    " ",
-                    React.createElement("table", { ref: function (r) { return _this.RefTableGrid = r; }, id: id, className: className }),
+                    React.createElement("div", { className: "table-responsive" },
+                        React.createElement("table", { ref: function (r) { return _this.RefTableGrid = r; }, id: id, className: className })),
                     " "));
             };
             NvGridTable.defaultProps = {
@@ -713,6 +717,8 @@ var App;
                 defaults: new App.GridTableOptions(),
                 onChange: function (r) { return r; },
                 selected: function (r) { return r; },
+                className: "table table-hover table-striped",
+                id: "TableGridGenericId",
                 urldata: null,
                 urledit: null,
                 urldelete: null,
