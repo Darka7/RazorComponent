@@ -83,6 +83,7 @@ var App;
             if (keyprop != null)
                 Dynamicprop = "prev[".concat(keyprop, "].");
             Dynamicprop = (props === null || props === void 0 ? void 0 : props.name.startsWith("[")) ? "prev" : Dynamicprop;
+            "prev.TipoPersona.Descripcion";
             function HandlerEventChange(evt) {
                 var currentValue = null;
                 if (props.type == "checkbox") {

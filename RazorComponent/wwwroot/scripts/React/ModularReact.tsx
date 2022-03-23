@@ -1,5 +1,5 @@
 ﻿namespace App.ViewComponent {
-
+    
 
     
     const { FormInputComponent } = ViewComponent;
@@ -20,14 +20,17 @@
             const { Title } = this.props;
             return (<>
                 <h1>{Title}</h1>
-                <FormInputComponent />
+                <FormInputComponent  />
                 
             </>);
         }
     }
-    
 
-    AppRender.Default=()=><ModularReact Title="Hola Mundo  Andrey titulo actualizado" />
+
+
+ 
+
+    AppRender.Default=()=><ModularReact Title="Catalogo Persona" />
 
 
 

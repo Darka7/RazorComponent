@@ -36,7 +36,7 @@
             <NvModalR id="ModalPruebaR" title={title} show={ModalR} OnClose={() => SetModalR(false)} >
                 <h1> Hola mundo modal R</h1>
                 <br />
-                <button type="button" onClick={() => SetModal(true)}> Abrir modal</button>
+                <button type="button"  onClick={() => SetModal(true)}> Abrir modal</button>
             </NvModalR>
             
         </>)

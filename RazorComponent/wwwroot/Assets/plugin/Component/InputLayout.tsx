@@ -85,7 +85,7 @@
         if (keyprop != null) Dynamicprop = `prev[${keyprop}].`;
         Dynamicprop = props?.name.startsWith("[") ? "prev" : Dynamicprop;
 
-
+        "prev.TipoPersona.Descripcion"
 
         function HandlerEventChange(evt: React.ChangeEvent<HTMLInputElement>) {
             var currentValue = null;
@@ -103,7 +103,7 @@
             }
 
             SetInputVal(prev => {
-
+                
                 eval(`${Dynamicprop}${props.name} = currentValue;`)
 
                 return ({ ...prev });

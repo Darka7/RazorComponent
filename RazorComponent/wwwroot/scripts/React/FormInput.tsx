@@ -22,14 +22,7 @@
             estado:null 
        });
 
-       const [InputModel, setInputModel, BindInputModel, ResetInputModel] = useNvInputFormModel<Persona>({
-           id: 1,
-           edad: null,
-           Nombre: null,
-           TipoPersona: { descripcion: null },
-           estado: true
-       });
-
+      
        function Guardar() {
            
            if (Formulario.current.Validate()) {
@@ -58,9 +51,9 @@
                     Label={"Nombre " + Model.Nombre} required
                     classContainer="col-6" 
                 /> 
-
-                <br />
-                <NvInputModel {...BindModel} value={Model.TipoPersona.descripcion} keyprop="'TipoPersona'" name="descripcion" type="text"
+                
+                <br />                        
+                <NvInputModel {...BindModel} value={Model.TipoPersona.descripcion} name="TipoPersona.descripcion" type="text"
                     Label={"Tipo Persona " + Model.TipoPersona.descripcion} required
                     classContainer="col-6" 
                 />  
@@ -72,12 +65,12 @@
 
 
                 <br />
-                <NvInput.Numeric Label={"Numeric " + Num} symbol="GG " {...BindNum} id="Num" name="Num" minvalue="0"
-                    classContainer="col-6" 
+                <NvInput.Numeric Label={"Numeric " + Num} symbol="$ " {...BindNum} id="Num" name="Num" minvalue="0"
+                    classContainer="col-8" 
                     decimal={2} required />
                 <br />
                 
-                <button type="button" className="btn btn-primary" onClick={() => { SetNum(1000) }} > cambiar numero</button>
+                <button type="button" className="btn btn-primary" onClick="hello()" > cambiar numero</button>
                 {" "}
                 <button type="button" name="submit" className="btn btn-primary" onClick={() => Guardar() } > Guardar</button>
             </NvLayoutValidator>
@@ -93,7 +86,7 @@
    
     
 
-    AppRender.Default = FormInputComponent;
+    AppRender.Default =()=><FormInputComponent />;
 
    
 }

@@ -41,7 +41,7 @@ var App;
             console.log(data);
             console.log(ids);
         };
-        return (React.createElement(React.Fragment, null,
+        return (React.createElement(jafe, null,
             React.createElement("div", { className: "row" },
                 React.createElement("div", { className: "col" },
                     React.createElement(NvGridTable, { id: "gridTable1", className: "table", colums: columnas, buttons: btns, security: { Actualizar: true, Consultar: true, Insertar: true, Eliminar: true }, urldata: "api/Persona/List", urledit: "api/Persona", urldelete: "api/Persona/", dt: function (table) { return setRefTable(table); }, onChange: function (r) { return SetData(__spreadArray([], r, true)); }, selected: function (s) { return SetSelectedTable(__spreadArray([], s, true)); }, execPrueba: metodo1, exec: metodo2 }))),

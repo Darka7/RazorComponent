@@ -9,7 +9,7 @@ var App;
                 return null;
             var SizeModal = App.isNullOrEmpty(size) ? "" : 'nvmodalr-' + size;
             var IndexStyle = Index != null ? { zIndex: Index } : {};
-            return (React.createElement(React.Fragment, null,
+            return (React.createElement(jafe, null,
                 React.createElement("div", { className: "nvmodalr-backdrop", style: IndexStyle },
                     React.createElement("div", { className: "nvmodalr show " + SizeModal, tabIndex: -1, id: id, style: IndexStyle },
                         React.createElement("div", { className: "offcanvas-header nvmodalr-header" },

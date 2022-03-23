@@ -131,7 +131,7 @@ var App;
         function useModelState(inititalvalue) {
             var Model = useState(inititalvalue);
             var valueInput = Model[0], setValue = Model[1];
-            var reset = function () { return setValue(inititalvalue); };
+            var reset = function () { return setValue(__assign({}, inititalvalue)); };
             return [valueInput, setValue, { Model: Model }, reset];
         }
         ImportNvComponents.useModelState = useModelState;

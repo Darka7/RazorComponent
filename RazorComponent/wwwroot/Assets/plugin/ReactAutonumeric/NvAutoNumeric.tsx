@@ -71,7 +71,7 @@
                 
                 if (nextProps.value != this.input.getNumber()   ) {
                     
-                    this.input.set(nextProps.value );
+                    this.input.set(nextProps.value |0 );
 
                 }
                 const isOptionsChanged =

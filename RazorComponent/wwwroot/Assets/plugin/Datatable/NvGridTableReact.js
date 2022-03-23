@@ -213,7 +213,7 @@ var App;
                             addcolum = {
                                 data: col.Column, title: col.Label, width: "14%", className: "text-center",
                                 createdCell: function (td, val, entity, rowid, colid) {
-                                    ReactDOM.render((React.createElement(React.Fragment, null,
+                                    ReactDOM.render((React.createElement(jafe, null,
                                         (security === null || security === void 0 ? void 0 : security.Actualizar) &&
                                             React.createElement("button", { type: "button", className: "btn btn-outline-primary " + (col === null || col === void 0 ? void 0 : col.Class), onClick: function () { return $_this.Editbtn(val); } }, "Editar"),
                                         " ",
@@ -227,7 +227,7 @@ var App;
                             addcolum = {
                                 data: col.Column, title: col.Label, width: "5%", className: "text-center",
                                 createdCell: function (td, val, entity, rowid, colid) {
-                                    return ReactDOM.render((React.createElement(React.Fragment, null,
+                                    return ReactDOM.render((React.createElement(jafe, null,
                                         React.createElement("button", { type: "button", className: "btn " + (col === null || col === void 0 ? void 0 : col.Class), disabled: (col === null || col === void 0 ? void 0 : col.Disabled) == true, "data-rowid": rowid, "data-valuerow": val, onClick: function () { return $_this.BtnGridOnclick(val, rowid, col.ButtonEvent); } }, col.ButtonText))), td);
                                 }
                             };
@@ -238,7 +238,7 @@ var App;
                                 render: function (val, type, entity, meta) {
                                     var rowid = meta.row, colid = meta.col;
                                     var ischeck = val == true ? true : false;
-                                    return ReactDOMServer.renderToString((React.createElement(React.Fragment, null,
+                                    return ReactDOMServer.renderToString((React.createElement(jafe, null,
                                         React.createElement("div", { className: "form-switch" },
                                             React.createElement("input", { className: "form-check-input " + Table + "_Switch_" + col.Column + " " + (col === null || col === void 0 ? void 0 : col.Class), type: "checkbox", "data-columid": colid, "data-rowid": rowid, defaultchange: Table + "SwitchEvent($(this))", defaultChecked: ischeck, disabled: (col === null || col === void 0 ? void 0 : col.Disabled) == true })))));
                                 }
@@ -260,7 +260,7 @@ var App;
                                     }
                                     if (IsHidden == false)
                                         return "";
-                                    return ReactDOMServer.renderToString((React.createElement(React.Fragment, null,
+                                    return ReactDOMServer.renderToString((React.createElement(jafe, null,
                                         React.createElement("div", { className: "form-switch" },
                                             React.createElement("input", { className: "form-check-input " + Table + "_SwitchData_" + col.Column + " " + (col === null || col === void 0 ? void 0 : col.Class), "data-columid": colid, "data-rowid": rowid, type: "checkbox", defaultchange: "".concat(Table, "SwitchDataEvent($(this))"), defaultChecked: ischeck, defaultValue: SetValue, disabled: (col === null || col === void 0 ? void 0 : col.Disabled) == true })))));
                                 }
@@ -274,11 +274,11 @@ var App;
                                     if ((col === null || col === void 0 ? void 0 : col.InputType) == "checkbox") {
                                         var checked = false;
                                         checked = val == true ? true : false;
-                                        return ReactDOMServer.renderToString((React.createElement(React.Fragment, null,
+                                        return ReactDOMServer.renderToString((React.createElement(jafe, null,
                                             React.createElement("input", { defaultChecked: checked, disabled: (col === null || col === void 0 ? void 0 : col.Disabled) == true, type: col.InputType, defaultchange: "".concat(Table, "OnChangeInputTable($(this))"), "data-typeinput": col.InputType, "data-rowid": rowid, "data-columid": colid, className: "form-control " + Table + "_Input_" + col.Column + " " + (col === null || col === void 0 ? void 0 : col.Class) }))));
                                     }
                                     else {
-                                        return ReactDOMServer.renderToString((React.createElement(React.Fragment, null,
+                                        return ReactDOMServer.renderToString((React.createElement(jafe, null,
                                             React.createElement("input", { defaultValue: val, disabled: (col === null || col === void 0 ? void 0 : col.Disabled) == true, type: col.InputType, defaultchange: "".concat(Table, "OnChangeInputTable($(this))"), "data-typeinput": col.InputType, "data-rowid": rowid, "data-columid": colid, className: "form-control " + Table + "_Input_" + col.Column + " " + (col === null || col === void 0 ? void 0 : col.Class) }))));
                                     }
                                 }
@@ -291,7 +291,7 @@ var App;
                                     var rowid = _a.row, colid = _a.col;
                                     var disable = col === null || col === void 0 ? void 0 : col.Disabled;
                                     var ItemsSelect = col.SelectItems;
-                                    return ReactDOMServer.renderToString((React.createElement(React.Fragment, null,
+                                    return ReactDOMServer.renderToString((React.createElement(jafe, null,
                                         React.createElement("select", { defaultValue: val, disabled: disable == true, defaultchange: "".concat(Table, "OnChangeSelectCbo($(this))"), className: "form-select " + Table + "_Select_" + col.Column + " " + (col === null || col === void 0 ? void 0 : col.Class), "data-rowid": rowid, "data-columid": colid }, ItemsSelect.map(function (r) { return (React.createElement("option", { value: r.Value, disabled: r.Disabled == true }, r.Text)); })))));
                                 }
                             };
@@ -304,7 +304,7 @@ var App;
                                     var disable = col === null || col === void 0 ? void 0 : col.Disabled;
                                     var ItemsSelect = [];
                                     eval("ItemsSelect=entity.".concat(col.SelectOnDataProperty, ";"));
-                                    return ReactDOMServer.renderToString((React.createElement(React.Fragment, null,
+                                    return ReactDOMServer.renderToString((React.createElement(jafe, null,
                                         React.createElement("select", { defaultValue: val, disabled: disable == true, defaultchange: "".concat(Table, "SelectOnDataCbo($(this))"), className: "form-select " + Table + "_SelectOnData_" + col.Column + " " + (col === null || col === void 0 ? void 0 : col.Class), "data-rowid": rowid, "data-columid": colid }, ItemsSelect.map(function (r) { return (React.createElement("option", { value: r.Value, disabled: r.Disabled == true }, r.Text)); })))));
                                 }
                             };
@@ -327,7 +327,7 @@ var App;
                                 data: col.Column, title: col.Label,
                                 createdCell: function (td, val, entity, rowid, colid) {
                                     var text = App.isNullOrEmpty(val) ? "..." : val;
-                                    ReactDOM.render((React.createElement(React.Fragment, null,
+                                    ReactDOM.render((React.createElement(jafe, null,
                                         React.createElement("a", { className: "stretched-link " + (col === null || col === void 0 ? void 0 : col.Class), onClick: function (evt) { return $_this.OnClickLinkEvent(rowid, col.LinkEvent); } }, text))), td);
                                 }
                             };
@@ -705,7 +705,7 @@ var App;
             NvGridTable.prototype.render = function () {
                 var _this = this;
                 var _a = this.props, id = _a.id, className = _a.className;
-                return (React.createElement(React.Fragment, null,
+                return (React.createElement(jafe, null,
                     React.createElement("div", { className: "table-responsive" },
                         React.createElement("table", { ref: function (r) { return _this.RefTableGrid = r; }, id: id, className: className })),
                     " "));

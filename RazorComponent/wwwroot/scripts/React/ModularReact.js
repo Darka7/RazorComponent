@@ -33,7 +33,7 @@ var App;
             return ModularReact;
         }(React.Component));
         ViewComponent.ModularReact = ModularReact;
-        App.AppRender.Default = function () { return React.createElement(ModularReact, { Title: "Hola Mundo  Andrey titulo actualizado" }); };
+        App.AppRender.Default = function () { return React.createElement(ModularReact, { Title: "Catalogo Persona" }); };
     })(ViewComponent = App.ViewComponent || (App.ViewComponent = {}));
 })(App || (App = {}));
 //# sourceMappingURL=ModularReact.js.map

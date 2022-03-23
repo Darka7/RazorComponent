@@ -129,6 +129,7 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\Assets\plugin\JQuery\" />
+    <Folder Include="wwwroot\scripts\Vuejsx\" />
   </ItemGroup>
 
 </Project>

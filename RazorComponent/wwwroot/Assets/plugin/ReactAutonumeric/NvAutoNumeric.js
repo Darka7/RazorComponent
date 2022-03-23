@@ -73,7 +73,7 @@ var App;
             NvAutoNumeric.prototype.UNSAFE_componentWillReceiveProps = function (nextProps, nextContext) {
                 if (this.input != null) {
                     if (nextProps.value != this.input.getNumber()) {
-                        this.input.set(nextProps.value);
+                        this.input.set(nextProps.value | 0);
                     }
                     var isOptionsChanged = JSON.stringify(__assign(__assign({}, this.props), { value: undefined })) !==
                         JSON.stringify(__assign(__assign({}, nextProps), { value: undefined }));

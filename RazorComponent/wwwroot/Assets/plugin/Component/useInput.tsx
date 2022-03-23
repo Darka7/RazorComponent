@@ -206,7 +206,8 @@
 
        
 
-        const reset = () => setValue(inititalvalue);
+        const reset = () => setValue({...inititalvalue });
+
         return [valueInput, setValue, { Model }, reset];
 
     }
