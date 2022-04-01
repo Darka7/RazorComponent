@@ -27,7 +27,7 @@ var App;
             ModularReact.prototype.render = function () {
                 var Title = this.props.Title;
                 return (React.createElement(React.Fragment, null,
-                    React.createElement("h1", null, Title),
+                    React.createElement("h1", { id: "" }, Title),
                     React.createElement(FormInputComponent, null)));
             };
             return ModularReact;

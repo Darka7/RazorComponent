@@ -19,7 +19,7 @@
         render() {
             const { Title } = this.props;
             return (<>
-                <h1>{Title}</h1>
+                <h1 id="">{Title}</h1>
                 <FormInputComponent  />
                 
             </>);

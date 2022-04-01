@@ -12,12 +12,12 @@ declare global {
     interface Vue {
          $Api?: App.HttpService;
         $Session?: App.SessionEntity;
-        
+        RenderHtml?(): string;
     }
-    export interface VueConstructor<V extends Vue = Vue> {
-        
-        
-    }
+    
+
+   
+
 
     interface Navigator extends NavigatorAutomationInformation, NavigatorConcurrentHardware, NavigatorContentUtils, NavigatorCookies, NavigatorID, NavigatorLanguage, NavigatorNetworkInformation, NavigatorOnLine, NavigatorPlugins, NavigatorStorage {
         msSaveOrOpenBlob(file: Blob, nombre: string) : void;

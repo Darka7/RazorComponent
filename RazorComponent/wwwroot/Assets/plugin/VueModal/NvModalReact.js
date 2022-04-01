@@ -12,7 +12,7 @@ var App;
                 : footer;
             var SizeModal = App.isNullOrEmpty(size) ? "" : 'modal-' + size;
             var IndexStyle = Index != null ? { zIndex: Index } : {};
-            return (React.createElement(jafe, null,
+            return (React.createElement(React.Fragment, null,
                 React.createElement("div", { className: "nvmodal", id: id, tabIndex: -1, style: IndexStyle },
                     React.createElement("div", { className: "modal-dialog modal-dialog-centered " + SizeModal, style: IndexStyle },
                         React.createElement("div", { className: "modal-content" },

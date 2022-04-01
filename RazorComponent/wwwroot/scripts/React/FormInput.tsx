@@ -70,7 +70,7 @@
                     decimal={2} required />
                 <br />
                 
-                <button type="button" className="btn btn-primary" onClick="hello()" > cambiar numero</button>
+                <button type="button" className="btn btn-primary"  > cambiar numero</button>
                 {" "}
                 <button type="button" name="submit" className="btn btn-primary" onClick={() => Guardar() } > Guardar</button>
             </NvLayoutValidator>

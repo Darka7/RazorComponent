@@ -1,62 +1,47 @@
 ﻿namespace App.VueLoad {
+    export function TemplateAsync(URL: string) {
+        return NvFile.GetStringAsync(URL).then(data => {
 
-
-
-    export function TemplateAsync(URL:string) {
-
-        return NvFile.GetStringAsync(URL).then((data) => {
-
-            return {
-                Template: VueClassComponent.createDecorator((opt, key) => {
-
-                    var renderFn = VueTemplateCompiler.compileToFunctions(data);
-                    opt.render = renderFn.render;
-                    opt.staticRenderFns = renderFn.staticRenderFns;
-
-                }),
-                TemplateExtended: Vue.extend<{}, {}, {}, {}>({ template: data })
-            };
+            return VueClassComponent.createDecorator(async (opt, key) => {
+                var renderFn = VueTemplateCompiler.compileToFunctions(data);
+                opt.render = renderFn.render;
+                opt.staticRenderFns = renderFn.staticRenderFns;
+            });
 
         }).catch(r => {
             console.log(r);
-
-            return {
-                Template: VueClassComponent.createDecorator((op, key) => { }),
-                TemplateExtended: Vue.extend<{}, {}, {}, {}>({ template:null})
-
-            };
+            return VueClassComponent.createDecorator(async (opt, key) => { });
         });
-
     }
+
+
 
     export function Template(URL: string) {
-
-        var {data,status }= NvFile.GetString(URL);
-        if (status) {
-            return {
-                Template: VueClassComponent.createDecorator((opt, key) => {
-
-                    var renderFn = VueTemplateCompiler.compileToFunctions(data);
-                    opt.render = renderFn.render;
-                    opt.staticRenderFns = renderFn.staticRenderFns;
-
-                }),
-                TemplateExtended: Vue.extend<{}, {}, {}, {}>({ template: data })
-            };
-        } else {
-            console.log(data);
-
-            return {
-                Template: VueClassComponent.createDecorator((op, key) => { }),
-                TemplateExtended: Vue.extend<{}, {}, {}, {}>({ template: null })
-
-            };
-        }
+        return VueClassComponent.createDecorator((opt, key) => {
+            var { data, status } = NvFile.GetString(URL);
+            if (status) {
+                var renderFn = VueTemplateCompiler.compileToFunctions(data);
+                opt.render = renderFn.render;
+                opt.staticRenderFns = renderFn.staticRenderFns;
+            }
+        });
     }
 
 
 
+    export const WatchRender = VueClassComponent.createDecorator((options, key,index) => {
+        
+        var HtmlMethod = options.methods["RenderHtml"].call(null);
+        
+        var renderFn = VueTemplateCompiler.compileToFunctions(HtmlMethod);
+        options.render = renderFn.render;
+        options.staticRenderFns = renderFn.staticRenderFns;
+    });
+    
 
-
-
+    export const WithRender =(Template:string)=> VueClassComponent.createDecorator((options, key, index) => {
+        var renderFn = VueTemplateCompiler.compileToFunctions(Template);
+        options.render = renderFn.render;
+        options.staticRenderFns = renderFn.staticRenderFns;
+    });
 }

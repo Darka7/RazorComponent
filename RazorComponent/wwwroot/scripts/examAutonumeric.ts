@@ -1,7 +1,7 @@
 ﻿namespace App {
 
 
-    const { Component }=ImportVueDecorator
+    const { Component } = ImportVueDecorator;
 
     @Component
 

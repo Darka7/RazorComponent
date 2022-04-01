@@ -52,7 +52,7 @@ var App;
                     React.createElement("br", null),
                     React.createElement(NvInput.Numeric, __assign({ Label: "Numeric " + Num, symbol: "$ " }, BindNum, { id: "Num", name: "Num", minvalue: "0", classContainer: "col-8", decimal: 2, required: true })),
                     React.createElement("br", null),
-                    React.createElement("button", { type: "button", className: "btn btn-primary", onClick: "hello()" }, " cambiar numero"),
+                    React.createElement("button", { type: "button", className: "btn btn-primary" }, " cambiar numero"),
                     " ",
                     React.createElement("button", { type: "button", name: "submit", className: "btn btn-primary", onClick: function () { return Guardar(); } }, " Guardar"))));
         }

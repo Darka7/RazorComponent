@@ -1,6 +1,7 @@
 ﻿namespace App {
-   export import ImportVueDecorator = VuePropertyDecorator 
+    
 
+    export import ImportVueDecorator = VuePropertyDecorator;
 
     export namespace AppRender {
         export var Default:  () => JSX.Element;

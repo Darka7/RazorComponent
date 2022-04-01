@@ -1,34 +1,36 @@
 ﻿namespace App {
 
+    const { Component } = VuePropertyDecorator;
+    const { WithRender,TemplateAsync,Template } = VueLoad;
+    
+       
+    var titulo = "title";
+      @Component
+      @WithRender(`<div>
+                       <h1>Hola Mundo With Render {{${titulo}}}</h1>
+
+                          <input type="text" v-model="title" />
+                    </div>`)
+      class TemplateLoadar extends Vue {
+
+          title = "Esto es una variable";
+          gg: string = "Hola";
+
+          OnClickMe() {
+              bootbox.alert("Hola")
+          }
 
 
-    const { Component } = ImportVueDecorator;
+          created() {
+              
+          }
+
+      }
 
 
-    async function Load () {
-        const {Template }=  await VueLoad.TemplateAsync("../Loader/CargarPagina?id=Andrey");
-
-
-        @Component
-        @Template
-        class Test extends Vue {
-
-            gg: string = "Hola";
-            OnClickMe() {
-                bootbox.alert("Hola")
-            }
-        }
-
-        new Vue({
-            render(h) { return h(Test) }
-        }).$mount("#AddHtml");
-
-    }
-
-
-    Load();
-
-
-
+      new Vue({
+          render: (h) => h(TemplateLoadar),
+      }).$mount("#AddHtml");
+    
   
 }
